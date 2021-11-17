@@ -1,0 +1,67 @@
+Mảng tĩnh. vd: int a[100], HocSinh a[100]
+=> Nhược điểm: Kích thước bộ nhớ lúc nào cũng phải là 100, dù là xài không hết
+=> tốn bộ nhớ
+
+Mảng động. vd: int *a = new int[n], HocSinh *a = new HocSinh[n]
+=> Ưu điểm: Không phải tốn bộ nhớ, cần xài bao nhiêu thì cấp bấy nhiêu
+
+Đã gọi là mảng thì phải tuân thủ theo nguyên tắc sau: Các phần tử trong bộ nhớ phải nằm liên tục nhau
+
+=> Giả sử cần cấp phát 1 mảng 5 phần tử, trong bộ nhớ lúc này cũng còn trống đúng 5 ô nhưng vấn đề 5 ô không nằm liên tục nhau => giải pháp dùng mảng đã THẤT BẠI
+
+Lúc này họ sẽ dùng giải pháp khác đó là DANH SÁCH LIÊN KẾT
+=> Sẽ không cần các ô nhớ phải nằm cạnh nhau, ô này nằm chỗ này, ô khác nằm chỗ khác cũng đc, miễn có đủ 5 ô là đc
+
+Danh sách liên kết có 4 dạng sau
+- Danh sách liên kết đơn
+- Danh sách liên kết đôi
+- Danh sách liên kết vòng đơn
+- Danh sách liên kết vòng kép
+
+So sánh ưu & nhược điểm của mảng so với danh sách liên kết đơn
+
+* Mảng *
+- nhược điểm: 
+- Các phần tử phải liên tục nhau, cho nên giả sử cần 5 ô nhưng còn trúng đúng 5 ô nhưng 5 ô đó không liên tục nhau => ko dùng mảng đc 
+- Luôn phải yêu cầu cấp trước 1 số lượng nào đó (mảng tĩnh là 100, mảng động là n)
+- Thao tác thêm/Xóa phải lùi lại hay tiến lên rất nhiều phần tử => chương trình chạy chậm
+
+- Ưu điểm:
+- Tiết kiệm bộ nhớ hơn (chỉ đối với mảng động)
+- truy xuất tới 1 phần tử sẽ nhanh hơn (nhờ vào toán tử lấy chỉ số) vd: a[3];
+
+* Danh sách liên kết *
+- ưu điểm: 
+- Các phần tử không cần liên tục, khắc phục tình trạng phân mảnh bộ nhớ
+- Không cần cấp phát trước số lượng như bên mảng, dữ liệu luôn được ở trạng thái động (khi nào cần thì cứ thêm vào như bình thường, không cần phải cấp lại bộ nhớ như bên mảng)
+- Các thao tác thêm/xóa không cần phải lùi lại hay tiến lên các phần tử từ vị trí đó trở xuống như bên mảng mà ta chỉ cần bẻ lại mối liên kết giữa 2 Node là được => chạy nhanh hơn bên mảng trong trường hợp này
+
+
+- Nhược điểm:
+- 1 Node trong danh sách liên kết sẽ lưu 2 thông tin đi kèm đó là Data (dữ liệu chứa) và 1 con trỏ pNext để tạo mối liên kết giữa Node này với Node kia => đòi hỏi bộ nhớ phải tốn nhiều hơn mảng
+
+- Muốn truy xuất tới 1 Node cụ thể (ví dụ Node nằm ở đoạn giữa danh sách) thì ta phải đi từ đầu cho đến đó hoặc đi từ cuối cho đến đó
+
+- Nếu như danh sách liên kết mà vô tình tại 1 Node nào đó ta bị hư là hư hết cả danh sách bởi vì nó truyền dữ liệu liên tục cho nhau
+
+
+
+Sẽ đụng 2 dạng liên quan tới danh sách liên kết như sau
+
+1. Danh sách liên kết chứa dữ liệu có sẵn (danh sách các số nguyên)
+2. Danh sách liên kết chứa dữ liệu tự tạo (danh sách các học sinh, quyển sách ...)
+
+Nguyên tắc khi viết danh sách liên kết cần đi theo thứ tự xì kiu như sau:
+1. Khai báo cấu trúc dữ liệu danh sách liên kết
+2. Khởi tạo danh sách liên kết
+3. Tạo Node trong danh sách
+4. Thêm Node
+5. Nhập dữ liệu danh sách
+6. Các xử lý tùy ý ...
+
+
+
+1. Làm demo danh sách liên kết đơn chứa dữ liệu có sẵn (đã làm)
+2. Làm demo danh sách liên kết đơn chứa dữ liệu tự tạo
+
+vd: danh sách liên kết đơn các phân số
