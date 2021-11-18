@@ -1,0 +1,15 @@
+STACK (Ngan Xep)
+LIFO -> Last In First Out
+
+QUEUE (Hang Doi)
+FIFO -> First In First Out
+
+7 buoc cau hinh DSLK don
+
+B1: Khai bao cau truc du lieu
+B2: Khoi tao
+B3: Tao Node
+B4: Them Node vao cau truc
+B5: InPut/OutPut
+B6: Xu li
+B7: Giai phong
