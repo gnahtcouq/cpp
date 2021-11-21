@@ -15,11 +15,16 @@ bool kiemTraDonVi(maTran a);
 int demLeDuongCheoPhu(maTran a);
 void xuatTamGiacDuoi(maTran a);
 bool kiemTraTamGiacDuoiPhaiDuong(maTran a);
+void nhan_MaTranVuong(maTran &a, int &x);
 
 int main()
 {
 	maTran a;
+	maTran b;
+	maTran c;
 	docMaTran(a);
+	docMaTran(b);
+	cout << "\nCau 1. Ma tran vuong da nhap: " << endl;
 	xuatMaTran(a);
 
 	int tong = tinhTongAm(a);
@@ -27,7 +32,7 @@ int main()
 
 	timMaxTungCot(a);
 
-	if(kiemTraDonVi(a) == true)
+	if (kiemTraDonVi(a) == true)
 		cout << "\nCau 4. Ma tran nay la ma tran don vi";
 	else
 		cout << "\nCau 4. Khong phai ma tran don vi";
@@ -36,11 +41,16 @@ int main()
 	cout << "\nCau 5. So gia tri le tren duong cheo phu la: " << dem;
 
 	xuatTamGiacDuoi(a);
-	
-	if(kiemTraTamGiacDuoiPhaiDuong(a) == true)
+
+	if (kiemTraTamGiacDuoiPhaiDuong(a) == true)
 		cout << "\nCau 7. Tam giac duoi ben phai tat ca la so duong";
 	else
 		cout << "\nCau 7. Tam giac duoi ben phai co so am";
+
+	int x;
+	cout << "\nCau 8. Nhan ma tran vuong voi x";
+	nhan_MaTranVuong(a, x);
+	xuatMaTran(a);
 
 	cout << endl;
 	system("pause");
@@ -64,7 +74,6 @@ void docMaTran(maTran &a)
 }
 void xuatMaTran(maTran a)
 {
-	cout << "\nCau 1. Ma tran vuong da nhap: " << endl;
 	for (int i = 0; i < a.n; i++)
 	{
 		for (int j = 0; j < a.n; j++)
@@ -106,10 +115,14 @@ void timMaxTungCot(maTran a)
 }
 
 // Cau 4
-bool kiemTraDonVi(maTran a){
-	for (int i = 0; i < a.n; i++){
-		for (int j = 0; j < a.n; j++){
-			if (i == j){
+bool kiemTraDonVi(maTran a)
+{
+	for (int i = 0; i < a.n; i++)
+	{
+		for (int j = 0; j < a.n; j++)
+		{
+			if (i == j)
+			{
 				if (a.list[i][j] != 1)
 					return false;
 			}
@@ -139,7 +152,8 @@ int demLeDuongCheoPhu(maTran a)
 }
 
 // Cau 6
-void xuatTamGiacDuoi(maTran a){
+void xuatTamGiacDuoi(maTran a)
+{
 	cout << "\nCau 6. In tam giac duoi phai: " << endl;
 	for (int i = 0; i < a.n; i++)
 	{
@@ -153,12 +167,25 @@ void xuatTamGiacDuoi(maTran a){
 }
 
 // Cau 7
-bool kiemTraTamGiacDuoiPhaiDuong(maTran a){
-	for(int i=1; i<a.n; i++){
-		for(int j=a.n-i; j<a.n; j++){
-			if(a.list[i][j] < 0)
+bool kiemTraTamGiacDuoiPhaiDuong(maTran a)
+{
+	for (int i = 1; i < a.n; i++)
+	{
+		for (int j = a.n - i; j < a.n; j++)
+		{
+			if (a.list[i][j] < 0)
 				return false;
 		}
 	}
 	return true;
+}
+
+// Cau 8
+void nhan_MaTranVuong(maTran &a, int &x)
+{
+	cout << "\nNhap x = ";
+	cin >> x;
+	for (int i = 0; i < a.n; i++)
+		for (int j = 0; j < a.n; j++)
+			a.list[i][j] *= x;
 }
