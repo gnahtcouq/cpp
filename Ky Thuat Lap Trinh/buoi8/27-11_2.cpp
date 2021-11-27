@@ -133,11 +133,6 @@ void nhapDanhSachNhanvien() {
 
 
 int main() {
-  // nhapDanhSachPhongBan();
-  docDanhSachPhongBan("phongban.dat");
-
-  nhapDanhSachNhanvien();
-  ghiDanhSachNhanVien(dsnv, "nhanvien.dat");
 
   cout << endl;
   return 0;
