@@ -50,6 +50,7 @@ char* xepLoai(float dtb) {
   return "Xuat Sac";
 }
 
+// Mo con tro thong qua 1 ham thi no phai truyen tham chieu
 void moFile(FILE *&FileIn) { // truyen tham chieu
   FileIn = fopen("INPUT.txt", "r");
 
