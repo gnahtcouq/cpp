@@ -22,6 +22,7 @@ Xep Loai: Gioi
 
 #include <iostream>
 #include <string.h>
+#include <stdlib.h>
 using namespace std;
 
 float tinhDiemTrungBinh(float toan, float ly, float hoa) {
@@ -49,17 +50,22 @@ char* xepLoai(float dtb) {
   return "Xuat Sac";
 }
 
-int main() {
-
-  // Mo file INPUT.txt va doc du lieu
-  // B1: Mo file
-  FILE* FileIn = fopen("INPUT.txt", "r");
+void moFile(FILE *&FileIn) { // truyen tham chieu
+  FileIn = fopen("INPUT.txt", "r");
 
   // Kiem tra xem file co ton tai hay khong
   if (!FileIn) {
     cout << "\nKhong tim thay tap tin";
-    return 0;
+    exit(0); // ket thuc toan bo chuong trinh
   }
+}
+
+int main() {
+
+  // Mo file INPUT.txt va doc du lieu
+  // B1: Mo file
+  FILE *FileIn;
+  moFile(FileIn);
 
   // B2: Doc File
   char ten[30];
