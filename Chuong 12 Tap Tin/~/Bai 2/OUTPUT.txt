@@ -1,0 +1,4 @@
+Tran Van Quoc Thang
+
+Diem trung binh = 8.000000
+Xep loai: Gioi
