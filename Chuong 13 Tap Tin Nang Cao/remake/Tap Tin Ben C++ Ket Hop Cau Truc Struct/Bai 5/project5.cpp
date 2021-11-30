@@ -1,10 +1,10 @@
 /* ÁP DỤNG string trên file.
 
-vd: 
+vd:
 Trong file đang có chuỗi là: "Thang dep trai"
 string str;
-FileIn >> str; // str = "Thang" 
-getline(FileIn, str); // str = "Thang dep trai" 
+FileIn >> str; // str = "Thang"
+getline(FileIn, str); // str = "Thang dep trai"
 
 -------- STRUCT ---------
 
@@ -15,3 +15,41 @@ Dữ liệu đọc vào là từ file INPUT.TXT
 Dữ liệu ghi ra là ghi ra file OUTPUT.TXT
 
 */
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main() {
+  string hoTen, soDienThoai;
+  int ngay, thang, nam;
+  float diemToan, diemLy, diemHoa;
+
+  ifstream FileIn("INPUT.txt");
+
+  while (!FileIn.eof()) {
+    getline(FileIn, hoTen, '-');
+    hoTen.erase(hoTen.begin() + hoTen.length() - 1); // Xoa ki tu cuoi cung
+    FileIn.seekg(1, FileIn.cur); // Bo di khoang trang
+    FileIn >> soDienThoai;
+    FileIn.seekg(2, FileIn.cur); // Dich qua 3 byte
+    FileIn >> ngay;
+    FileIn.seekg(1, FileIn.cur); // Bo di dau /
+    FileIn >> thang;
+    FileIn.seekg(1, FileIn.cur); // Bo di dau /
+    FileIn >> nam;
+    FileIn.seekg(2, FileIn.cur); // Dich qua 3 byte
+    FileIn >> diemToan >> diemLy >> diemHoa;
+    cout << "\nHo ten: " << hoTen;
+    cout << "\nSo dien thoai: " << soDienThoai;
+    cout << "\nSinh ngay " << ngay << " thang " << thang << " nam " << nam;
+    cout << "\nDiem toan: " << diemToan;
+    cout << "\nDiem ly: " << diemLy;
+    cout << "\nDiem hoa: " << diemHoa;
+  }
+  FileIn.close();
+
+  system("pause");
+  return 0;
+}
