@@ -21,6 +21,7 @@ Nodeptr them_Dau(Nodeptr& list, TYPEINFO x) {
 	list = p;
 	return p;
 }
+
 void nhap_DanhSach(Nodeptr& list)
 {
 	khoiTao(list);
