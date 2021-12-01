@@ -4,6 +4,24 @@
 #include <string>
 using namespace std;
 
+#define SUTU_THOIGIANBATDAU 9
+#define THO_THOIGIANBATDAU 8
+#define RUA_THOIGIANBATDAU 7
+
+#define SUTU_QUANGDUONGCHAY 210
+#define THO_QUANGDUONGCHAY 210
+#define RUA_QUANGDUONGCHAY 135
+
+struct ConVat {
+  string m_Code;
+  int m_Speed, m_Equiment;
+};
+typedef struct ConVat CONVAT;
+
+void nhapConVat(ifstream FileIn, CONVAT &cv) {
+  
+}
+
 int main() {
   string m_Code;
   int m_Speed, m_Equiment;

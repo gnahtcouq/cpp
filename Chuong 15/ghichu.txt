@@ -1,0 +1,28 @@
+L001 50 1 -> 100km/h -> t = 210/100 = 2.1h = 2h6p + 9h = 11h6p
+R001 70 0 -> 70km/h -> t = 210/70 = 3h + 8h = 11h
+T001 10 1 -> 50km/h -> t = 135/50 = 2.7h = 2h42p + 7h = 9h42p
+T002 15 0 -> 15km/h -> t = 135/15 = 9h -> thua
+T003 20 1 -> 100km/h -> t = 135/100 = 1.35h = 1h21p + 7h = 8h21p
+R003 35 0 -> 35km/h -> t = 210 /35 = 6h -> thua
+
+T003 20 1 -> 100km/h -> t = 135/100 = 1.35h = 1h21p + 7h = 8h21p
+T001 10 1 -> 50km/h -> t = 135/50 = 2.7h = 2h42p + 7h = 9h42p
+R001 70 0 -> 70km/h -> t = 210/70 = 3h + 8h = 11h
+L001 50 1 -> 100km/h -> t = 210/100 = 2.1h = 2h6p + 9h = 11h6p
+
+s = v.t
+t = s/v
+
+Lion
+- Di luc 9h (Thoi gian chay chi co 3h)
+- Quang duong: 210km
+- Van toc co the tang gap doi
+Rabbit
+- Di luc 8h (Thoi gian chay la 4h)
+- Quang duong: 210km
+- Van toc co the tang them 30km/h
+Turtoise
+- Di luc 7h (Thoi gian chay la 5h)
+- Quang duong: 135km
+- Van toc co the tang gap 5
+
