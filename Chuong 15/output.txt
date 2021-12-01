@@ -1,5 +1,0 @@
-
-m_Code = L001
-m_Speed = 50
-m_Equiment = 1
-------------------

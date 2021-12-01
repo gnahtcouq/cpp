@@ -5,9 +5,9 @@
 using namespace std;
 
 int main() {
-  int n;
-  int m_Speed, m_Equiment;
   string m_Code;
+  int m_Speed, m_Equiment;
+  int n;
   string temp;
   ifstream FileIn;
 
