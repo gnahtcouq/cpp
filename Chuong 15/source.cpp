@@ -4,28 +4,29 @@
 #include <string>
 using namespace std;
 
-// struct ThongTin {
-//   string m_Code;
-//   int m_speed, m_equiment;
-// };
-// typedef struct ThongTin THONGTIN;
-
 int main() {
   int n;
-  string m_Code;
   int m_Speed, m_Equiment;
+  string m_Code;
+  string temp;
   ifstream FileIn;
-  FileIn.open("input.txt", ios::in);
-  if (!FileIn) {
-    printf("\nKhong tim thay tap tin");
-    exit(0);
-  }
+
+  FileIn.open("input.txt");
   FileIn >> n;
-  getline(FileIn, m_Code);
-  m_Code.erase(m_Code.begin() + m_Code.length() - 1);
+  cout << "\nSo luong: " << n;
+  for(int i = 0; i < n; i++) {
+    FileIn >> m_Code;
+    FileIn >> m_Speed;
+    FileIn >> m_Equiment;
+
+    cout << "\nm_Code = " << m_Code;
+    cout << "\nm_Speed = " << m_Speed;
+    cout << "\nm_Equiment = " << m_Equiment;
+    cout << "\n------------------";
+  }
 
   FileIn.close();
-  cout << "\nm_Code = " << m_Code;
+
   system("pause");
   return 0;
 }
