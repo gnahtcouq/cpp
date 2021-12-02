@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
-const int MAX = 100;
+#define MAX 100
+
 struct NhanVien {
   char ten[50];
   int tuoi;
@@ -11,9 +12,67 @@ struct DanhSachNhanVien {
   NhanVien ds[100];
   int soLuong;
 };
+void nhapNhanVien(NhanVien& nv);
+void xuatNhanVien(NhanVien nv);
+void nhapDanhSachNhanVien(DanhSachNhanVien& dsnv);
+void xuatDanhSachNhanVien(DanhSachNhanVien dsnv);
+bool ghiDanhSachNhanVien(DanhSachNhanVien ds, char* tenFile);
+bool docDanhSachNhanVien(DanhSachNhanVien& ds, char* tenFile);
+int soNhanVienHeSoHon3(DanhSachNhanVien dsnv);
+int soNhanVienXuatSac(DanhSachNhanVien dsnv, float luongCB);
+DanhSachNhanVien xuatDanhSachNhanVienHeSoTren3(DanhSachNhanVien dsnv);
+bool ghiDanhSachNhanVienHeSoTren3(DanhSachNhanVien ds, char* tenFile);
+bool docDanhSachNhanVien2(DanhSachNhanVien& ds, char* tenFile, int& soNVXS, int& soNV3);
+
+int main() {
+  NhanVien nv;
+  DanhSachNhanVien ds1, ds2;
+  int soNVXS, soNV3;
+
+
+  // nhapDanhSachNhanVien(ds1);
+  // if(ghiDanhSachNhanVien(ds1, "nhanvien.dat"))
+  //   cout << "\nDa ghi thanh cong" << endl;
+  // else
+  //   cout << "\nGhi file khong duoc" << endl;
+  // xuatDanhSachNhanVien(ds1);
+
+
+
+  // if (docDanhSachNhanVien(ds1, "nhanvien.dat")) {
+  //   cout << "\nThong tin cua cac nhan vien vua doc la: " << endl;
+  //   xuatDanhSachNhanVien(ds1);
+  //   cout << "\nCo " << soNhanVienHeSoHon3(ds1) << " co he so luong > 3";
+  //   cout << "\nCo " << soNhanVienXuatSac(ds1, 600000) << " nhan vien xuat sac";
+  // }
+  // else {
+  //   cout << "\nDoc khong duoc";
+  //   exit;
+  // }
+
+  // if (ghiDanhSachNhanVienHeSoTren3(ds1, "nhanvien2.dat"))
+  //   cout << "\nDa ghi thanh cong" << endl;
+  // else
+  //   cout << "\nGhi file khong duoc" << endl;
+
+
+
+  if (docDanhSachNhanVien2(ds2, "nhanvien2.dat", soNVXS, soNV3)) {
+    cout << "\nThong tin cua danh sach nhan vien co HS luong tren 3 va XL xuat sac: " << endl;
+    xuatDanhSachNhanVien(ds2);
+  }
+  else {
+    cout << "\nDoc khong duoc";
+    exit;
+  }
+
+  cout << endl;
+  system("pause");
+  return 0;
+}
 
 void nhapNhanVien(NhanVien& nv) {
-  cout << "Nhap ten nv: ";
+  cout << "Nhap ten nhan vien: ";
   cin.getline(nv.ten, 50);
   cout << "Nhap tuoi: ";
   cin >> nv.tuoi;
@@ -22,6 +81,7 @@ void nhapNhanVien(NhanVien& nv) {
   cin.getline(nv.chucVu, 50);
   cout << "He so luong: ";
   cin >> nv.heSoLuong;
+  cout << endl;
   cin.ignore();
 }
 
@@ -31,7 +91,7 @@ void xuatNhanVien(NhanVien nv) {
 
 void nhapDanhSachNhanVien(DanhSachNhanVien& dsnv) {
   do {
-    cout << "Nhap so NV: ";
+    cout << "\nNhap so luong nhan vien: ";
     cin >> dsnv.soLuong;
   } while (dsnv.soLuong <= 0 || dsnv.soLuong > MAX);
   cin.ignore();
@@ -46,7 +106,7 @@ void xuatDanhSachNhanVien(DanhSachNhanVien dsnv) {
   }
 }
 
-bool ghiDanhDachNhanVien(DanhSachNhanVien ds, char* tenFile) {
+bool ghiDanhSachNhanVien(DanhSachNhanVien ds, char* tenFile) {
   FILE* f;
   fopen_s(&f, tenFile, "wb");
   if (f == NULL)
@@ -57,7 +117,7 @@ bool ghiDanhDachNhanVien(DanhSachNhanVien ds, char* tenFile) {
   return true;
 }
 
-bool docDanhDachNhanVien(DanhSachNhanVien& ds, char* tenFile) {
+bool docDanhSachNhanVien(DanhSachNhanVien& ds, char* tenFile) {
   FILE* f;
   fopen_s(&f, tenFile, "rb");
   if (f == NULL)
@@ -77,16 +137,6 @@ int soNhanVienHeSoHon3(DanhSachNhanVien dsnv) {
   return dem;
 }
 
-DanhSachNhanVien dsNhanVienHeSoHon3(DanhSachNhanVien dsnv) {
-  DanhSachNhanVien kq;
-  kq.soLuong = 0;
-  for (int i = 0; i < dsnv.soLuong; i++) {
-    if (dsnv.ds[i].heSoLuong > 3)
-      kq.ds[kq.soLuong++] = dsnv.ds[i];
-  }
-  return kq;
-}
-
 int soNhanVienXuatSac(DanhSachNhanVien dsnv, float luongCB) {
   int dem = 0;
   for (int i = 0; i < dsnv.soLuong; i++) {
@@ -96,12 +146,22 @@ int soNhanVienXuatSac(DanhSachNhanVien dsnv, float luongCB) {
   return dem;
 }
 
+DanhSachNhanVien danhSachNhanVienHeSoTren3(DanhSachNhanVien dsnv) {
+  DanhSachNhanVien ketqua;
+  ketqua.soLuong = 0;
+  for (int i = 0; i < dsnv.soLuong; i++) {
+    if (dsnv.ds[i].heSoLuong > 3)
+      ketqua.ds[ketqua.soLuong++] = dsnv.ds[i];
+  }
+  return ketqua;
+}
+
 bool ghiDanhSachNhanVienHeSoTren3(DanhSachNhanVien ds, char* tenFile) {
   FILE* f;
   fopen_s(&f, tenFile, "wb");
   if (f == NULL)
     return false;
-  DanhSachNhanVien dshs3 = dsNhanVienHeSoHon3(ds);
+  DanhSachNhanVien dshs3 = danhSachNhanVienHeSoTren3(ds);
   fwrite(&dshs3.soLuong, sizeof(int), 1, f);
   fwrite(&dshs3.ds, sizeof(NhanVien), dshs3.soLuong, f);
   fclose(f);
@@ -119,115 +179,4 @@ bool docDanhSachNhanVien2(DanhSachNhanVien& ds, char* tenFile, int& soNVXS, int&
   fread(&soNV3, sizeof(int), 1, f);
   fclose(f);
   return true;
-}
-
-bool them(DanhSachNhanVien& dsnv, NhanVien nvMoi) { //them nvMoi vao cuoi ds
-  if (dsnv.soLuong == MAX)
-    return false;
-  dsnv.ds[dsnv.soLuong++] = nvMoi;
-  //dsnv.soLuong = dsnv.soLuong + 1;
-}
-bool capNhat(DanhSachNhanVien& dsnv, char ten[]) {
-  for (int i = 0; i < dsnv.soLuong; i++)
-    if (strcmp(dsnv.ds[i].ten, ten) == 0) {
-      int chon;
-      do {
-        cout << "1. Cap nhat ten: " << endl;
-        cout << "2. Cap nhat tuoi: " << endl;
-        cout << "3. Cap nhat chuc vu: " << endl;
-        cout << "4. Cap nhat he so luong: " << endl;
-        cout << "0. Thoat" << endl;
-        cout << "Ban muon cap nhat gi? ";
-        cin >> chon;
-        if (chon == 0)
-          break;
-        if (chon == 1) {
-          cin.ignore();
-          cout << "Nhap ten moi: ";
-          cin.getline(dsnv.ds[i].ten, 50);
-        }
-        else if (chon == 2) {
-          cout << "Nhap tuoi: ";
-          cin >> dsnv.ds[i].tuoi;
-        }
-        else if (chon == 3) {
-          cin.ignore();
-          cout << "Nhap chuc vu: ";
-          cin.getline(dsnv.ds[i].chucVu, 50);
-        }
-        else if (chon == 4) {
-          cout << "Nhap he so luong moi: ";
-          cin >> dsnv.ds[i].heSoLuong;
-        }
-        else
-          cout << "Chon sai roi";
-
-      } while (1);
-      return true;
-    }
-  return false;
-}
-DanhSachNhanVien dsCongNhanLuongCao1(DanhSachNhanVien dsnv) {
-  float max = 0;
-  for (int i = 0; i < dsnv.soLuong; i++) {
-    if (strcmp(dsnv.ds[i].chucVu, "CN") == 0 && dsnv.ds[i].heSoLuong > max)
-      max = dsnv.ds[i].heSoLuong;
-  }
-
-  DanhSachNhanVien kq;
-  kq.soLuong = 0;
-  if (max == 0)
-    return kq;
-  for (int i = 0; i < dsnv.soLuong; i++) {
-    if (strcmp(dsnv.ds[i].chucVu, "CN") == 0 && dsnv.ds[i].heSoLuong == max)
-      kq.ds[kq.soLuong++] = dsnv.ds[i];
-  }
-  return kq;
-}
-int main1() {
-  DanhSachNhanVien ds1;
-  NhanVien nv1;
-  int soNVXS, soNV3;
-  //nhapDanhSachNhanVien(ds1);
-  if (docDanhDachNhanVien(ds1, "nvien_2.dat"))
-    //if (docDanhSachNhanVien2(ds1, "nhanvien2.dat",soNVXS,soNV3))
-  {
-    //cout << "Doc thanh cong";
-    cout << "\n Thong tin cua cac nv vua doc la: " << endl;
-    xuatDanhSachNhanVien(ds1);
-    /*char tenNv[50];
-    cout << "Cho biet ten nv can cap nhat: ";
-    cin.getline(tenNv, 50);
-    capNhat(ds1,tenNv);
-    if (ghiDanhDachNhanVien(ds1, "nhanvien.dat"))
-      cout << "Da ghi thanh cong";
-    else
-      cout << "Ghi file khong duoc";*/
-      /*cout << "Nhap thong nv can them: ";
-      nhapNhanVien(nv1);
-      if (them(ds1, nv1))
-      {
-        if (ghiDanhDachNhanVien(ds1, "nhanvien.dat"))
-          cout << "Da ghi thanh cong";
-        else
-          cout << "Ghi file khong duoc";
-      }
-      else
-        cout << "Danh sach da day";*/
-        //DanhSachNhanVien dscnLuongCao = dsCongNhanLuongCao1(ds1);
-        ////xuatDanhSachNhanVien(dscnLuongCao);
-        //ghiDanhDachNhanVien(dscnLuongCao,"nvien_2.dat");
-  }
-  else {
-    cout << "Doc khong duoc"; exit;
-  }
-
-  /*if (ghiDanhDachNhanVien2(ds1, "nhanvien2.dat"))
-    cout << "Da luu thanh cong";
-  else
-    cout << "Luu khong duoc";*/
-
-  cout << endl;
-  system("pause");
-  return 0;
 }
