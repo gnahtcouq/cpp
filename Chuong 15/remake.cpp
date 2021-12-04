@@ -18,19 +18,19 @@ struct ConVat {
 };
 typedef struct ConVat CONVAT;
 
-void nhapConVat(ifstream &FileIn, CONVAT &cv) {
+void nhapConVat(ifstream& FileIn, CONVAT& cv) {
   FileIn >> cv.maSo;
   FileIn >> cv.tocDo;
   FileIn >> cv.trangBi;
 }
 
-void xuatConVat(ofstream &FileOut, CONVAT cv) {
+void xuatConVat(ofstream& FileOut, CONVAT cv) {
   FileOut << cv.maSo << " ";
   FileOut << cv.tocDo << " ";
   FileOut << cv.trangBi << " ";
 }
 
-void nhapDanhSachConVat(ifstream &FileIn, vector<CONVAT> &danhSach) {
+void nhapDanhSachConVat(ifstream& FileIn, vector<CONVAT>& danhSach) {
   int n;
   FileIn >> n;
   for (int i = 0; i < n; i++) {
@@ -40,7 +40,7 @@ void nhapDanhSachConVat(ifstream &FileIn, vector<CONVAT> &danhSach) {
   }
 }
 
-void xuatDanhSachConVat(ofstream &FileOut, vector<CONVAT> danhSach) {
+void xuatDanhSachConVat(ofstream& FileOut, vector<CONVAT> danhSach) {
   int n = danhSach.size();
   for (int i = 0; i < n; i++) {
     xuatConVat(FileOut, danhSach[i]);
@@ -81,13 +81,13 @@ double timThoiGianVeDich(CONVAT cv) {
     return (double)RUA_THOIGIANBATDAU + thoigianchay;
 }
 
-void hoanVi(CONVAT &a, CONVAT &b) {
+void hoanVi(CONVAT& a, CONVAT& b) {
   CONVAT temp = a;
   a = b;
   b = temp;
 }
 
-void sapXepDanhSachConVat(vector<CONVAT> &danhSach) {
+void sapXepDanhSachConVat(vector<CONVAT>& danhSach) {
   int n = danhSach.size();
   for (int i = 0; i < n - 1; i++) {
     for (int j = i + 1; j < n; j++) {
