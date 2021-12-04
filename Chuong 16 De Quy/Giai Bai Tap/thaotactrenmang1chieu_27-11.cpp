@@ -89,27 +89,37 @@ void sapXepGiamDan(int *a, int n, int i = 0) {
   sapXepGiamDan(a, n, i + 1);
 }
 
+int tong(int a[], int n) {
+  if (n == 1)
+    return a[0];
+  return tong(a, n - 1) + a[n - 1];
+}
+
+
 int main() {
-  int n = 5;
-  int *a = new int[n];
-  nhapMang(a, n);
-  // nhapMang1(a, n);
-  xuatMang(a, n);
+  // int n = 5;
+  // int *a = new int[n];
+  // nhapMang(a, n);
+  // // nhapMang1(a, n);
+  // xuatMang(a, n);
 
-  cout << "\nTong = " << tinhTong(a, n);
-  cout << "\nMin = " << timMin(a, n);
-  cout << "\nMax = " << timMax(a, n);
-  cout << "\nDem chan = " << demChan(a, n);
+  // cout << "\nTong = " << tinhTong(a, n);
+  // cout << "\nMin = " << timMin(a, n);
+  // cout << "\nMax = " << timMax(a, n);
+  // cout << "\nDem chan = " << demChan(a, n);
 
-  sapXepTangDan(a, n);
-  cout << "\nMang sau khi sap tang dan la: ";
-  xuatMang(a, n);
+  // sapXepTangDan(a, n);
+  // cout << "\nMang sau khi sap tang dan la: ";
+  // xuatMang(a, n);
 
-  sapXepGiamDan(a, n);
-  cout << "\nMang sau khi sap giam dan la: ";
-  xuatMang(a, n);
+  // sapXepGiamDan(a, n);
+  // cout << "\nMang sau khi sap giam dan la: ";
+  // xuatMang(a, n);
 
-  delete[] a;
+  int a[] = {1, 2, 3, 4, 5};
+  cout << tong(a, 5);
+
+  // delete[] a;
   cout << endl;
   return 0;
 }
