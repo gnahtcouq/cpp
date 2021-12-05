@@ -125,13 +125,18 @@ void timDoDaiTuLonNhatVaXuat(char* s) {
   }
 }
 
-// Viet ham trich ra n ky tu dau tien/cuoi cung bat dau tai vi tri pos cua chuoi s cho truoc
-// s = "Tran Van Quoc Thang"
-// pos = 5
-// n = 3
+// char* subString(char *s, int start, int count) {
+//   char p[30];
+//   int k = 0;
+//   for (int i = start; i < start + count; i++) {
+//     p[k++] = s[i];
+//   }
+//   p[k] = '\0'; // ket thuc chuoi
+//   return p;
+// }
 
 int main() {
-  char s[] = "  thang    de  thuong ";
+  char s[] = "Quoc Thang dep trai";
   char p[30];
 
   // strcpy(p, bienKyTuDauThanhHoa(s));
@@ -149,7 +154,15 @@ int main() {
   // int sotu = demSoTu(s);
   // cout << "\nSo tu = " << sotu;
 
-  timDoDaiTuLonNhatVaXuat(s);
+  // timDoDaiTuLonNhatVaXuat(s);
+
+  // char *p;
+  // p = strdup(subString(s, 5, 5));
+
+  // char p[30];
+  // strcpy(p, subString(s, 5, 10));
+
+  cout << p;
 
   return 0;
 }
