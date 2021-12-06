@@ -93,7 +93,7 @@ void STRSTR(char *s, char *key) {
 
 
 int main() {
-  char s1[] = "Thang dep trai hao hoa lang tu dep trai hihi";
+  char s1[] = "Thang dep trai hao hoa lang tu dep trai hihi dep trai";
   char key[] = "dep trai";
 
   // int vitri = STRSTR(s1, key);
