@@ -32,7 +32,6 @@ int main() {
 
   // Cau 3
   int vt;
-  char mhthem[30];
   cout << "\nNhap vi tri MH can them: ";
   cin >> vt;
   cout << "Nhap thong tin mon hoc can them: " << endl;
