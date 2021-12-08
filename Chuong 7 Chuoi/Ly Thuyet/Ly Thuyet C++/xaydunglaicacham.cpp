@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 using namespace std;
 
 // strlen
@@ -122,6 +123,55 @@ int STRICMP(char *s1, char *s2) {
   return 0;
 }
 
+// strcat(s1, s2); // Noi s2 vao sau s1
+void STRCAT(char *s1, char *s2) {
+  int length_s1 = STRLEN(s1);
+  int length_s2 = STRLEN(s2);
+  for (int i = 0; i < length_s2; i++) {
+    s1[length_s1++] = s2[i];
+  }
+  s1[length_s1] = '\0';
+}
+
+// strstr(s1, s2); // Tim vi tri xuat hien dau tien cua chuoi s2 trong chuoi s1. Neu khong co thi tra ra -1
+// vd:
+// s1 = "Tran Van Quoc Thang"
+// s2 = "Quoc Thang"
+int STRSTR(char *s1, char *s2) {
+  int length_s1 = STRLEN(s1);
+  int length_s2 = STRLEN(s2);
+  int start;
+  bool check;
+  for (int i = 0; i < length_s1; i++) {
+    if (s1[i] == s2[0]) {
+      start = i;
+      check = true; // Mac dinh
+      int temp = start;
+      for (int j = 1; j < length_s2; j++) {
+        if (s1[++temp] != s2[j]) {
+          check = false;
+          break;
+        }
+      }
+      if (check == true)
+        return start;
+    }
+  }
+  return -1;
+}
+
+// strdup(s); // Sao chep chuoi s bo qua vung nho moi co do lon vua du chua
+// do lon sao chep = length + 1
+char* STRDUP(char *s) {
+  int length = STRLEN(s);
+  char *p = (char *)new char[length + 1];
+  for (int i = 0; i < length; i++) {
+    p[i] = s[i];
+  }
+  p[length] = '\0';
+  return p;
+}
+
 int main() {
   char s[] = "Quoc Thang";
   // int length = STRLEN(s);
@@ -144,6 +194,21 @@ int main() {
   char s4[] = "abCD";
   int ketqua = STRICMP(s3, s4);
   cout << "\nketqua = " << ketqua;
+
+  char s5[6] = "abc";
+  char s6[7] = "defghi";
+  STRCAT(s5, s6);
+  cout << "\ns5 = " << s5;
+
+  char s7[] = "Tran Van Quoc Thang";
+  char s8[] = "Quoc Thang";
+  int vitri = STRSTR(s7, s8);
+  cout << "\nvitri = " << vitri;
+
+  char s9[] = "Thang Dep Trai";
+  char *p = STRDUP(s9);
+  cout << "\np = " << p;
+  delete p;
 
   cout << endl;
   system("pause");
