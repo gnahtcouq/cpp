@@ -48,19 +48,19 @@ void them_CuaHang(List &list);
 int main() {
   CuaHang ch;
   DaySo ds;
-  // nhap_DanhSachCacCuaHang(ds);
-  // xuat_DanhSachCacCuaHang(ds);
+  nhap_DanhSachCacCuaHang(ds);
+  xuat_DanhSachCacCuaHang(ds);
 
-  // char str[30];
-  // cout << "\nNhap ten phuong: ";
-  // cin.getline(str, 30);
-  // cout << "So luong cua hang co tai phuong " << str << " la " << xuat_SoLuongCuaHangMotPhuong(ds, str) << endl;
+  char str[30];
+  cout << "\nNhap ten phuong: ";
+  cin.getline(str, 30);
+  cout << "So luong cua hang co tai phuong " << str << " la " << xuat_SoLuongCuaHangMotPhuong(ds, str) << endl;
 
-  // cout << "\nNhap ten cua hang: ";
-  // cin.getline(str, 30);
-  // xoa_ThongTinBangTenCuaHang(ds, str);
-  // cout << "\n\t\tDANH SACH CUA HANG SAU KHI XOA";
-  // xuat_DanhSachCacCuaHang(ds);
+  cout << "\nNhap ten cua hang: ";
+  cin.getline(str, 30);
+  xoa_ThongTinBangTenCuaHang(ds, str);
+  cout << "\n\t\tDANH SACH CUA HANG SAU KHI XOA";
+  xuat_DanhSachCacCuaHang(ds);
 
   List ds1;
   nhap_DSCH(ds1);
@@ -264,7 +264,7 @@ int STRSTR(char *s1, char *s2) {
   for (int i = 0; i < length_s1; i++) {
     if (s1[i] == s2[0]) {
       start = i;
-      check = true; // Mac dinh
+      check = true;
       int temp = start;
       for (int j = 1; j < length_s2; j++) {
         if (s1[++temp] != s2[j]) {
