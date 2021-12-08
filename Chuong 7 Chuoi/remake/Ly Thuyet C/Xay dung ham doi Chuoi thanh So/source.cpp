@@ -85,7 +85,7 @@ int main() {
   // int number2 = ATOI(s2);
   // cout << "\nnumber2 = " << number2;
 
-  char s3[] = "12.34";
+  char s3[] = "123.34";
   double number3 = ATOF(s3);
   cout << "\nnumber3 = " << number3;
 

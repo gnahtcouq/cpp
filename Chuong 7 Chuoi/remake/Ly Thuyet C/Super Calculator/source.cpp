@@ -101,13 +101,14 @@ void chuanHoaCungDoDai(char *s1, char *s2) {
 //   return ketqua;
 // }
 
+
 int main() {
   // char s[30] = "12";
   // themKyTuVaoChuoi(s, '0', 0);
   // cout << "\ns = " << s;
 
-  char s1[100] = "95";
-  char s2[100] = "98";
+  char s1[100] = "13";
+  char s2[100] = "45";
 
   /* ------------------ BUOC 1 ------------------ */
   int length_s1 = STRLEN(s1);
