@@ -1,6 +1,4 @@
 #include <iostream>
-#include <string.h>
-#include <string>
 using namespace std;
 #define MAX 100
 
@@ -9,82 +7,133 @@ struct CuaHang {
   char tenCH[30];
   int soNha;
   char tenDuong[30];
-  char phuong[30];
+  char phuong[10];
   char quan[10];
   char thanhPho[30];
 };
-typedef struct CuaHang CUAHANG;
+
 struct DaySo {
-  int soLuong;
+  int n;
   CuaHang data[MAX];
 };
-typedef struct DaySo DAYSO;
 
+typedef struct Node* List;
 struct Node {
-  CUAHANG data;
-  Node* pNext;
+  CuaHang data;
+  List link;
 };
-typedef struct Node NODE;
-struct List {
-  NODE* pHead;
-  NODE* pTail;
-};
-typedef struct List LIST;
 
+int STRLEN(char *s);
+int STRCMP(char *s1, char *s2);
+int STRSTR(char *s1, char *s2);
+void nhap_MotCuaHang(CuaHang &ch);
+void xuat_MotCuaHang(CuaHang ch);
+void nhap_DanhSachCacCuaHang(DaySo &ds);
+void xuat_DanhSachCacCuaHang(DaySo ds);
+int dem_SoLuongCuaHangChuaTen(DaySo ds);
+void xoa_MotCuaHang(DaySo &ds, int pos);
+void diChuyenThongTinCuaHangXuongCuoi(DaySo &ds, char *str);
 
-void nhapCuaHang(CUAHANG& ch);
-void xuatCuaHang(CUAHANG ch);
-void nhapDanhSachCuaHang(DAYSO& ds);
-void xuatDanhSachCuaHang(DAYSO ds);
-int demSoLuongCuaHangChuaTen(DAYSO ds);
-void xoaCuaHangViTri(DAYSO& ds, int vitri);
-void xoaMaCuaHang(DAYSO &ds, char *mamh);
-
-void khoiTao(LIST& l);
-NODE* taoNode(CUAHANG data);
-void themCuoi(LIST& l, NODE* p);
-void nhap(LIST& l);
-void xuat(LIST l);
-void giaiPhong(LIST& l);
+void khoiTao(List &list);
+List taoNode(CuaHang x);
+List themCuoi(List &list, CuaHang x);
+void giaiPhong(List &list);
+void nhap_DSCH(List &list);
+void xuat_DSCH(List l);
+void sapXepDanhSachCuaHang(List &list);
+void them_CuaHang(List &list);
+void xuatMotCuaHang(List l);
+void xuat_ThongTinTatCaCuaHangCuaQuan(List &list, char *str);
 
 int main() {
-  CUAHANG ch;
-  DAYSO ds;
-  // nhapCuaHang(ch);
-  // xuatCuaHang(ch);
-  nhapDanhSachCuaHang(ds);
-  xuatDanhSachCuaHang(ds);
+  CuaHang ch;
+  DaySo ds;
+  nhap_DanhSachCacCuaHang(ds);
+  xuat_DanhSachCacCuaHang(ds);
 
-  cout << "\nSo luong " << demSoLuongCuaHangChuaTen(ds);
+  int dem = dem_SoLuongCuaHangChuaTen(ds);
+  cout << "\nSo luong cua hang co ten chua chuoi Tong Hop la " << dem << endl;
 
-  // int vitri;
-  // cout << "\nNhap vi tri CH can xoa: ";
-  // cin >> vitri;
-  // xoaCuaHangViTri(ds, vitri);
-  // cout << "Danh sach CH sau khi xoa: ";
-  // xuatDanhSachCuaHang(ds);
+  cout << "\nNhap ma CH can di chuyen xuong cuoi: ";
+  char str[5];
+  cin.getline(str, 5);
+  diChuyenThongTinCuaHangXuongCuoi(ds, str);
+  cout << "\nDanh sach cua hang sau khi di chuyen";
+  xuat_DanhSachCacCuaHang(ds);
 
-  char mach[5];
-  cout << "\nNhap ma CH can xoa: ";
-  cin >> mach;
-  xoaMaCuaHang(ds, dsnew, mach);
-  cout << "Danh sach CH sau khi xoa: ";
-  xuatDanhSachCuaHang(ds);
+  List ds1;
+  nhap_DSCH(ds1);
+  xuat_DSCH(ds1);
 
-  // LIST l;
-  // nhap(l);
-  // xuat(l);
-  // cout << "\nNhap thong tin cua hang can them";
-  // them(l);
-  // cout << "\nDanh sach cac cua hang sau khi them" << endl;
-  // xuat(l);
+  sapXepDanhSachCuaHang(ds1);
+  cout << "\n\nDanh sach cua hang sau khi sap xep: ";
+  xuat_DSCH(ds1);
 
-  // giaiPhong(l);
+  them_CuaHang(ds1);
+  cout << "\nDanh sach cua hang sau khi them la: ";
+  xuat_DSCH(ds1);
 
+  char stri[10];
+  cout << "\n\nNhap quan can xuat thong tin tat ca cua hang: ";
+  cin.getline(stri, 10);
+  cout << "Thong tin cua tat ca cua hang tai quan " << stri;
+  xuat_ThongTinTatCaCuaHangCuaQuan(ds1, stri);
+  
+  giaiPhong(ds1);
+  system("pause");
   return 0;
 }
 
-void nhapCuaHang(CUAHANG& ch) {
+int STRLEN(char *s) {
+  int idx = 0;
+  while (s[idx] != '\0') {
+    idx++;
+  }
+  return idx;
+}
+
+int STRCMP(char *s1, char *s2) {
+  int length_s1 = STRLEN(s1);
+  int length_s2 = STRLEN(s2);
+  int min = length_s1 < length_s2 ? length_s1 : length_s2;
+  for (int i = 0; i < min; i++) {
+    if (s1[i] < s2[i])
+      return -1;
+    else if (s1[i] > s2[i])
+      return 1;
+  }
+  if (length_s1 > length_s2)
+    return 1;
+  else if (length_s1 < length_s2)
+    return -1;
+  return 0;
+}
+
+int STRSTR(char *s1, char *s2) {
+  int length_s1 = STRLEN(s1);
+  int length_s2 = STRLEN(s2);
+  int start;
+  bool check;
+  for (int i = 0; i < length_s1; i++) {
+    if (s1[i] == s2[0]) {
+      start = i;
+      check = true;
+      int temp = start;
+      for (int j = 1; j < length_s2; j++) {
+        if (s1[++temp] != s2[j]) {
+          check = false;
+          break;
+        }
+      }
+      if (check == true)
+        return start;
+    }
+  }
+  return -1;
+}
+
+// Cau 1
+void nhap_MotCuaHang(CuaHang &ch) {
   cout << "\nNhap ma CH: ";
   cin >> ch.maCH;
   cout << "Nhap ten CH: ";
@@ -96,7 +145,7 @@ void nhapCuaHang(CUAHANG& ch) {
   cin.ignore();
   cin.getline(ch.tenDuong, 30);
   cout << "Nhap phuong: ";
-  cin.getline(ch.phuong, 30);
+  cin.getline(ch.phuong, 10);
   cout << "Nhap quan: ";
   cin.getline(ch.quan, 10);
   cout << "Nhap thanh pho: ";
@@ -104,7 +153,7 @@ void nhapCuaHang(CUAHANG& ch) {
   cout << endl;
 }
 
-void xuatCuaHang(CUAHANG ch) {
+void xuat_MotCuaHang(CuaHang ch) {
   cout << "\nMa CH: " << ch.maCH;
   cout << "\nTen CH: " << ch.tenCH;
   cout << "\nSo nha: " << ch.soNha;
@@ -115,104 +164,182 @@ void xuatCuaHang(CUAHANG ch) {
   cout << endl;
 }
 
-void nhapDanhSachCuaHang(DAYSO& ds) {
+void nhap_DanhSachCacCuaHang(DaySo &ds) {
   cout << "\nNhap so luong CH: ";
-  cin >> ds.soLuong;
-  cout << "\nNhap thong tin tung CH: ";
-  for (int i = 0; i < ds.soLuong; i++) {
-    cout << "\n------- Thong Tin Cua Hang Thu " << i + 1 << " -------\n";
-    nhapCuaHang(ds.data[i]);
+  cin >> ds.n;
+  cout << "\t\tNHAP THONG TIN TUNG CUA HANG";
+  for (int i = 0; i < ds.n; i++) {
+    cout << "\n\tCua Hang " << i + 1;
+    nhap_MotCuaHang(ds.data[i]);
   }
 }
 
-void xuatDanhSachCuaHang(DAYSO ds) {
-  cout << "\nDanh sach cac CH: " << endl;
-  for (int i = 0; i < ds.soLuong; i++)
-    xuatCuaHang(ds.data[i]);
+void xuat_DanhSachCacCuaHang(DaySo ds) {
+  for (int i = 0; i < ds.n; i++) {
+    cout << "\n\tCua Hang " << i + 1;
+    xuat_MotCuaHang(ds.data[i]);
+  }
 }
 
-// Cau b
-int demSoLuongCuaHangChuaTen(DAYSO ds) {
-  char str[] = "Tong Hop";
+// Cau 1b
+int dem_SoLuongCuaHangChuaTen(DaySo ds) {
   int dem = 0;
-  for (int i = 0; i < ds.soLuong; i++) {
-    if (strstr(ds.data[i].tenCH, str))
+  for (int i = 0; i < ds.n; i++)
+    if (STRSTR(ds.data[i].tenCH, (char *)"Tong Hop") != -1)
       dem++;
-  }
   return dem;
 }
 
-void xoaCuaHangViTri(DAYSO& ds, int vitri) {
-  if (vitri < 0 || vitri > ds.soLuong)
-    cout << "\nVi tri khong hop le";
+// Cau 1c
+void xoa_MotCuaHang(DaySo &ds, int pos) {
+  if (pos < 0 || pos > ds.n)
+    cout << "\nNhap sai. Hay Nhap Lai";
   else {
-    for (int i = vitri + 1; i <= ds.soLuong; i++)
+    for (int i = pos + 1; i <= ds.n; i++)
       ds.data[i - 1] = ds.data[i];
-    ds.soLuong--;
+    ds.n--;
   }
 }
 
-void xoaMaCuaHang(DAYSO &ds, char *mach) {
-  int n = 1;
-  for (int i = 0; i < ds.soLuong; i++) {
-    if (strcmp(ds.data[i].maCH, mach) == 0) {
-      xoaCuaHangViTri(ds, i);
+void diChuyenThongTinCuaHangXuongCuoi(DaySo &ds, char *str) {
+  for (int i = 0; i < ds.n; i++) {
+    if (STRCMP(ds.data[i].maCH, str) == 0) {
+      CuaHang temp = ds.data[i];
+      xoa_MotCuaHang(ds, i);
+      ds.data[ds.n] = temp;
+      ds.n++;
     }
   }
 }
 
-
 // Cau 2
-void khoiTao(LIST& l) {
-  l.pHead = l.pTail = NULL;
+void khoiTao(List &list) {
+  list = NULL;
 }
 
-NODE* taoNode(CUAHANG data) {
-  NODE* p = new NODE;
-  if (p == NULL) {
-    return NULL;
-  }
-  p->data = data;
-  p->pNext = NULL;
+List taoNode(CuaHang x) {
+  List p;
+  p = new Node;
+  p->data = x;
+  p->link = NULL;
   return p;
 }
 
-void themCuoi(LIST& l, NODE* p) {
-  if (l.pHead == NULL) {
-    l.pHead = l.pTail = p;
+List themCuoi(List &list, CuaHang x) {
+  List p = taoNode(x);
+  if (list == NULL) {
+    list = p;
   }
   else {
-    l.pTail->pNext = p;
-    l.pTail = p;
+    List q = list;
+    while (q->link != NULL) {
+      q = q->link;
+    }
+    q->link = p;
   }
+  return p;
 }
 
-void nhap(LIST& l) {
-  khoiTao(l);
-  int n;
-  cout << "\nNhap so luong CH: ";
-  cin >> n;
-  for (int i = 0; i < n; i++) {
-    CUAHANG data;
-    nhapCuaHang(data);
-    NODE* p = taoNode(data);
-    themCuoi(l, p);
-  }
-}
-
-void xuat(LIST l) {
-  int dem = 1;
-  for (NODE* p = l.pHead; p != NULL; p = p->pNext) {
-    cout << "\n------- Thong Tin Cua Hang Thu " << dem++ << " -------\n";
-    xuatCuaHang(p->data);
-  }
-}
-
-void giaiPhong(LIST& l) {
-  NODE* p;
-  while (l.pHead != NULL) {
-    p = l.pHead;
-    l.pHead = l.pHead->pNext;
+void giaiPhong(List &list) {
+  List p = list;
+  while (p != NULL) {
+    list = list->link;
     delete p;
+    p = list;
   }
+}
+
+void nhap_DSCH(List &l) {
+  CuaHang ch;
+  khoiTao(l);
+  do {
+    cout << "\nNhap ma CH (NHAP 0 DE THOAT): ";
+    cin >> ch.maCH;
+    if (STRCMP(ch.maCH, (char *)"0") == 0)
+      break;
+    cout << "Nhap ten CH: ";
+    cin.ignore();
+    cin.getline(ch.tenCH, 30);
+    cout << "Nhap so nha: ";
+    cin >> ch.soNha;
+    cout << "Nhap ten duong: ";
+    cin.ignore();
+    cin.getline(ch.tenDuong, 30);
+    cout << "Nhap phuong: ";
+    cin.getline(ch.phuong, 30);
+    cout << "Nhap quan: ";
+    cin.getline(ch.quan, 10);
+    cout << "Nhap thanh pho: ";
+    cin.getline(ch.thanhPho, 30);
+    cout << endl;
+    themCuoi(l, ch);
+  } while (1);
+}
+
+void xuat_DSCH(List l) {
+  int idx = 1;
+  while (l != NULL) {
+    cout << "\n\n\tCua Hang " << idx++;
+    cout << "\nMa CH: " << l->data.maCH;
+    cout << "\nTen CH: " << l->data.tenCH;
+    cout << "\nSo nha: " << l->data.soNha;
+    cout << "\nTen Duong: " << l->data.tenDuong;
+    cout << "\nPhuong: " << l->data.phuong;
+    cout << "\nQuan: " << l->data.quan;
+    cout << "\nThanh pho: " << l->data.thanhPho;
+    l = l->link;
+  }
+}
+
+void sapXepDanhSachCuaHang(List &list) {
+  for (List pTmp = list; pTmp != NULL; pTmp = pTmp->link) {
+    for (List pTmp2 = pTmp->link; pTmp2 != NULL; pTmp2 = pTmp2->link) {
+      if (STRLEN(pTmp->data.thanhPho) > STRLEN(pTmp2->data.thanhPho)) {
+        CuaHang tmp = pTmp->data;
+        pTmp->data = pTmp2->data;
+        pTmp2->data = tmp;
+      }
+    }
+  }
+}
+
+void them_CuaHang(List &list) {
+  CuaHang ch;
+  List p = list;
+  cout << "\n\nNhap ma CH can them: ";
+  cin >> ch.maCH;
+  cout << "Nhap ten CH can them: ";
+  cin.ignore();
+  cin.getline(ch.tenCH, 30);
+  cout << "Nhap so nha can them: ";
+  cin >> ch.soNha;
+  cout << "Nhap ten duong can them: ";
+  cin.ignore();
+  cin.getline(ch.tenDuong, 30);
+  cout << "Nhap phuong can them: ";
+  cin.getline(ch.phuong, 10);
+  cout << "Nhap quan can them: ";
+  cin.getline(ch.quan, 10);
+  cout << "Nhap thanh pho can them: ";
+  cin.getline(ch.thanhPho, 30);
+  cout << endl;
+  themCuoi(list, ch);
+  sapXepDanhSachCuaHang(list);
+}
+
+void xuatMotCuaHang(List l) {
+  cout << "\nMa CH: " << l->data.maCH;
+  cout << "\nTen CH: " << l->data.tenCH;
+  cout << "\nSo nha: " << l->data.soNha;
+  cout << "\nTen Duong: " << l->data.tenDuong;
+  cout << "\nPhuong: " << l->data.phuong;
+  cout << "\nQuan: " << l->data.quan;
+  cout << "\nThanh pho: " << l->data.thanhPho;
+  cout << "\n--------------------------------";
+}
+
+void xuat_ThongTinTatCaCuaHangCuaQuan(List &list, char *str) {
+  for (List p = list; p != NULL; p = p->link)
+    if (STRCMP(p->data.quan, str) == 0)
+      xuatMotCuaHang(list);
 }
