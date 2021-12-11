@@ -93,12 +93,14 @@ void xoaMotNhanVien(CongTy &cTy, int pos) {
 
 void xoaNhanVienBangMa(CongTy &cTy) {
   char str[30];
+  cin.ignore();
   cout << "Nhap ma nhan vien can xoa: ";
   cin.getline(str, 10);
   for (int i = 0; i < cTy.soNhanVien; i++) {
-    if (strcmp(cTy.danhSach[i].maNhanVien, str) == 0)
+    if (strcmp(cTy.danhSach[i].maNhanVien, str) == 0) {
       xoaMotNhanVien(cTy, i);
       i--;
+    }
   }
 }
 
