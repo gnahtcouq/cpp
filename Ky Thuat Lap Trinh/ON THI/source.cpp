@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 using namespace std;
 
 #define KTM 100
@@ -20,6 +21,7 @@ struct MangSo {
   double data[MAX];
 };
 bool kiemTraMangTang(MangSo a);
+void tachMangNguyenDuongChiaHetCho3(MangSo x, MangSo &y);
 
 int main() {
   // Matrix a;
@@ -46,18 +48,22 @@ int main() {
   // Tong dong 3 = 123
   // Tong dong 4 = 29
 
-  MangSo a;
-  a.n = 5;
-  a.data[0] = 4;
-  a.data[1] = 2;
-  a.data[2] = 1;
-  a.data[3] = 5;
-  a.data[4] = 3;
-  int ketqua = kiemTraMangTang(a);
-  if (ketqua == false)
-    cout << "\nMang khong tang";
-  else
-    cout << "\nMang tang dan";
+
+  // MangSo a;
+  // a.n = 5;
+  // a.data[0] = 4;
+  // a.data[1] = 2;
+  // a.data[2] = 1;
+  // a.data[3] = 5;
+  // a.data[4] = 3;
+  // int ketqua = kiemTraMangTang(a);
+  // if (ketqua == false)
+  //   cout << "\nMang khong tang";
+  // else
+  //   cout << "\nMang tang dan";
+
+  // MangSo y;
+  // tachMangNguyenDuongChiaHetCho3(a, y);
 
   system("pause");
   return 0;
@@ -126,4 +132,17 @@ bool kiemTraMangTang(MangSo a) {
       return false;
   }
   return true;
+}
+
+void tachMangNguyenDuongChiaHetCho3(MangSo x, MangSo &y) {
+  int ny = 0;
+  for (int i = 0; i < x.n; i++) {
+    if ((int)x.data[i] % 3 == 0) {
+      y.data[ny] = x.data[i];
+      ny++;
+    }
+  }
+  cout << "\nMang y: ";
+  for (int i = 0; i < ny; i++)
+    cout << y.data[i] << " ";
 }

@@ -24,10 +24,10 @@ char* SubString(char *s, int start, int count)
 
 int main()
 {
-	char s[] = "Son handsome";
+	char s[] = "CongNgheThongTin";
 
 	char p[30];
-	strcpy(p, SubString(s, 4, 8));
+	strcpy(p, SubString(s, 8, 5));
 
 	printf("\np = %s", p);
 	
