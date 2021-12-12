@@ -20,11 +20,11 @@ void nhapNhanVien(NhanVien& nhanVien);
 void xuatNhanVien(NhanVien nv);
 void nhapCongTy(CongTy& cTy);
 void xuatCongTy(CongTy cTy);
-bool themNhanVien(CongTy &cTy);
-void xoaMotNhanVien(CongTy &cTy, int pos);
-void xoaNhanVienBangMa(CongTy &cTy);
-void sapXepNhanVienTheoMa(CongTy &cTy);
-void sapXepNhanVienTheoHeSoLuong(CongTy &cTy);
+bool themNhanVien(CongTy& cTy);
+void xoaMotNhanVien(CongTy& cTy, int pos);
+void xoaNhanVienBangMa(CongTy& cTy);
+void sapXepNhanVienTheoMa(CongTy& cTy);
+void sapXepNhanVienTheoHeSoLuong(CongTy& cTy);
 void lietKeNhanVienCoHeSoLuongLonHon3(CongTy cTy);
 void hienThiMenu();
 
@@ -72,7 +72,7 @@ void xuatCongTy(CongTy cTy) {
   }
 }
 
-bool themNhanVien(CongTy &cTy) {
+bool themNhanVien(CongTy& cTy) {
   NhanVien nhanVien;
   if (cTy.soNhanVien == MAX)
     return false;
@@ -81,7 +81,7 @@ bool themNhanVien(CongTy &cTy) {
   return true;
 }
 
-void xoaMotNhanVien(CongTy &cTy, int pos) {
+void xoaMotNhanVien(CongTy& cTy, int pos) {
   if (pos < 0 || pos > cTy.soNhanVien)
     cout << "\nNhap sai. Hay Nhap Lai";
   else {
@@ -91,7 +91,7 @@ void xoaMotNhanVien(CongTy &cTy, int pos) {
   }
 }
 
-void xoaNhanVienBangMa(CongTy &cTy) {
+void xoaNhanVienBangMa(CongTy& cTy) {
   char str[30];
   cin.ignore();
   cout << "Nhap ma nhan vien can xoa: ";
@@ -104,7 +104,7 @@ void xoaNhanVienBangMa(CongTy &cTy) {
   }
 }
 
-void sapXepNhanVienTheoMa(CongTy &cTy) {
+void sapXepNhanVienTheoMa(CongTy& cTy) {
   for (int i = 0; i < cTy.soNhanVien; i++) {
     for (int j = i + 1; j < cTy.soNhanVien; j++) {
       if (strcmp(cTy.danhSach[i].maNhanVien, cTy.danhSach[j].maNhanVien) > 0) {
@@ -116,7 +116,7 @@ void sapXepNhanVienTheoMa(CongTy &cTy) {
   }
 }
 
-void sapXepNhanVienTheoHeSoLuong(CongTy &cTy) {
+void sapXepNhanVienTheoHeSoLuong(CongTy& cTy) {
   for (int i = 0; i < cTy.soNhanVien; i++) {
     for (int j = i + 1; j < cTy.soNhanVien; j++) {
       if (cTy.danhSach[i].heSoLuong > cTy.danhSach[j].heSoLuong) {
