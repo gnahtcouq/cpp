@@ -238,6 +238,8 @@ int main() {
   NODE *K = taoNode('K');
   NODE *L = taoNode('L');
 
+  
+
   // Buoc 2: Tao ra cac moi lien ket giua cac Node voi nhau
   root->left = B;
   root->right = C;
