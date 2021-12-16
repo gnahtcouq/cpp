@@ -122,7 +122,9 @@ void taoCay(NODE*& root) {
  // 1: left->right, Khac 1: right->left
 void duyetTheoChieuRong(NODE *root, int thutu = 1) {
   queue<NODE *> q;
-  q.push(root);
+  // Phai co ton tai Node goc thi moi dua Node goc do vao hang doi
+  if (root != NULL)
+    q.push(root);
 
   while (!q.empty()) { // Lap lien tuc khi hang doi con phan tu
     NODE *p = q.front();
@@ -202,6 +204,23 @@ void phepDuyetSau(NODE *root, int thutu = 1) {
   }
 }
 
+void demTongCacNodeTrenCay(NODE *root, int &dem) {
+  if (root != NULL) {
+    dem++; // Cu den 1 Node la tang bien dem len 1
+    demTongCacNodeTrenCay(root->left, dem); // Xet tiep qua nhanh con trai cua Node hien tai
+    demTongCacNodeTrenCay(root->right, dem); // Xet tiep qua nhanh con phai cua Node hien tai
+  }
+}
+
+void giaiPhong(NODE *&root) {
+  if (root != NULL) {
+    giaiPhong(root->left); // Xet tiep qua nhanh con trai cua Node hien tai
+    giaiPhong(root->right); // Xet tiep qua nhanh con phai cua Node hien tai
+    delete root; // Giai phong Node dang xet den. Luu y: Phai giai phong no sau cung (duyet sau) chu neu dung duyet truoc hay duyet giua thi sau khi giai phong thi lay gi ma tro? -> loi
+    root = NULL; // Sau khi giai phong xong phai cap nhat cho Node go gia tri NULL neu khong se bi loi ngang neu sau khi giai phong xong nguoi dung co thao tac tiep gi do (vd: duyet cay)
+  }
+}
+
 int main() {
   /* Nhap du lieu cho cay (Tao cay) */
 
@@ -259,10 +278,43 @@ int main() {
   cout << "\nPhep duyet sau (LRN) right->left: ";
   phepDuyetSau(root, 2);
 
-  // if(A->left->left->right->right == NULL)
-  //   cout << "\nGia tri NULL nen khong xuat ra duoc";
-  // else // Khac NULL
-  //   cout << A->left->left->right->right->data;
+  cout << endl;
+
+  int soLuongCacNode = 0;
+  demTongCacNodeTrenCay(root, soLuongCacNode);
+  cout << "\nSo luong cac Node tren cay la: " << soLuongCacNode;
+
+  cout << "\nGiai phong cay";
+  giaiPhong(root); // Giai phong bo nho da cap phat cho cay;
+
+  // cout << endl;
+
+  // cout << "\nDuyet theo chieu rong: "; 
+  // duyetTheoChieuRong(root);
+
+  // cout << endl;
+
+  // cout << "\nDuyet truoc (NLR): ";
+  // NLR(root);
+
+  // cout << "\nPhep duyet truoc (NLR) left->right: ";
+  // phepDuyetTruoc(root);
+  // cout << "\nPhep duyet truoc (NLR) right->left: ";
+  // phepDuyetTruoc(root, 2);
+  
+  // cout << endl;
+
+  // cout << "\nPhep duyet giua (LNR) left->right: ";
+  // phepDuyetGiua(root);
+  // cout << "\nPhep duyet giua (LNR) right->left: ";
+  // phepDuyetGiua(root, 2);
+
+  // cout << endl;
+
+  // cout << "\nPhep duyet sau (LRN) left->right: ";
+  // phepDuyetSau(root);
+  // cout << "\nPhep duyet sau (LRN) right->left: ";
+  // phepDuyetSau(root, 2);
 
 
   // NODE *root;
