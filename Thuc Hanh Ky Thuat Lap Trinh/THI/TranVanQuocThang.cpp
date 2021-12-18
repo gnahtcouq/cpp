@@ -20,10 +20,10 @@ void nhap_MotTrangPhuc(TrangPhuc &tp);
 void xuat_MotTrangPhuc(TrangPhuc tp);
 void nhap_DSTP(DaySo &ds);
 void xuat_DSTP(DaySo ds);
-void themTrangPhuc(DaySo &ds);
-void timKiemThongTinTrangPhuc(DaySo ds, char *str);
+bool themTrangPhuc(DaySo &ds);
+bool timKiemThongTinTrangPhuc(DaySo ds, char *str);
 void xoaTrangPhucTaiViTri(DaySo &ds, int vitri);
-void xoaTenTrangPhuc(DaySo &ds, char *str);
+bool xoaTenTrangPhuc(DaySo &ds, char *str);
 int demSoLuongTrangPhucTrongBoSuuTap(DaySo ds, char *str);
 void sapXepTrangPhucTheoDonGia(DaySo &ds);
 void hienThiMenu();
@@ -67,7 +67,7 @@ void nhap_DSTP(DaySo &ds) {
 }
 
 void xuat_DSTP(DaySo ds) {
-  cout << "\n\n\t THONG TIN CAC TRANG PHUC" << endl;
+  cout << "\n\n\tTHONG TIN CAC TRANG PHUC" << endl;
   cout << setw(5) << left << "Ma TP" << "\t";
   cout << setw(30) << left << "Ten TP" << "\t";
   cout << setw(15) << left << "Bo Suu Tap" << "\t";
@@ -77,7 +77,7 @@ void xuat_DSTP(DaySo ds) {
   }
 }
 
-void themTrangPhuc(DaySo &ds) {
+bool themTrangPhuc(DaySo &ds) {
   int vitrithem = 0;
   TrangPhuc tp;
   nhap_MotTrangPhuc(tp);
@@ -86,14 +86,18 @@ void themTrangPhuc(DaySo &ds) {
   }
   ds.data[vitrithem] = tp;
   ds.n++;
+  return true;
 }
 
 
-void timKiemThongTinTrangPhuc(DaySo ds, char *str) {
+bool timKiemThongTinTrangPhuc(DaySo ds, char *str) {
   for (int i = 0; i < ds.n; i++) {
-    if (strcmp(ds.data[i].maSP, str) == 0)
+    if (strcmp(ds.data[i].maSP, str) == 0) {
       xuat_MotTrangPhuc(ds.data[i]);
+      return true;
+    }
   }
+  return false;
 }
 
 void xoaTrangPhucTaiViTri(DaySo &ds, int vitri) {
@@ -106,12 +110,14 @@ void xoaTrangPhucTaiViTri(DaySo &ds, int vitri) {
   }
 }
 
-void xoaTenTrangPhuc(DaySo &ds, char *str) {
+bool xoaTenTrangPhuc(DaySo &ds, char *str) {
   for (int i = 0; i < ds.n; i++) {
     if (strcmp(ds.data[i].tenSP, str) == 0) {
       xoaTrangPhucTaiViTri(ds, i);
+      return true;
     }
   }
+  return false;
 }
 
 int demSoLuongTrangPhucTrongBoSuuTap(DaySo ds, char *str) {
@@ -162,21 +168,24 @@ void hienThiMenu() {
       break;
     case 3:
       cout << "\nNhap trang phuc can them";
-      themTrangPhuc(ds);
+      if (themTrangPhuc(ds))
+        cout << "Them trang phuc thanh cong" << endl;
       break;
     case 4:
       char str[5];
       cout << "\nNhap ma TP can xuat thong tin: ";
       cin.ignore();
       cin.getline(str, 5);
-      timKiemThongTinTrangPhuc(ds, str);
+      if (!timKiemThongTinTrangPhuc(ds, str))
+        cout << "\nKhong tim thay, hay thu lai" << endl;
       break;
     case 5:
       char str2[30];
       cout << "\nNhap ten SP can xoa: ";
       cin.ignore();
       cin.getline(str2, 30);
-      xoaTenTrangPhuc(ds, str2);
+      if (!xoaTenTrangPhuc(ds, str2))
+        cout << "Xoa trang phuc khong thanh cong";
       break;
     case 6:
       char str3[15];

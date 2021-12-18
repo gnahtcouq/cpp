@@ -20,7 +20,6 @@ int pop(Stack& s);
 int top(Stack& s);
 void input_Stack(Stack& s);
 void output_Stack(Stack s);
-int top(Stack& s);
 
 int demSoLuongPhanTuX(Stack s, int x);
 int timViTriPhanTuXDauTien(Stack s, int x);

@@ -134,28 +134,6 @@ int main() {
   Nodeptr head;
   init(head);
 
-  addLast(head, 7);
-  addFirst(head, 10);
-  addFirst(head, 15);
-  addLast(head, 100);
-  addFirst(head, 9);
-  addLast(head, 99);
-
-  // outPut(head);
-  // cout << endl;
-
-  // addAfter(head, 15, 50);
-
-  outPut(head);
-  cout << endl;
-
-  deleteNode(head, 100);
-  outPut(head);
-
-  clean(head);
-
-  if (head == NULL)
-    cout << "\nDS rong";
 
   system("pause");
   return 0;
