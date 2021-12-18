@@ -15,7 +15,9 @@ int binarySearch(int a[], int l, int r, int x);
 void xuatDaySo(DAYSO a);
 void xuatMang(int a[], int n);
 void mergeSort_Tang(int a[], int l, int r);
-void merge(int a[], int l, int m, int r);
+void mergeSort_Giam(int a[], int l, int r);
+void merge_Tang(int a[], int l, int m, int r);
+void merge_Giam(int a[], int l, int m, int r);
 void quickSort_Tang(int a[], int l, int h);
 int partition(int a[], int low, int high);
 void hoanVi(int& a, int& b);
@@ -66,6 +68,9 @@ int main() {
   xuatMang(a, a_size);
   mergeSort_Tang(a, 0, a_size - 1);
   cout << "\nSap xep day A = thuat toan MergeSort tang" << endl;
+  xuatMang(a, a_size);
+  mergeSort_Giam(a, 0, a_size - 1);
+  cout << "\nSap xep day A = thuat toan MergeSort giam" << endl;
   xuatMang(a, a_size);
 
   cout << "\n\nMang b ban dau: ";
@@ -146,12 +151,12 @@ void mergeSort_Tang(int a[], int l, int r) {
     mergeSort_Tang(a, l, m);
     mergeSort_Tang(a, m + 1, r);
 
-    merge(a, l, m, r);
+    merge_Tang(a, l, m, r);
   }
 }
 
 // Gop hai mang con a[l...m] va a[m+1...r]
-void merge(int a[], int l, int m, int r) {
+void merge_Tang(int a[], int l, int m, int r) {
   int i, j, k;
   int n1 = m - l + 1;
   int n2 = r - m;
@@ -175,6 +180,67 @@ void merge(int a[], int l, int m, int r) {
   // chung nao con co cap o mang L[i] va mang R[j] ma lay ra so sanh thi moi so sanh. Con neu 1 mang da ket thuc roi thi do la mang cac phan tu nho hon thi chi can cho mang co phan tu lon hon vao mang tong hop 
   while (i < n1 && j < n2) {
     if (L[i] <= R[j]) { // Trong truong hop bang nhau thi cho L[i] di truoc
+      a[k] = L[i];
+      i++; // De dich sang phai cua mang dau tien la mang L
+    }
+    else {
+      a[k] = R[j];
+      j++;
+    }
+    k++;
+  }
+  // Copy cac phan tu con lai cua mang L vao a neu co
+  while (i < n1) {
+    a[k] = L[i];
+    i++;
+    k++;
+  }
+  // Copy cac phan tu con lai cua mang R vao a neu co
+  while (j < n2) {
+    a[k] = R[j];
+    j++;
+    k++;
+  }
+
+  delete L;
+  delete R;
+}
+
+void mergeSort_Giam(int a[], int l, int r) {
+  if (l < r) {
+    int m = (l + r) / 2;
+    mergeSort_Giam(a, l, m);
+    mergeSort_Giam(a, m + 1, r);
+
+    merge_Giam(a, l, m, r);
+  }
+}
+
+// Gop hai mang con a[l...m] va a[m+1...r]
+void merge_Giam(int a[], int l, int m, int r) {
+  int i, j, k;
+  int n1 = m - l + 1;
+  int n2 = r - m;
+
+  // Tao cac mang tam
+  int* L, * R;
+  L = new int[n1];
+  R = new int[n2];
+
+  // Copy du lieu sang cac mang tam
+  for (i = 0; i < n1; i++)
+    L[i] = a[l + i];
+  for (j = 0; j < n2; j++)
+    R[j] = a[m + 1 + j];
+
+  // Gop 2 mang tam vua roi vao mang a
+  i = 0; // Khoi tao chi so bat dau cua mang con dau tien
+  j = 0; // Khoi tao chi so bat dau cua mang con thu hai
+  k = l; // Khoi tao chi so bat dau cua mang luu ket qua
+
+  // chung nao con co cap o mang L[i] va mang R[j] ma lay ra so sanh thi moi so sanh. Con neu 1 mang da ket thuc roi thi do la mang cac phan tu nho hon thi chi can cho mang co phan tu lon hon vao mang tong hop 
+  while (i < n1 && j < n2) {
+    if (L[i] > R[j]) { // Trong truong hop bang nhau thi cho L[i] di truoc
       a[k] = L[i];
       i++; // De dich sang phai cua mang dau tien la mang L
     }
