@@ -24,26 +24,33 @@ int top(Stack& s);
 
 int demSoLuongPhanTuX(Stack s, int x);
 int timViTriPhanTuXDauTien(Stack s, int x);
+bool kiemTraNganXepCoTangHayKhong(Stack s);
 
 int main() {
   // DSLK
-  Stack k;
-  init_Stack(k);
-  input_Stack(k);
-  output_Stack(k);
+  Stack s;
+  init_Stack(s);
+  input_Stack(s);
+  output_Stack(s);
 
-  // Cau 1
-  int x;
-  cout << "\nNhap gia tri x can dem: ";
-  cin >> x;
-  int dem = demSoLuongPhanTuX(k, x);
-  cout << "So luong " << x << " = " << dem << endl;
+  // // Cau 1
+  // int x;
+  // cout << "\nNhap gia tri x can dem: ";
+  // cin >> x;
+  // int dem = demSoLuongPhanTuX(s, x);
+  // cout << "So luong " << x << " = " << dem << endl;
 
-  // Cau 2
-  cout << "\nNhap gia tri can xuat ra vi tri dau tien: ";
-  cin >> x;
-  int vitri = timViTriPhanTuXDauTien(k, x);
-  cout << "\nVi tri gia tri " << x << " dau tien = " << vitri << endl;
+  // // Cau 2
+  // cout << "\nNhap gia tri can xuat ra vi tri dau tien: ";
+  // cin >> x;
+  // int vitri = timViTriPhanTuXDauTien(s, x);
+  // cout << "\nVi tri gia tri " << x << " dau tien = " << vitri << endl;
+
+  // Cau 3
+  if (kiemTraNganXepCoTangHayKhong(s))
+    cout << "\nNgan xep tang";
+  else
+    cout << "\nNgan xep khong tang";
 
   system("pause");
   return 0;
@@ -59,7 +66,8 @@ int isEmpty(Stack s) {
 }
 
 Nodeptr tao_Node(int x) {
-  Nodeptr p; p = new Node;
+  Nodeptr p;
+  p = new Node;
   p->data = x;
   p->link = NULL;
   return p;
@@ -153,3 +161,20 @@ int timViTriPhanTuXDauTien(Stack s, int x) {
 }
 
 // Cau 3
+bool kiemTraNganXepCoTangHayKhong(Stack s) {
+  Nodeptr p;
+  int a;
+  int flag = 0;
+  while (!isEmpty(s)) {
+    p = s.top;
+    a = p->data;
+    pop(s);
+    if (a < s.top->data) {
+      flag = 0;
+    }
+    s.top = p->link;
+  }
+  if (flag == 0)
+    return true;
+  return false;
+}
