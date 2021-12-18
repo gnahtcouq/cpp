@@ -10,35 +10,39 @@ struct DAYSO {
 int fibonaci(int n);
 int giaiThua(int n);
 int binarySearch(int a[], int l, int r, int x);
+// void khoiTao(DAYSO& a);
+// void nhapDaySo(DAYSO& a);
 void xuatDaySo(DAYSO a);
-void mergeSort(int a[], int l, int r);
+void xuatMang(int a[], int n);
+void mergeSort_Tang(int a[], int l, int r);
 void merge(int a[], int l, int m, int r);
-void quickSort(int a[], int l, int h);
+void quickSort_Tang(int a[], int l, int h);
 int partition(int a[], int low, int high);
 void hoanVi(int& a, int& b);
 
-// Bai tap tong hop
-struct SinhVien {
-  char mssv[5];
-  char hoLot[30];
-  char ten[10];
-  float dtb;
-};
+// // Bai tap tong hop
+// struct SinhVien {
+//   char mssv[5];
+//   char hoLot[30];
+//   char ten[10];
+//   float dtb;
+// };
 
-struct DSSV {
-  int siSo;
-  SinhVien list[MAX];
-};
+// struct DSSV {
+//   int siSo;
+//   SinhVien list[MAX];
+// };
 
-DSSV taoDuLieu();
-void inSinhVien(SinhVien sv);
-void inDSSV(DSSV dssv);
-void mergeSort(SinhVien a[], int l, int r);
-void quickSort(SinhVien[], int l, int h);
-int binarySearch(SinhVien a[], int l, int r, char* mssv);
+// DSSV taoDuLieu();
+// void inSinhVien(SinhVien sv);
+// void inDSSV(DSSV dssv);
+// void mergeSort(SinhVien a[], int l, int r);
+// void quickSort(SinhVien[], int l, int h);
+// int binarySearch(SinhVien a[], int l, int r, char* mssv);
 
 int main() {
-  DAYSO ds;
+  // DAYSO ds;
+  // khoiTao(ds);
   int n;
   do {
     cout << "\nNhap n nguyen duong: ";
@@ -47,7 +51,31 @@ int main() {
       cout << "\nNhap sai. Hay nhap lai";
   } while (n <= 0);
 
-  cout << "\n" << n << " giai thua = " << giaiThua(n);
+  cout << "\n" << n << " giai thua = " << giaiThua(n) << endl;
+
+  cout << "\nPhan tu thu " << n << " cua day Fibonaci = " << fibonaci(n) << endl;
+
+  // nhapDaySo(ds);
+  int a[] = { 4, 23, 5, 8, 7, 9, 12, 16, 11, 17 };
+  int a_size = sizeof(a) / sizeof(a[0]);
+
+  int b[] = { 2, 9, 5, 15, 41, 32, 7, 3, 8, 17 };
+  int b_size = sizeof(b) / sizeof(b[0]);
+
+  cout << "\nMang a ban dau: ";
+  xuatMang(a, a_size);
+  mergeSort_Tang(a, 0, a_size - 1);
+  cout << "\nSap xep day A = thuat toan MergeSort tang" << endl;
+  xuatMang(a, a_size);
+
+  cout << "\n\nMang b ban dau: ";
+  xuatMang(b, a_size);
+  quickSort_Tang(b, 0, b_size - 1);
+  cout << "\nSap xep day B = thuat toan QuickSort tang" << endl;
+  xuatMang(b, b_size);
+
+  // xuatDaySo(ds);
+
 
   system("pause");
   return 0;
@@ -86,23 +114,40 @@ int binarySearch(int a[], int l, int r, int x) {
   return -1;
 }
 
+// void khoiTao(DAYSO& a) {
+//   a.n = 0;
+// }
+
+// void nhapDaySo(DAYSO& a) {
+//   cout << "\nNhap so luong phan tu: ";
+//   cin >> a.n;
+//   for (int i = 0; i < a.n; i++) {
+//     cout << "Nhap phan tu thu " << i + 1 << " la: ";
+//     cin >> a.list[i];
+//   }
+// }
+
 void xuatDaySo(DAYSO a) {
-  cout << endl;
   for (int i = 0; i < a.n; i++) {
     cout << a.list[i] << " ";
   }
 }
 
+void xuatMang(int a[], int n) {
+  for (int i = 0; i < n; i++) {
+    cout << a[i] << " ";
+  }
+}
+
 // l la chi so trai va r la chi so phai cua mang can duoc sap xep
-void mergeSort(int a[], int l, int r) {
+void mergeSort_Tang(int a[], int l, int r) {
   if (l < r) {
     int m = (l + r) / 2;
-    mergeSort(a, l, m);
-    mergeSort(a, m + 1, r);
+    mergeSort_Tang(a, l, m);
+    mergeSort_Tang(a, m + 1, r);
 
     merge(a, l, m, r);
   }
-
 }
 
 // Gop hai mang con a[l...m] va a[m+1...r]
@@ -126,10 +171,12 @@ void merge(int a[], int l, int m, int r) {
   i = 0; // Khoi tao chi so bat dau cua mang con dau tien
   j = 0; // Khoi tao chi so bat dau cua mang con thu hai
   k = l; // Khoi tao chi so bat dau cua mang luu ket qua
+
+  // chung nao con co cap o mang L[i] va mang R[j] ma lay ra so sanh thi moi so sanh. Con neu 1 mang da ket thuc roi thi do la mang cac phan tu nho hon thi chi can cho mang co phan tu lon hon vao mang tong hop 
   while (i < n1 && j < n2) {
-    if (L[i] <= R[j]) {
+    if (L[i] <= R[j]) { // Trong truong hop bang nhau thi cho L[i] di truoc
       a[k] = L[i];
-      i++;
+      i++; // De dich sang phai cua mang dau tien la mang L
     }
     else {
       a[k] = R[j];
@@ -154,14 +201,14 @@ void merge(int a[], int l, int m, int r) {
   delete R;
 }
 
-void quickSort(int a[], int low, int high) {
+void quickSort_Tang(int a[], int low, int high) {
   if (low < high) {
     /* pi la chi so noi phan tu nay da dung dung vi tri va la phan tu chia mang lam 2 mang con trai & phai */
     int pi = partition(a, low, high);
 
     // Goi de quy sap xep 2 mang con trai va phai
-    quickSort(a, low, pi - 1);
-    quickSort(a, pi + 1, high);
+    quickSort_Tang(a, low, pi - 1);
+    quickSort_Tang(a, pi + 1, high);
   }
 }
 
@@ -190,47 +237,47 @@ void hoanVi(int& a, int& b) {
   b = t;
 }
 
-// Bai tap tong hop
-DSSV taoDuLieu() {
-  DSSV dssv = { 10, {
-      {"SV01", "Le Thi", "Be", 7.7 },
-      {"SV10", "Tran Van", "An", 6.5 },
-      {"SV03", "Nguyen Ngoc", "Ti", 4.5 },
-      {"SV06", "Le Van", "Phuoc", 8.0 },
-      {"SV04", "Tran Thi", "Binh", 6.0 },
-      {"SV05", "Ngo Bao", "Chau", 7.0 },
-      {"SV07", "Le Thanh", "Tam", 9.0 },
-      {"SV09", "Mac Thi", "Buoi", 10.0 },
-      {"SV02", "Le Thi Hong", "Gam", 3.5 },
-      {"SV08", "Nguyen Duy", "An", 8.5 }
-    }
-  };
-  return dssv;
-}
+// // Bai tap tong hop
+// DSSV taoDuLieu() {
+//   DSSV dssv = { 10, {
+//       {"SV01", "Le Thi", "Be", 7.7 },
+//       {"SV10", "Tran Van", "An", 6.5 },
+//       {"SV03", "Nguyen Ngoc", "Ti", 4.5 },
+//       {"SV06", "Le Van", "Phuoc", 8.0 },
+//       {"SV04", "Tran Thi", "Binh", 6.0 },
+//       {"SV05", "Ngo Bao", "Chau", 7.0 },
+//       {"SV07", "Le Thanh", "Tam", 9.0 },
+//       {"SV09", "Mac Thi", "Buoi", 10.0 },
+//       {"SV02", "Le Thi Hong", "Gam", 3.5 },
+//       {"SV08", "Nguyen Duy", "An", 8.5 }
+//     }
+//   };
+//   return dssv;
+// }
 
-void inSinhVien(SinhVien sv) {
-  cout << endl << sv.mssv << "\t";
-  cout << sv.hoLot << " ";
-  cout << sv.ten << "\t";
-  cout << sv.dtb;
-}
+// void inSinhVien(SinhVien sv) {
+//   cout << endl << sv.mssv << "\t";
+//   cout << sv.hoLot << " ";
+//   cout << sv.ten << "\t";
+//   cout << sv.dtb;
+// }
 
-void inDSSV(DSSV dssv) {
-  cout << endl;
-  for (int i = 0; i < dssv.siSo; i++) {
-    inSinhVien(dssv.list[i]);
-    cout << endl;
-  }
-}
+// void inDSSV(DSSV dssv) {
+//   cout << endl;
+//   for (int i = 0; i < dssv.siSo; i++) {
+//     inSinhVien(dssv.list[i]);
+//     cout << endl;
+//   }
+// }
 
-void mergeSort(SinhVien a[], int l, int r) {
+// void mergeSort(SinhVien a[], int l, int r) {
 
-}
+// }
 
-void quickSort(SinhVien[], int l, int h) {
+// void quickSort(SinhVien[], int l, int h) {
 
-}
+// }
 
-int binarySearch(SinhVien a[], int l, int r, char* mssv) {
-  return -1;
-}
+// int binarySearch(SinhVien a[], int l, int r, char* mssv) {
+//   return -1;
+// }
