@@ -172,6 +172,7 @@ void xuatMotThuCung(ThuCung tc) {
   cout << "\n---" << endl;
 }
 
+// Cau 4a
 void nhapDanhSachThuCung(DanhSach& ds) {
   cout << "\n\nNhap so luong Thu Cung: ";
   cin >> ds.soLuong;
@@ -182,6 +183,7 @@ void nhapDanhSachThuCung(DanhSach& ds) {
   }
 }
 
+// Cau 4b
 void xuatDanhSachThuCung(DanhSach ds) {
   cout << "\nDANH SACH CAC THU CUNG" << endl;
   for (int i = 0; i < ds.soLuong; i++) {
