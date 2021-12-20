@@ -1,4 +1,4 @@
-#pragma warning(disable: 4996)
+// #pragma warning(disable: 4996)
 #include <iostream>
 #include <iomanip>
 #include <string.h>
@@ -69,9 +69,9 @@ void xuatMang(int a[], int n) {
 }
 
 int demSoLuongPhanTuKeNhauMaCa2DeuChan(int a[], int n) {
-  if (n == 1)
+  if (n == 1) // Xac dinh diem dung
     return 0;
-  if (a[n - 1] % 2 == 0)
+  if (a[n - 1] % 2 == 0) // Neu phan tu o truoc va o sau deu chia het cho 2 thi goi lai de quy de tang so lan dem len 1
     if (a[n - 2] % 2 == 0)
       return 1 + demSoLuongPhanTuKeNhauMaCa2DeuChan(a, n - 1);
   return demSoLuongPhanTuKeNhauMaCa2DeuChan(a, n - 1);
@@ -100,18 +100,19 @@ void lietKeCacDongToanAm(float arr[][MAX], int dong, int cot) {
   int flag;
   for (int i = 0; i < dong; i++) {
     flag = 1;
-    for (int j = 0; j < cot; j++) {
+    for (int j = 0; j < cot; j++) { // Xet qua cac cot trong dong, neu > 0 thi cho flag == 0 va break
       if (arr[i][j] > 0) {
         flag = 0;
         break;
       }
     }
-    if (flag == 1)
+    if (flag == 1) // Neu flag van == 1 thi xuat ra dong do
       cout << "\nDong " << i + 1 << " toan am";
   }
 }
 
 // Cau 3
+// Luc dau viet ham xoa mot ky tu trong chuoi
 void xoaMotKyTu(char* s, int vitrixoa) {
   int length = strlen(s);
   for (int i = vitrixoa + 1; i < length; i++) {
@@ -122,11 +123,12 @@ void xoaMotKyTu(char* s, int vitrixoa) {
 
 void chuanHoaChuoi(char* s) {
   int length = strlen(s);
+  // Chay tu dau den cuoi gap 2 khoang trang lien tiep thi xoa di 1
   for (int i = 0; i < length; i++) {
     if (s[i] == ' ' && s[i + 1] == ' ') {
       xoaMotKyTu(s, i);
-      i--;
-      length--;
+      i--; // Xoa xong thi i-- xuong
+      length--; // Phai giam length lai
     }
   }
   if (s[0] == ' ') {
