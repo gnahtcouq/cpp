@@ -25,7 +25,10 @@ void giaiPhong(Nodeptr &list);
 bool kiemTraTrungMaCB(Nodeptr& list, int ma);
 void nhapDanhSachCayBut(Nodeptr &list);
 void xuatDanhSachCayBut(Nodeptr list);
-void sapXepGiamDanTheoDonGia(Nodeptr &list);
+int timSoLuongMax(Nodeptr list);
+void xuatMaSoCayButConSoLuongTonKhoNhieuNhat(Nodeptr list);
+void xoaButBangHangSX(Nodeptr& list, CAYBUT cb);
+void xoaThongTinTatCaButThuocHangX(Nodeptr& list, char *str);
 
 // Phan 2
 struct NODE {
@@ -45,7 +48,8 @@ void setValue_Queue(QUEUE& q);
 void print_Queue(QUEUE q);
 int deQueue(QUEUE& q);
 int getFront_Queue(QUEUE q);
-void chenSauNode(QUEUE& q, int x, int pos);
+void xoaPhanTuXThu2TroDi(QUEUE& q, int x);
+// void chenSauNode(QUEUE& q, int x, int pos);
 
 struct STACK {
   NODEPTR top;
@@ -58,47 +62,47 @@ int pop(STACK& s);
 int top(STACK& s);
 void input_Stack(STACK& s);
 void output_Stack(STACK s);
-void xoaPhanTuXThu2TroDi(STACK& s, int x);
+void daoNguocThuTuStack(STACK &s);
+// void xoaPhanTuXThu2TroDi(STACK& s, int x);
 
 int main() {
-  // Phan 1 - Cau 1
-  Nodeptr ds;
-  nhapDanhSachCayBut(ds);
-  xuatDanhSachCayBut(ds);
-  // Phan 1 - Cau 2
+  // // Phan 1 - Cau 1
+  // Nodeptr ds;
+  // nhapDanhSachCayBut(ds);
+  // xuatDanhSachCayBut(ds);
+  // // Phan 1 - Cau 2
+  // cout << endl;
+  // xuatMaSoCayButConSoLuongTonKhoNhieuNhat(ds);
 
-  // Phan 1 - Cau 3
-  sapXepGiamDanTheoDonGia(ds);
-  cout << "\nDanh sach sau khi sap xep giam dan theo don gia";
-  xuatDanhSachCayBut(ds);
-  cout << endl;
+  // // Phan 1 - Cau 3
+  // char str[30];
+  // cin.ignore();
+  // cout << "\nNhap Hang SX can xoa tat ca but: ";
+  // cin.getline(str, 30);
+  // xoaThongTinTatCaButThuocHangX(ds, str);
+  // xuatDanhSachCayBut(ds);
 
-  // Phan 2 - Cau 1
-  QUEUE q;
-  init_Queue(q);
-  setValue_Queue(q);
-  print_Queue(q);
-  int x;
-  cout << "\nNhap phan tu can chen: ";
-  cin >> x;
-  int vitri;
-  cout << "Nhap vi tri node can chen sau: ";
-  cin >> vitri;
-  chenSauNode(q, x, vitri);
-  cout << "Queue sau khi chen: ";
-  print_Queue(q);
-  cout << "\n\n";
+
+  // // Phan 2 - Cau 1
+  // QUEUE q;
+  // init_Queue(q);
+  // setValue_Queue(q);
+  // print_Queue(q);
+  // int x2;
+  // cout << "\nNhap phan tu can xoa: ";
+  // cin >> x2;
+  // xoaPhanTuXThu2TroDi(q, x2);
+  // cout << "\nQueue sau khi xoa: ";
+  // print_Queue(q);
+
 
   // Phan 2 - Cau 2
   STACK s;
   init_Stack(s);
   input_Stack(s);
   output_Stack(s);
-  int x2;
-  cout << "\nNhap phan tu can xoa: ";
-  cin >> x2;
-  xoaPhanTuXThu2TroDi(s, x2);
-  cout << "\nStack sau khi xoa: ";
+  daoNguocThuTuStack(s);
+  cout << "\nNgan xep Stack sau khi dao nguoc: ";
   output_Stack(s);
 
   system("pause");
@@ -142,6 +146,7 @@ void giaiPhong(Nodeptr &list) {
   }
 }
 
+
 bool kiemTraTrungMaCB(Nodeptr& list, int ma) {
   Nodeptr p = list;
   while (p != NULL) {
@@ -152,7 +157,7 @@ bool kiemTraTrungMaCB(Nodeptr& list, int ma) {
   return false;
 }
 
-// Cau 1
+// Phan 1 - Cau 1
 void nhapDanhSachCayBut(Nodeptr &list) {
   CAYBUT cb;
   khoiTao(list);
@@ -198,17 +203,69 @@ void xuatDanhSachCayBut(Nodeptr list) {
   }
 }
 
-// Cau 2
 
-// Cau 3
-void sapXepGiamDanTheoDonGia(Nodeptr &list) {
-  for (Nodeptr pTmp = list; pTmp != NULL; pTmp = pTmp->link)
-    for (Nodeptr pTmp2 = pTmp->link; pTmp2 != NULL; pTmp2 = pTmp2->link)
-      if (pTmp->data.donGia < pTmp2->data.donGia) {
-        CAYBUT tmp = pTmp->data;
-        pTmp->data = pTmp2->data;
-        pTmp2->data = tmp;
+
+// Phan 1 - Cau 2
+int timSoLuongMax(Nodeptr list) {
+  Nodeptr p;
+  int max = list->data.soLuong;
+  p = list->link;
+  while (p != NULL) {
+    if (max < p->data.soLuong)
+      max = p->data.soLuong;
+    p = p->link;
+  }
+  return max;
+}
+
+void xuatMaSoCayButConSoLuongTonKhoNhieuNhat(Nodeptr list) {
+  int max = timSoLuongMax(list);
+  if (list != NULL) {
+    Nodeptr p = list;
+    while (p != NULL) {
+      if (p->data.soLuong == max) {
+        cout << "Ma " << p->data.maCB << " ton kho so luong but nhieu nhat" << endl;
       }
+      p = p->link;
+    }
+  }
+}
+
+// Phan 1 - Cau 3
+void xoaButBangHangSX(Nodeptr& list, CAYBUT cb) {
+  if (strcmp(list->data.hangSX, cb.hangSX) == 0) {
+    Nodeptr p = list;
+    list = list->link;
+    delete p;
+  }
+  else {
+    Nodeptr p, before;
+    p = list;
+    before = list;
+    while (p != NULL && strcmp(p->data.hangSX, cb.hangSX) != 0) {
+      before = p;
+      p = p->link;
+    }
+    if (p != NULL) {
+      before->link = p->link;
+      delete p;
+    }
+  }
+}
+
+void xoaThongTinTatCaButThuocHangX(Nodeptr& list, char *str) {
+  if (list != NULL) {
+    Nodeptr p = list, q;
+    while (p != NULL) {
+      if (strcmp(p->data.hangSX, str) == 0) {
+        q = p->link;
+        xoaButBangHangSX(list, p->data);
+        p = q;
+      }
+      else
+        p = p->link;
+    }
+  }
 }
 
 // Phan 2
@@ -284,18 +341,22 @@ int getFront_Queue(QUEUE q) {
   return x;
 }
 
-void chenSauNode(QUEUE& q, int x, int pos) {
+void xoaPhanTuXThu2TroDi(QUEUE& q, int x) {
   QUEUE tam;
   QUEUE p = q;
   init_Queue(tam);
-  int vitritam = 0;
-  while (vitritam <= pos && !isEmpty_Queue(p)) {
-    enQueue(tam, deQueue(p));
-    vitritam += 1;
+  int check = 0;
+  while (!isEmpty_Queue(p)) {
+    if (getFront_Queue(p) != x)
+      enQueue(tam, deQueue(p));
+    else {
+      if (check == 0)
+        enQueue(tam, deQueue(p));
+      check++;
+      if (check > 1)
+        deQueue(p);
+    }
   }
-  enQueue(tam, x);
-  while (!isEmpty_Queue(p))
-    enQueue(tam, deQueue(p));
   q = tam;
 }
 
@@ -383,21 +444,13 @@ int top(STACK& s) {
   return -1;
 }
 
-void xoaPhanTuXThu2TroDi(STACK& s, int x) {
-  STACK tam;
+// Phan 2 - Cau 3
+void daoNguocThuTuStack(STACK &s) {
   STACK p = s;
-  init_Stack(tam);
-  int check = 0;
+  STACK temp;
+  init_Stack(temp);
   while (!isEmpty_Stack(p)) {
-    if (top(p) != x)
-      push_top(tam, pop(p));
-    else {
-      if (check == 0)
-        push_top(tam, pop(p));
-      check++;
-      if (check > 1)
-        pop(p);
-    }
+    push(temp, pop(p));
   }
-  s = tam;
+  s = temp;
 }
