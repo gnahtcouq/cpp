@@ -137,6 +137,7 @@ bool kiemTraTrungMaSV(Nodeptr& list, char* ma) {
   }
   return false;
 }
+
 void nhapDSSV(Nodeptr& list) {
   SinhVien sv;
   khoiTao(list);
