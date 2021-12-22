@@ -362,13 +362,24 @@ void tinhBacCuaCay(NODE *root, int &maxBac) {
   }
 }
 
-int tinhChieuCaoCuaCay(NODE *root) {
+int tinhChieuCaoCuaCay_DeQuyThuong(NODE *root) {
   if (root == NULL)
     return 0;
-  int left = tinhChieuCaoCuaCay(root->left);
-  int right = tinhChieuCaoCuaCay(root->right);
+  int left = tinhChieuCaoCuaCay_DeQuyThuong(root->left);
+  int right = tinhChieuCaoCuaCay_DeQuyThuong(root->right);
 
   return left > right ? left + 1 : right + 1;
+}
+
+void tinhChieuCaoCuaCay_DeQuyDuoi(NODE *root, int &max, int level) {
+  if (root != NULL) {
+    // cout << "\nNode " << root->data << " nam o level" << level;
+    if (level > max)
+      max = level;
+    level++;
+    tinhChieuCaoCuaCay_DeQuyDuoi(root->left, max, level);
+    tinhChieuCaoCuaCay_DeQuyDuoi(root->right, max, level);
+  }
 }
 
 int main() {
@@ -425,8 +436,12 @@ int main() {
   // tinhBacCuaCay(root, bacCuaCay);
   // cout << "\nCay co bac la " << bacCuaCay;
 
-  int chieuCaoCay = tinhChieuCaoCuaCay(root);
-  cout << "\nCay co chieu cao la " << chieuCaoCay;
+  // int chieuCaoCay = tinhChieuCaoCuaCay_DeQuyThuong(root);
+  // cout << "\nCay co chieu cao la (dequythuong) " << chieuCaoCay;
+
+  int chieuCao = 0;
+  tinhChieuCaoCuaCay_DeQuyDuoi(root, chieuCao, 1);
+  cout << "\nCay co chieu cao la (dequyduoi) " << chieuCao;
 
   /* Tao ra 1 cay nhi phan day du co do cao la k */
   // int k = 15;
