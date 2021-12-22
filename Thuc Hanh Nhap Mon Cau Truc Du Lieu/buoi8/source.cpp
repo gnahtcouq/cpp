@@ -187,3 +187,22 @@ int top_DSLK(Stack_DSLK& s) {
     return p->data;
   }
 }
+
+void xoaPhanTuXThu2TroDi(STACK& s, int x) {
+  STACK tam;
+  STACK p = s;
+  khoiTao_StackLK(tam);
+  int check = 0;
+  while (!isEmpty_StackLK(p)) {
+    if (top_StackLK(p) != x)
+      pushtop_StackLK(tam, pop_StackLK(p));
+    else {
+      if (check == 0)
+        pushtop_StackLK(tam, pop_StackLK(p));
+      check++;
+      if (check > 1)
+        pop_StackLK(p);
+    }
+  }
+  s = tam;
+}
