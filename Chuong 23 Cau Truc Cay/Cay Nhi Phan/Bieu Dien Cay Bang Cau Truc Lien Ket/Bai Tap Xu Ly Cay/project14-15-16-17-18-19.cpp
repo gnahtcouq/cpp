@@ -382,6 +382,24 @@ void tinhChieuCaoCuaCay_DeQuyDuoi(NODE *root, int &max, int level) {
   }
 }
 
+void timNodeX(NODE *root, bool &check, char x, int &dosau, int level) {
+  if (root != NULL && check == false) { // Chi de quy khi Node co ton tai va trang thai tim kiem la chua co tim thay
+    cout << root->data << " ";
+    if (root->data == x) {
+      // cout << "\nDa tim thay node co data la " << x;
+      check = true;
+      dosau = level;
+      // system("pause");
+      // exit(0);
+      return; // Ket thuc tim kiem khi da tim thay
+    }
+    level++;
+    timNodeX(root->left, check, x, dosau, level);
+    timNodeX(root->right, check, x, dosau, level);
+  }
+}
+
+
 int main() {
   /* Nhap du lieu cho cay (Tao cay) */
 
@@ -439,9 +457,18 @@ int main() {
   // int chieuCaoCay = tinhChieuCaoCuaCay_DeQuyThuong(root);
   // cout << "\nCay co chieu cao la (dequythuong) " << chieuCaoCay;
 
-  int chieuCao = 0;
-  tinhChieuCaoCuaCay_DeQuyDuoi(root, chieuCao, 1);
-  cout << "\nCay co chieu cao la (dequyduoi) " << chieuCao;
+  // int chieuCao = 0;
+  // tinhChieuCaoCuaCay_DeQuyDuoi(root, chieuCao, 1);
+  // cout << "\nCay co chieu cao la (dequyduoi) " << chieuCao;
+
+  bool timThayX = false;
+  char x = 'L';
+  int doSauCuaNode;
+  timNodeX(root, timThayX, x, doSauCuaNode, 1);
+  if (timThayX == true)
+    cout << "\nDa tim thay node co data la " << x << " => do sau cua node la " << doSauCuaNode;
+  else
+    cout << "\nKhong tim thay node co data la " << x;
 
   /* Tao ra 1 cay nhi phan day du co do cao la k */
   // int k = 15;
