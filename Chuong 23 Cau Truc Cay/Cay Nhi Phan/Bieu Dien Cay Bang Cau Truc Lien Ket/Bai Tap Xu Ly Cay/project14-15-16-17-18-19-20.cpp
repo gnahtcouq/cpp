@@ -426,6 +426,8 @@ void lietKeCacNodeTrenMoiTang(NODE *root) {
 }
 
 // s la operator giua tang cua node hien tai voi tang k
+// vd: xuat tat ca cac node nam tren tang k => s = "=="
+
 void lietKeVaDemCacNodeCoTangThoaDieuKienVoiTangK(NODE *root,char *s, int k, int &dem, int level = 1) {
   if (root != NULL) {
     bool check;
