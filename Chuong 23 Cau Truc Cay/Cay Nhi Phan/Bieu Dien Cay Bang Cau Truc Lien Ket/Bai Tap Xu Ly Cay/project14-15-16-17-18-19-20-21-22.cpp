@@ -9,7 +9,7 @@ using namespace std;
 
 /* Khai bao cau truc du lieu cay nhi phan */
 struct Node {
-  char data; // Du lieu trong Node la ky tu
+  int data; // Du lieu trong Node la ky tu
   struct Node* left, * right; // con tro tro den lien ket Node trai va Node phai
 };
 typedef struct Node NODE;
@@ -22,7 +22,7 @@ void khoiTao(NODE*& root) { // Tree &root
 
 /* Tao Node */
 // Ham nay se khoi tao ra 1 Node moi va dua x vao Data cua Node do sau do tra Node do ve
-NODE* taoNode(char x) { // x la du lieu dua vao trong Node
+NODE* taoNode(int x) { // x la du lieu dua vao trong Node
   NODE* p = new NODE;
 
   // Truong hop may tinh het bo nho de cap phat
@@ -513,33 +513,33 @@ bool kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2(NODE *root) {
 int main() {
   /* Nhap du lieu cho cay (Tao cay) */
 
-  // Buoc 1: Tao ra bay nhieu Node tuong ung voi cac Node co trong cay
-  NODE *root = taoNode('A');// Day chinh la Node goc
-  NODE *B = taoNode('B');
-  NODE *C = taoNode('C');
-  NODE *D = taoNode('D');
-  NODE *E = taoNode('E');
-  NODE *F = taoNode('F');
-  NODE *G = taoNode('G');
-  NODE *H = taoNode('H');
-  NODE *I = taoNode('I');
-  NODE *J = taoNode('J');
-  NODE *K = taoNode('K');
-  NODE *L = taoNode('L');
+  // // Buoc 1: Tao ra bay nhieu Node tuong ung voi cac Node co trong cay
+  // NODE *root = taoNode('A');// Day chinh la Node goc
+  // NODE *B = taoNode('B');
+  // NODE *C = taoNode('C');
+  // NODE *D = taoNode('D');
+  // NODE *E = taoNode('E');
+  // NODE *F = taoNode('F');
+  // NODE *G = taoNode('G');
+  // NODE *H = taoNode('H');
+  // NODE *I = taoNode('I');
+  // NODE *J = taoNode('J');
+  // NODE *K = taoNode('K');
+  // NODE *L = taoNode('L');
   
 
-  // Buoc 2: Tao ra cac moi lien ket giua cac Node voi nhau
-  root->left = B;
-  root->right = C;
-  B->left = D;
-  B->right = E;
-  C->left = F;
-  C->right = G;
-  D->left = H;
-  D->right = I;
-  E->right = J;
-  F->left = K;
-  G->right = L;
+  // // Buoc 2: Tao ra cac moi lien ket giua cac Node voi nhau
+  // root->left = B;
+  // root->right = C;
+  // B->left = D;
+  // B->right = E;
+  // C->left = F;
+  // C->right = G;
+  // D->left = H;
+  // D->right = I;
+  // E->right = J;
+  // F->left = K;
+  // G->right = L;
 
   // NODE *M = taoNode('M');
   // E->left = M;
@@ -623,34 +623,34 @@ int main() {
 
 
 
-  // /* Tao ra 1 cay nhi phan day du co do cao la k */
-  // int k = 7;
-  // NODE *root = taoNode(1);
-  // queue<NODE *> q;
-  // q.push(root);
+  /* Tao ra 1 cay nhi phan day du co do cao la k */
+  int k = 25;
+  NODE *root = taoNode(1);
+  queue<NODE *> q;
+  q.push(root);
 
-  // while (true) {
-  //   NODE *p = q.front();
-  //   q.pop();
+  while (true) {
+    NODE *p = q.front();
+    q.pop();
 
-  //   if (p->data == pow(2.0, k - 1))
-  //     break;
+    if (p->data == pow(2.0, k - 1))
+      break;
 
-  //   p->left = taoNode(2 * p->data);
-  //   p->right = taoNode(2 * p->data + 1);
-  //   q.push(p->left);
-  //   q.push(p->right);
-  // }
+    p->left = taoNode(2 * p->data);
+    p->right = taoNode(2 * p->data + 1);
+    q.push(p->left);
+    q.push(p->right);
+  }
 
-  // clock_t start1 = clock();
-  // bool kiemTraCayNhiPhanDayDu_Cach1 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1(root);
-  // clock_t end1 = clock();
-  // cout << "\nkiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1 chay mat " << (double)(end1 - start1) / CLOCKS_PER_SEC;
+  clock_t start1 = clock();
+  bool kiemTraCayNhiPhanDayDu_Cach1 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1(root);
+  clock_t end1 = clock();
+  cout << "\nkiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1 chay mat " << (double)(end1 - start1) / CLOCKS_PER_SEC;
 
-  // clock_t start2 = clock();
-  // bool kiemTraCayNhiPhanDayDu_Cach2 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2(root);
-  // clock_t end2 = clock();
-  // cout << "\nkiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2 chay mat " << (double)(end2 - start2) / CLOCKS_PER_SEC;
+  clock_t start2 = clock();
+  bool kiemTraCayNhiPhanDayDu_Cach2 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2(root);
+  clock_t end2 = clock();
+  cout << "\nkiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2 chay mat " << (double)(end2 - start2) / CLOCKS_PER_SEC;
 
 
 
