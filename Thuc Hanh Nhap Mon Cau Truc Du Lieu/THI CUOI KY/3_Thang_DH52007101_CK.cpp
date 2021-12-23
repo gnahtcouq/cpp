@@ -228,7 +228,7 @@ void sapXepGiamDanTheoSoLuong(Nodeptr &list) {
 }
 
 // Phan 2
-// Phan 1 - Cau 1
+// Phan 2 - Cau 1
 void init_Queue(QUEUE &q) {
   q.front = NULL;
   q.rear = NULL;
