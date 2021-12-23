@@ -215,26 +215,18 @@ void sapXepDanhSachCayButTheoHangSX(Nodeptr &list) {
       }
     }
   }
-  
 }
 
 // Cau 3
-// void sapXepGiamDanTheoDonGia(Nodeptr &list) {
-//   // for (Nodeptr pTmp = list; pTmp != NULL; pTmp = pTmp->link)
-//   //   for (Nodeptr pTmp2 = pTmp->link; pTmp2 != NULL; pTmp2 = pTmp2->link)
-//   //     if (pTmp->data.donGia < pTmp2->data.donGia) {
-//   //       CAYBUT tmp = pTmp->data;
-//   //       pTmp->data = pTmp2->data;
-//   //       pTmp2->data = tmp;
-//   //     }
-//   if (list != NULL) {
-//     Nodeptr p = list;
-//     while (p != NULL) {
-//       cout << "Hang SX " << p->data.hangSX << ", so luong = " << p->data.soLuong << endl;
-//       p = p->link;
-//     }
-//   }
-// }
+void sapXepGiamDanTheoDonGia(Nodeptr &list) {
+  for (Nodeptr pTmp = list; pTmp != NULL; pTmp = pTmp->link)
+    for (Nodeptr pTmp2 = pTmp->link; pTmp2 != NULL; pTmp2 = pTmp2->link)
+      if (pTmp->data.donGia < pTmp2->data.donGia) {
+        CAYBUT tmp = pTmp->data;
+        pTmp->data = pTmp2->data;
+        pTmp2->data = tmp;
+      }
+}
 
 // Phan 2
 // Cau 1

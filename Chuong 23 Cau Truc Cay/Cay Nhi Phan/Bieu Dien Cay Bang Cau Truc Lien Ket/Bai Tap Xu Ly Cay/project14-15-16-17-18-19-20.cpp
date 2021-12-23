@@ -3,6 +3,7 @@
 #include <queue>
 #include <time.h>
 #include <math.h>
+#include <string.h>
 using namespace std;
 
 /* Khai bao cau truc du lieu cay nhi phan */
@@ -371,7 +372,7 @@ int tinhChieuCaoCuaCay_DeQuyThuong(NODE *root) {
   return left > right ? left + 1 : right + 1;
 }
 
-void tinhChieuCaoCuaCay_DeQuyDuoi(NODE *root, int &max, int level) {
+void tinhChieuCaoCuaCay_DeQuyDuoi(NODE *root, int &max, int level = 1) {
   if (root != NULL) {
     // cout << "\nNode " << root->data << " nam o level" << level;
     if (level > max)
@@ -396,6 +397,59 @@ void timNodeX(NODE *root, bool &check, char x, int &dosau, int level) {
     level++;
     timNodeX(root->left, check, x, dosau, level);
     timNodeX(root->right, check, x, dosau, level);
+  }
+}
+
+void lietKeVaDemCacNodeTrenTangK(NODE *root, int k, int &dem, int level = 1) {
+  if (root != NULL) {
+    // cout << "\nNode " << root->data << " co level la " << level;
+    if (level == k) {
+      dem++;
+      cout << root->data << " ";
+    }
+
+    level++;
+    lietKeVaDemCacNodeTrenTangK(root->left, k, dem, level);
+    lietKeVaDemCacNodeTrenTangK(root->right, k, dem, level);
+  }
+}
+
+void lietKeCacNodeTrenMoiTang(NODE *root) {
+  int chieuCaoCay = 0;
+  tinhChieuCaoCuaCay_DeQuyDuoi(root, chieuCaoCay);
+  for (int i = 1; i <= chieuCaoCay; ++i) {
+    cout << "\nTang thu " << i << ": ";
+    int dem = 0;
+    lietKeVaDemCacNodeTrenTangK(root, i, dem);
+    cout << " => co " << dem << " node";
+  }
+}
+
+// s la operator giua tang cua node hien tai voi tang k
+void lietKeVaDemCacNodeCoTangThoaDieuKienVoiTangK(NODE *root,char *s, int k, int &dem, int level = 1) {
+  if (root != NULL) {
+    bool check;
+    if (strcmp(s, "==") == 0)
+      check = (level == k);
+    else if (strcmp(s, ">") == 0)
+      check = (level > k);
+    else if (strcmp(s, "<") == 0)
+      check = (level < k);
+    else if (strcmp(s, ">=") == 0)
+      check = (level >= k);
+    else if (strcmp(s, "<=") == 0)
+      check = (level <= k);
+    else if (strcmp(s, "!=") == 0)
+      check = (level != k);
+
+    if (check) {
+      dem++;
+      cout << root->data << " ";
+    }
+
+    level++;
+    lietKeVaDemCacNodeCoTangThoaDieuKienVoiTangK(root->left, s, k, dem, level);
+    lietKeVaDemCacNodeCoTangThoaDieuKienVoiTangK(root->right, s, k, dem, level);
   }
 }
 
@@ -431,6 +485,7 @@ int main() {
   F->left = K;
   G->right = L;
 
+
   // cout << "\nSo luong cac node la = " << demSoLuongCacNodeLa_DeQuyThuong(root);
 
   // int soLuongCacNodela = 0;
@@ -461,14 +516,31 @@ int main() {
   // tinhChieuCaoCuaCay_DeQuyDuoi(root, chieuCao, 1);
   // cout << "\nCay co chieu cao la (dequyduoi) " << chieuCao;
 
-  bool timThayX = false;
-  char x = 'L';
-  int doSauCuaNode;
-  timNodeX(root, timThayX, x, doSauCuaNode, 1);
-  if (timThayX == true)
-    cout << "\nDa tim thay node co data la " << x << " => do sau cua node la " << doSauCuaNode;
-  else
-    cout << "\nKhong tim thay node co data la " << x;
+  // bool timThayX = false;
+  // char x = 'L';
+  // int doSauCuaNode;
+  // timNodeX(root, timThayX, x, doSauCuaNode, 1);
+  // if (timThayX == true)
+  //   cout << "\nDa tim thay node co data la " << x << " => do sau cua node la " << doSauCuaNode;
+  // else
+  //   cout << "\nKhong tim thay node co data la " << x;
+
+  // int k = 4;
+  // int dem = 0;
+  // cout << "\nCac node nam tren tang " << k << endl;
+  // lietKeVaDemCacNodeTrenTangK(root, k, dem, 1);
+  // if (dem == 0)
+  //   cout << "\nKhong co node nao nam tren tang " << k;
+  // else
+  //   cout << "\nCo " << dem << " node";
+
+  // lietKeCacNodeTrenMoiTang(root);
+
+  int k = 3;
+  int demSoLuongNode = 0;
+  char *s = (char *)">=";
+  lietKeVaDemCacNodeCoTangThoaDieuKienVoiTangK(root, s , k, demSoLuongNode);
+  cout << "\n => Co " << demSoLuongNode << " node thoa dieu kien co tang " << s << " tang " << k;
 
   /* Tao ra 1 cay nhi phan day du co do cao la k */
   // int k = 15;
