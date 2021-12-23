@@ -4,6 +4,7 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
+#include <vector>
 using namespace std;
 
 /* Khai bao cau truc du lieu cay nhi phan */
@@ -414,6 +415,18 @@ void lietKeVaDemCacNodeTrenTangK(NODE *root, int k, int &dem, int level = 1) {
   }
 }
 
+void demCacNodeTrenTangK(NODE *root, int k, int &dem, int level = 1) {
+  if (root != NULL) {
+    // cout << "\nNode " << root->data << " co level la " << level;
+    if (level == k)
+      dem++;
+
+    level++;
+    demCacNodeTrenTangK(root->left, k, dem, level);
+    demCacNodeTrenTangK(root->right, k, dem, level);
+  }
+}
+
 void lietKeCacNodeTrenMoiTang(NODE *root) {
   int chieuCaoCay = 0;
   tinhChieuCaoCuaCay_DeQuyDuoi(root, chieuCaoCay);
@@ -455,6 +468,47 @@ void lietKeVaDemCacNodeCoTangThoaDieuKienVoiTangK(NODE *root,char *s, int k, int
   }
 }
 
+// Neu tra ve true -> la cay nhi phan day du
+// Neu tra ve false -> khong phai la cay nhi phan day du
+bool kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1(NODE *root) {
+  int chieuCaoCay = 0;
+  tinhChieuCaoCuaCay_DeQuyDuoi(root, chieuCaoCay);
+  for (int i = 1; i <= chieuCaoCay; ++i) {
+    // cout << "\nTang thu " << i << ": ";
+    int dem = 0;
+    demCacNodeTrenTangK(root, i, dem);
+    // cout << " => co " << dem << " node";
+
+    if (dem != pow(2.0, i - 1))
+      return false;
+  }
+  return true;
+}
+
+void thongKeSoLuongNodeTrenMoiTangVaoVector(NODE *root, vector<int> &a, int level = 1) {
+  if (root != NULL) {
+    // cout << "\nNode " << root->data << " co level la " << level;
+    if(level > a.size()) // Neu level dang xet ma vector chua co thi tao moi ra o tuong ung trong vector voi gia tri khoi tao ban dau la 0
+      a.push_back(0);
+    a[level - 1]++; // o tuong ung level trong vector se duoc cap nhat dem len 1 don vi
+
+    level++;
+    thongKeSoLuongNodeTrenMoiTangVaoVector(root->left, a, level);
+    thongKeSoLuongNodeTrenMoiTangVaoVector(root->right, a, level);
+  }
+}
+
+bool kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2(NODE *root) {
+  vector<int> a;
+  thongKeSoLuongNodeTrenMoiTangVaoVector(root, a);
+
+  int soLuong = a.size();
+  for (int i = 0; i < soLuong; ++i)
+    if (a[i] != pow(2.0, i))
+      return false;
+  return true;
+}
+
 
 int main() {
   /* Nhap du lieu cho cay (Tao cay) */
@@ -487,6 +541,12 @@ int main() {
   F->left = K;
   G->right = L;
 
+  // NODE *M = taoNode('M');
+  // E->left = M;
+  // NODE *N = taoNode('N');
+  // F->right = N;
+  // NODE *O = taoNode('O');
+  // G->left = O;
 
   // cout << "\nSo luong cac node la = " << demSoLuongCacNodeLa_DeQuyThuong(root);
 
@@ -538,11 +598,67 @@ int main() {
 
   // lietKeCacNodeTrenMoiTang(root);
 
-  int k = 3;
-  int demSoLuongNode = 0;
-  char *s = (char *)">=";
-  lietKeVaDemCacNodeCoTangThoaDieuKienVoiTangK(root, s , k, demSoLuongNode);
-  cout << "\n => Co " << demSoLuongNode << " node thoa dieu kien co tang " << s << " tang " << k;
+  // int k = 3;
+  // int demSoLuongNode = 0;
+  // char *s = (char *)">=";
+  // lietKeVaDemCacNodeCoTangThoaDieuKienVoiTangK(root, s , k, demSoLuongNode);
+  // cout << "\n => Co " << demSoLuongNode << " node thoa dieu kien co tang " << s << " tang " << k;
+
+
+
+  // bool kiemTraCayNhiPhanDayDu_Cach1 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1(root);
+  // if (kiemTraCayNhiPhanDayDu_Cach1 == true)
+  //   cout << "\nkiemTraCayNhiPhanDayDu_Cach1 => Day la cay nhi phan day du";
+  // else
+  //   cout << "\nkiemTraCayNhiPhanDayDu_Cach1 => Khong phai la cay nhi phan day du";
+
+
+  // bool kiemTraCayNhiPhanDayDu_Cach2 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2(root);
+  // if (kiemTraCayNhiPhanDayDu_Cach2 == true)
+  //   cout << "\nkiemTraCayNhiPhanDayDu_Cach2 => Day la cay nhi phan day du";
+  // else
+  //   cout << "\nkiemTraCayNhiPhanDayDu_Cach2 => Khong phai la cay nhi phan day du";
+
+
+
+
+
+  // /* Tao ra 1 cay nhi phan day du co do cao la k */
+  // int k = 7;
+  // NODE *root = taoNode(1);
+  // queue<NODE *> q;
+  // q.push(root);
+
+  // while (true) {
+  //   NODE *p = q.front();
+  //   q.pop();
+
+  //   if (p->data == pow(2.0, k - 1))
+  //     break;
+
+  //   p->left = taoNode(2 * p->data);
+  //   p->right = taoNode(2 * p->data + 1);
+  //   q.push(p->left);
+  //   q.push(p->right);
+  // }
+
+  // clock_t start1 = clock();
+  // bool kiemTraCayNhiPhanDayDu_Cach1 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1(root);
+  // clock_t end1 = clock();
+  // cout << "\nkiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1 chay mat " << (double)(end1 - start1) / CLOCKS_PER_SEC;
+
+  // clock_t start2 = clock();
+  // bool kiemTraCayNhiPhanDayDu_Cach2 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2(root);
+  // clock_t end2 = clock();
+  // cout << "\nkiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2 chay mat " << (double)(end2 - start2) / CLOCKS_PER_SEC;
+
+
+
+
+
+
+
+
 
   /* Tao ra 1 cay nhi phan day du co do cao la k */
   // int k = 15;
