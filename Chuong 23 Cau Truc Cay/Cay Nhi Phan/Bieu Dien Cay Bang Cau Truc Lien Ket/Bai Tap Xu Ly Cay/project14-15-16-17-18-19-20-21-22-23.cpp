@@ -9,7 +9,7 @@ using namespace std;
 
 /* Khai bao cau truc du lieu cay nhi phan */
 struct Node {
-  int data; // Du lieu trong Node la ky tu
+  char data; // Du lieu trong Node la ky tu
   struct Node* left, * right; // con tro tro den lien ket Node trai va Node phai
 };
 typedef struct Node NODE;
@@ -22,7 +22,7 @@ void khoiTao(NODE*& root) { // Tree &root
 
 /* Tao Node */
 // Ham nay se khoi tao ra 1 Node moi va dua x vao Data cua Node do sau do tra Node do ve
-NODE* taoNode(int x) { // x la du lieu dua vao trong Node
+NODE* taoNode(char x) { // x la du lieu dua vao trong Node
   NODE* p = new NODE;
 
   // Truong hop may tinh het bo nho de cap phat
@@ -510,43 +510,137 @@ bool kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2(NODE *root) {
 }
 
 
+// Thong ke so luong node va danh sach node o tang h va tang h-1
+void duyetCayVaTaoDanhSachMang2ChieuChuaCacNode(NODE *root, vector<vector<NODE *>> &mang2ChieuNode, int level = 1) {
+  if (root != NULL) {
+    if (level > mang2ChieuNode.size()) {
+      vector<NODE *> temp;
+      temp.push_back(root);
+      mang2ChieuNode.push_back(temp);
+    }
+    else {
+      mang2ChieuNode[level - 1].push_back(root);
+    }
+
+    level++;
+    duyetCayVaTaoDanhSachMang2ChieuChuaCacNode(root->left, mang2ChieuNode, level);
+    duyetCayVaTaoDanhSachMang2ChieuChuaCacNode(root->right, mang2ChieuNode, level);
+  }
+}
+
+// 1/ Cac tang tu 1->h-1 (voi h la do cao cay) phai day du cac node(hay noi cach khac neu loai bo di tang h thi cay phai la cay nhi phan day du) va tang h se khong day du node
+// 2/ Cac node o tang h se duoc lap tu trai sang phai cua tang h-1 truoc do
+
+// Tra ve true neu thoa la cay nhi phan hoan chinh
+// Tra ve false neu khong thoa
+bool kiemTraCayNhiPhanCoLaCayNhiPhanHoanChinh(NODE *root) {
+  vector<vector<NODE *>> mang2ChieuNode;
+  duyetCayVaTaoDanhSachMang2ChieuChuaCacNode(root, mang2ChieuNode);
+  int chieuCaoCay = mang2ChieuNode.size();
+  for (int i = 1; i < chieuCaoCay; ++i) {
+    if (mang2ChieuNode[i - 1].size() != pow(2.0, i - 1))
+      return false;
+  }
+  // Xet rieng so luong node cua tang cuoi cung phai khong day du thi moi xet xem co la hoan chinh hay khong (neu la day du luon thi do la cay day du roi)
+  if (mang2ChieuNode[chieuCaoCay - 1].size() == pow(2.0, chieuCaoCay - 1))
+    return false;
+
+  // Neu chay den day roi thi tuc la tieu chi 1 dau tien da thoa
+  for (int j = 0; j < mang2ChieuNode[chieuCaoCay - 1].size(); ++j) {
+    NODE *con = mang2ChieuNode[chieuCaoCay - 1][j];
+    NODE *cha = mang2ChieuNode[chieuCaoCay - 2][j / 2];
+
+    if (j % 2 == 0) { // chan -> con trai
+      if (cha->left != con)
+        return false;
+    }
+    else { // le -> con phai
+      if (cha->right != con)
+        return false;
+    }
+  }
+  return true;
+}
+
+
+// Giong nhau: cac node nam o tang 1 -> h-1 (voi h la chieu cao cua cay) deu day du
+// Khac nhau: 
+// + cay nhi phan day du: cac node o tang h deu day du
+// + cay nhi phan hoan chinh: cac node o tang h khong day du va phai duoc sap theo thu tu tu trai qua phai deu dan
+
+// 1: la cay day du
+// 2: la cay hoan chinh
+// 0: khong la cay gi het
+int kiemTraCayNhiPhanLaCayNhiPhanDayDuHayCayNhiPhanHoanChinh(NODE *root) {
+  vector<vector<NODE *>> mang2ChieuNode;
+  duyetCayVaTaoDanhSachMang2ChieuChuaCacNode(root, mang2ChieuNode);
+  int chieuCaoCay = mang2ChieuNode.size();
+
+  // Kiem tra cac node tu tang 1->h-1 phai day du thi moi xet tiep
+  for (int i = 1; i < chieuCaoCay; ++i) {
+    if (mang2ChieuNode[i - 1].size() != pow(2.0, i - 1))
+      return 0;
+  }
+
+  // Neu xuong duoc day tuc la cay nay cac node o tang 1->h-1 deu day du -> xet tiep so luong cac node o tang h
+  if (mang2ChieuNode[chieuCaoCay - 1].size() == pow(2.0, chieuCaoCay - 1))
+    return 1;
+  
+  // Neu xuong day duoc tuc la khong day du cac node(tuc la khong the la cay day du, chi co the la cay hoan chinh hoac la khong) thi se xet tiep tieu chi 2 xem cac node co duoc sap deu dan tu trai->phai khong de ket luan co the la cay hoan chinh
+  for (int j = 0; j < mang2ChieuNode[chieuCaoCay - 1].size(); ++j) {
+    NODE *con = mang2ChieuNode[chieuCaoCay - 1][j];
+    NODE *cha = mang2ChieuNode[chieuCaoCay - 2][j / 2];
+
+    if (j % 2 == 0) { // chan -> con trai
+      if (cha->left != con)
+        return 0;
+    }
+    else { // le -> con phai
+      if (cha->right != con)
+        return 0;
+    }
+  }
+  return 2; // la cay hoan chinh
+}
+
+
 int main() {
   /* Nhap du lieu cho cay (Tao cay) */
 
-  // // Buoc 1: Tao ra bay nhieu Node tuong ung voi cac Node co trong cay
-  // NODE *root = taoNode('A');// Day chinh la Node goc
-  // NODE *B = taoNode('B');
-  // NODE *C = taoNode('C');
-  // NODE *D = taoNode('D');
-  // NODE *E = taoNode('E');
-  // NODE *F = taoNode('F');
-  // NODE *G = taoNode('G');
-  // NODE *H = taoNode('H');
-  // NODE *I = taoNode('I');
-  // NODE *J = taoNode('J');
-  // NODE *K = taoNode('K');
-  // NODE *L = taoNode('L');
+  // Buoc 1: Tao ra bay nhieu Node tuong ung voi cac Node co trong cay
+  NODE *root = taoNode('A');// Day chinh la Node goc
+  NODE *B = taoNode('B');
+  NODE *C = taoNode('C');
+  NODE *D = taoNode('D');
+  NODE *E = taoNode('E');
+  NODE *F = taoNode('F');
+  NODE *G = taoNode('G');
+  NODE *H = taoNode('H');
+  NODE *I = taoNode('I');
+  NODE *J = taoNode('J');
+  NODE *K = taoNode('K');
+  NODE *L = taoNode('L');
   
 
-  // // Buoc 2: Tao ra cac moi lien ket giua cac Node voi nhau
-  // root->left = B;
-  // root->right = C;
-  // B->left = D;
-  // B->right = E;
-  // C->left = F;
-  // C->right = G;
-  // D->left = H;
-  // D->right = I;
-  // E->right = J;
-  // F->left = K;
-  // G->right = L;
+  // Buoc 2: Tao ra cac moi lien ket giua cac Node voi nhau
+  root->left = B;
+  root->right = C;
+  B->left = D;
+  B->right = E;
+  C->left = F;
+  C->right = G;
+  D->left = H;
+  D->right = I;
+  E->right = J;
+  F->left = K;
+  G->right = L;
 
-  // NODE *M = taoNode('M');
-  // E->left = M;
-  // NODE *N = taoNode('N');
-  // F->right = N;
-  // NODE *O = taoNode('O');
-  // G->left = O;
+  NODE *M = taoNode('M');
+  E->left = M;
+  NODE *N = taoNode('N');
+  F->right = N;
+  NODE *O = taoNode('O');
+  G->left = O;
 
   // cout << "\nSo luong cac node la = " << demSoLuongCacNodeLa_DeQuyThuong(root);
 
@@ -623,34 +717,67 @@ int main() {
 
 
 
-  /* Tao ra 1 cay nhi phan day du co do cao la k */
-  int k = 25;
-  NODE *root = taoNode(1);
-  queue<NODE *> q;
-  q.push(root);
+  // vector<vector<NODE *>> mang2Chieu;
+  // duyetCayVaTaoDanhSachMang2ChieuChuaCacNode(root, mang2Chieu);
+  // for (int i = 0; i < mang2Chieu.size(); ++i) {
+  //   for (int j = 0; j < mang2Chieu[i].size(); ++j) {
+  //     cout << mang2Chieu[i][j]->data << " ";
+  //   }
+  //   cout << endl;
+  // }
 
-  while (true) {
-    NODE *p = q.front();
-    q.pop();
+  // cout << "\n\n";
+  // int k = 4;
+  // for (int j = 0; j < mang2Chieu[k - 1].size(); ++j) {
+  //   cout << mang2Chieu[k - 1][j]->data << " ";
+  // }
+  // cout << "\n=> Co " << mang2Chieu[k - 1].size() << " node";
 
-    if (p->data == pow(2.0, k - 1))
-      break;
 
-    p->left = taoNode(2 * p->data);
-    p->right = taoNode(2 * p->data + 1);
-    q.push(p->left);
-    q.push(p->right);
-  }
+  // bool kiemTraCayNhiPhanHoanChinh = kiemTraCayNhiPhanCoLaCayNhiPhanHoanChinh(root);
+  // if (kiemTraCayNhiPhanHoanChinh == true)
+  //   cout << "\n=> Day la cay nhi phan hoan chinh";
+  // else
+  //   cout << "\n=> Khong phai la cay nhi phan hoan chinh";
 
-  clock_t start1 = clock();
-  bool kiemTraCayNhiPhanDayDu_Cach1 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1(root);
-  clock_t end1 = clock();
-  cout << "\nkiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1 chay mat " << (double)(end1 - start1) / CLOCKS_PER_SEC;
+  int kiemTraCayDayDuHayHoanChinh = kiemTraCayNhiPhanLaCayNhiPhanDayDuHayCayNhiPhanHoanChinh(root);
+  if (kiemTraCayDayDuHayHoanChinh == 1)
+    cout << "\n=> Day la cay nhi phan day du";
+  else if (kiemTraCayDayDuHayHoanChinh == 2)
+    cout << "\n=> Day la cay nhi phan hoan chinh";
+  else
+    cout << "\n=> Day la cay nhi phan";
 
-  clock_t start2 = clock();
-  bool kiemTraCayNhiPhanDayDu_Cach2 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2(root);
-  clock_t end2 = clock();
-  cout << "\nkiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2 chay mat " << (double)(end2 - start2) / CLOCKS_PER_SEC;
+
+
+  // /* Tao ra 1 cay nhi phan day du co do cao la k */
+  // int k = 25;
+  // NODE *root = taoNode(1);
+  // queue<NODE *> q;
+  // q.push(root);
+
+  // while (true) {
+  //   NODE *p = q.front();
+  //   q.pop();
+
+  //   if (p->data == pow(2.0, k - 1))
+  //     break;
+
+  //   p->left = taoNode(2 * p->data);
+  //   p->right = taoNode(2 * p->data + 1);
+  //   q.push(p->left);
+  //   q.push(p->right);
+  // }
+
+  // clock_t start1 = clock();
+  // bool kiemTraCayNhiPhanDayDu_Cach1 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1(root);
+  // clock_t end1 = clock();
+  // cout << "\nkiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach1 chay mat " << (double)(end1 - start1) / CLOCKS_PER_SEC;
+
+  // clock_t start2 = clock();
+  // bool kiemTraCayNhiPhanDayDu_Cach2 = kiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2(root);
+  // clock_t end2 = clock();
+  // cout << "\nkiemTraCayNhiPhanCoLaCayNhiPhanDayDu_Cach2 chay mat " << (double)(end2 - start2) / CLOCKS_PER_SEC;
 
 
 
