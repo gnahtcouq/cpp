@@ -658,8 +658,6 @@ int main() {
 
 
 
-
-
   /* Tao ra 1 cay nhi phan day du co do cao la k */
   // int k = 15;
   // NODE *root = taoNode(1);
