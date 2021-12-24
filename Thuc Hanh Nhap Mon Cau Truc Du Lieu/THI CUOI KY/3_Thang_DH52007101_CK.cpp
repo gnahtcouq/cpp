@@ -45,7 +45,6 @@ void enQueue(QUEUE &q, int x);
 void setValue_Queue(QUEUE &q);
 void print_Queue(QUEUE q);
 int deQueue(QUEUE &q);
-int getFront_Queue(QUEUE q);
 void chenSauNode(QUEUE &q, int x, int pos);
 
 struct STACK {
@@ -75,6 +74,7 @@ int main() {
   cout << "\nSap xep giam theo so luong cay but";
   sapXepGiamDanTheoSoLuong(ds);
   xuatDanhSachCayBut(ds);
+  giaiPhong(ds);
   cout << "\n\n";
 
   // Phan 2 - Cau 1
@@ -291,13 +291,6 @@ int deQueue(QUEUE &q) {
     delete p;
     return t;
   }
-}
-
-int getFront_Queue(QUEUE q) {
-  if (isEmpty_Queue(q))
-    return -1;
-  int x = q.front->data;
-  return x;
 }
 
 void chenSauNode(QUEUE &q, int x, int pos) {

@@ -72,6 +72,7 @@ void xuat_DSTP(DaySo ds) {
   cout << setw(30) << left << "Ten TP" << "\t";
   cout << setw(15) << left << "Bo Suu Tap" << "\t";
   cout << setw(15) << left << "Don Gia" << endl;
+  
   for (int i = 0; i < ds.n; i++) {
     xuat_MotTrangPhuc(ds.data[i]);
   }
@@ -122,11 +123,9 @@ bool xoaTenTrangPhuc(DaySo &ds, char *str) {
 
 int demSoLuongTrangPhucTrongBoSuuTap(DaySo ds, char *str) {
   int dem = 0;
-  for (int i = 0; i < ds.n; i++) {
-    if (strcmp(ds.data[i].boSuuTap, str) == 0) {
+  for (int i = 0; i < ds.n; i++)
+    if (strcmp(ds.data[i].boSuuTap, str) == 0)
       dem++;
-    }
-  }
   return dem;
 }
 
