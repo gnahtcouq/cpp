@@ -109,6 +109,7 @@ void xoaTrangPhucTaiViTri(DaySo &ds, int vitri) {
       ds.data[i - 1] = ds.data[i];
     ds.n--;
   }
+  xuat_DSTP(ds);
 }
 
 bool xoaTenTrangPhuc(DaySo &ds, char *str) {
@@ -139,6 +140,7 @@ void sapXepTrangPhucTheoDonGia(DaySo &ds) {
       }
     }
   }
+  xuat_DSTP(ds);
 }
 
 void hienThiMenu() {

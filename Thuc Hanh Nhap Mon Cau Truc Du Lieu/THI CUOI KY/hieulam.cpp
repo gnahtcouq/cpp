@@ -1,6 +1,9 @@
 #include<iostream>
+#include <stdio.h>
+#include <queue>
+#include <stack>
 using namespace std;
-typedef int TYPEINFO;
+typedef float TYPEINFO;
 struct Node {
   TYPEINFO data;
   Node* next;
@@ -17,97 +20,67 @@ Nodeptr tao_Node(TYPEINFO x);
 void them_Dau(Dlist& L, TYPEINFO x);
 void nhap_Ds(Dlist& L);
 void xuat_Ds_Thuan(Dlist list);
-void xuat_Ds_Nguoc(Dlist L);
 void them_Cuoi(Dlist& l, TYPEINFO x);
-void xoa_Dau(Dlist& l);
-void xoa_Cuoi(Dlist& l);
-int tim_Vitri_X(Dlist l, TYPEINFO x);
+int tim_ViTriXuatHienSauCung(Dlist l);
 void giaiPhong(Dlist& list);
 
-// DSLK Vong
-typedef int TYPEINFOC;
-struct NodeC {
-  TYPEINFOC data;
-  NodeC* link;
+
+struct NodeTree {
+  int Data;
+  struct NodeTree* Left, * Right;
+  bool TinhTrangDuyet;
+  int ThuTuDuyet;
+  struct NodeTree* Cha;
 };
-typedef NodeC* NodeptrC;
-struct List {
-  NodeptrC first;
-  NodeptrC last;
-};
-NodeptrC tao_NodeC(TYPEINFOC x);
-void khoiTaoC(List& list);
-int isEmptyC(List list);
-void them_DauC(List& list, TYPEINFOC x);
-void them_CuoiC(List& list, TYPEINFOC x);
-void readListC(List& list);
-void printListC(List list);
-void xoa_DauC(List& list);
-void xoa_CuoiC(List& list);
-int tim_Giatri_X_C(List list, TYPEINFOC x);
-void giaiPhong2(List& list);
+typedef struct NodeTree NODE;
+
+NODE* TimKiemNode_KhuDeQuy(NODE* Root, int x);
+NODE* TimKiemNode_DeQuy(NODE* Root, int x, NODE* NodeTruocNull);
+void INit(NODE*& Root);
+NODE* GetNode(int x);
+int ThemNodeVaoCay_KhuDeQuy(NODE*& Root, int x);
+void TaoCayTuDaySo(NODE*& Root, int a[], int n);
+void NLR(NODE* Root);
+void LRN(NODE* Root);
 
 int main() {
   Dlist list;
   khoi_Tao(list);
   nhap_Ds(list);
-  cout << "\nXuat danh sach theo chieu thuan: ";
+  cout << "\nXuat danh sach theo chieu xuoi: ";
   xuat_Ds_Thuan(list);
-
-  // Cau 1
-  cout << "\nXuat danh sach theo chieu nguoc: ";
-  xuat_Ds_Nguoc(list);
-
-  // Cau 2
-  // Cau 3
-  cout << "\nDanh sach sau khi xoa dau: ";
-  xoa_Dau(list);
-  xuat_Ds_Thuan(list);
-
-  // Cau 4
-  cout << "\nDanh sach sau khi xoa cuoi: ";
-  xoa_Cuoi(list);
-  xuat_Ds_Thuan(list);
-
-  // Cau 5
-  int x;
-  cout << "\nNhap phan tu can tim: ";
-  cin >> x;
-  int result = tim_Vitri_X(list, x);
-  if (result == -2)
-    cout << "Khong co phan tu can tim";
+  int result = tim_ViTriXuatHienSauCung(list);
+  if (result == -1)
+    cout << "\nKhong co phan tu can tim";
   else
-    cout << "Phan tu can tim o vi tri: " << result << endl;
-  
+    cout << "\nVi tri phan tu xuat hien sau cung: " << result << endl;
   giaiPhong(list);
 
-  // Cau 6
-  List list2;
-  khoiTaoC(list2);
-  readListC(list2);
-  printListC(list2);
+  // Phan 2
 
-  // Cau 7a
-  xoa_DauC(list2);
-  cout << "\nDSLK vong sau khi xoa dau: ";
-  printListC(list2);
+  int a[] = { 40, 5, 35, 45, 15, 56, 35, 35, 35, 48, 13, 16, 49, 47 };
+  int n = sizeof(a) / sizeof(a[0]);
 
-  // Cau 7b
-  xoa_CuoiC(list2);
-  cout << "\nDSLK vong sau khi xoa cuoi: ";
-  printListC(list2);
+  NODE* Root;
+  INit(Root);
+  TaoCayTuDaySo(Root, a, n);
 
-  // Cau 8
+  for (int i = 0; i < n; i++)
+    cout << a[i] << " ";
+
   int x2;
-  cout << "\nNhap phan tu can tim: ";
+  cout << "\nNhap x can tim: ";
   cin >> x2;
-  int result2 = tim_Giatri_X_C(list2, x2);
-  if (result2 == 0)
-    cout << "Tim thay";
+  NODE* p = TimKiemNode_DeQuy(Root, x2, Root);
+  if (p->Data != x2)
+    cout << "\nKhong tim thay node trong cay co gia tri la: " << x2;
   else
-    cout << "Khong tim thay";
+    cout << "\nDa tim thay node trong cay co gia tri la: " << p->Data;
 
-  giaiPhong2(list2);
+  cout << "\nNLR: ";
+  NLR(Root);
+  cout << "\nLRN: ";
+  LRN(Root);
 
   cout << endl;
   system("pause");
@@ -167,16 +140,6 @@ void xuat_Ds_Thuan(Dlist list) {
   }
 }
 
-// Cau 1
-void xuat_Ds_Nguoc(Dlist L) {
-  Nodeptr p = L.last;
-  while (p != NULL) {
-    cout << p->data << " ";
-    p = p->pre;
-  }
-}
-
-// Cau 2
 void them_Cuoi(Dlist& l, TYPEINFO x) {
   Nodeptr p;
   p = tao_Node(x);
@@ -191,41 +154,16 @@ void them_Cuoi(Dlist& l, TYPEINFO x) {
   }
 }
 
-// Cau 3
-void xoa_Dau(Dlist& l) {
-  if (l.first != NULL) {
-    Nodeptr p = l.first;
-    l.first = l.first->next;
-    delete p;
-    if (l.first != NULL) {
-      l.first->pre = NULL;
-    }
-  }
-}
-
-// Cau 4
-void xoa_Cuoi(Dlist& l) {
-  if (l.first->next == NULL) {
-    xoa_Dau(l);
-    return;
-  }
-  Nodeptr p = l.last;
-  (p->pre)->next = NULL;
-  l.last = p->pre;
-  delete p;
-}
-
-// Cau 5
-int tim_Vitri_X(Dlist l, TYPEINFO x) {
+int tim_ViTriXuatHienSauCung(Dlist l) {
   int vitri = 0;
   Nodeptr p = l.first;
-  while (p != NULL) 	{
+  while (p != NULL) {
     vitri++;
-    if (p->data == x)
+    if (p->data == l.last->data)
       return vitri - 1;
     p = p->next;
   }
-  return -2;
+  return -1;
 }
 
 void giaiPhong(Dlist& list) {
@@ -237,121 +175,84 @@ void giaiPhong(Dlist& list) {
   }
 }
 
-// DSLK Vong
-// Cau 6a
-NodeptrC tao_NodeC(TYPEINFOC x) {
-  NodeptrC p = new NodeC;
+// Phan 2
+void INit(NODE*& Root) {
+  Root = NULL;
+}
+
+NODE* GetNode(int x) {
+  NODE* p = (NODE*)malloc(sizeof(NODE));
   if (p == NULL)
-    return 0;
-  p->link = NULL;
-  p->data = x;
+    return NULL;
+
+  p->Data = x;
+  p->Left = p->Right = NULL;
+  p->ThuTuDuyet = 0;
+  p->TinhTrangDuyet = false;
+  p->Cha = NULL;
+
   return p;
 }
-void khoiTaoC(List& list) {
-  list.first = list.last = NULL;
-}
-int isEmptyC(List list) {
-  if (list.first == NULL)
-    return 1;
-  return 0;
-}
-void them_DauC(List& list, TYPEINFOC x) {
-  NodeptrC p = tao_NodeC(x);
-  if (isEmptyC(list) == 1)
-    list.first = list.last = p;
-  else {
-    p->link = list.first;
-    list.first = p;
+
+
+void NLR(NODE* Root) {
+  if (Root != NULL) {
+    cout << Root->Data << " ";
+    NLR(Root->Left);
+    NLR(Root->Right);
   }
-  list.last->link = list.first;
 }
 
-void readListC(List& list) {
-  int x;
-  do {
-    cout << "Nhap x = (thoat-99) ";
-    cin >> x;
-    if (x == -99)
-      break;
-    // them_DauC(list, x);
-    them_CuoiC(list, x);
-  } while (1);
+void LRN(NODE* Root) {
+  if (Root != NULL) {
+    LRN(Root->Left);
+    LRN(Root->Right);
+    cout << Root->Data << " ";
+  }
 }
 
-void printListC(List list) {
-  if (list.first != NULL) {
-    NodeptrC p = list.first;
-    do {
-      cout << p->data << " ";
-      p = p->link;
-    } while (p != list.first);
-  }
+NODE* TimKiemNode_DeQuy(NODE* Root, int x, NODE* NodeTruocNull) {
+  if (Root == NULL)
+    return NodeTruocNull;
+
+  if (x > Root->Data)
+    return TimKiemNode_DeQuy(Root->Right, x, Root);
+  else if (x < Root->Data)
+    return TimKiemNode_DeQuy(Root->Left, x, Root);
   else
-    cout << "\nDS rong";
+    return Root;
 }
 
-// Cau 6b
-void them_CuoiC(List& list, TYPEINFOC x) {
-  NodeptrC p;
-  p = tao_NodeC(x);
-  if (isEmptyC(list) == 1) {
-    list.first = list.last = p;
+int ThemNodeVaoCay_KhuDeQuy(NODE*& Root, int x) {
+  if (Root == NULL) {
+    Root = GetNode(x);
   }
   else {
-    list.last->link = p;
-    list.last = p;
-  }
-  list.last->link = list.first;
-}
 
-// Cau 7a
-void xoa_DauC(List& list) {
-  if (list.first != NULL) {
-    if (list.first != list.last) {
-      NodeptrC p = list.first;
-      list.first = list.first->link;
-      list.last->link = list.first;
-      delete p;
+    NODE* p = TimKiemNode_DeQuy(Root, x, Root);
+
+    if (p->Data != x) {
+      NODE* ConMoi = GetNode(x);
+
+      if (ConMoi == NULL)
+        return -1;
+      if (x > p->Data)
+        p->Right = ConMoi;
+      else if (x < p->Data)
+        p->Left = ConMoi;
+
+      ConMoi->Cha = p;
     }
-    else
-      list.first = NULL;
-  }
-}
-
-// Cau 7b
-void xoa_CuoiC(List& list) {
-  if (list.last != NULL) {
-    if (list.last != list.first) {
-      NodeptrC p = list.first;
-      while (p->link != list.last) p = p->link;
-      NodeptrC q = list.last;
-      list.last = p;
-      list.last->link = list.first;
-      delete q;
+    else {
+      return 0;
     }
-    else
-      list.last = NULL;
   }
-}
-
-// Cau 8
-int tim_Giatri_X_C(List list, TYPEINFOC x) {
-	if (list.first != NULL) {
-		NodeptrC p = list.first;
-		do {
-			if (p->data == x) 
-				return 0;
-			p = p->link;
-		} while (p != list.first);
-	}
   return 1;
 }
 
-void giaiPhong2(List& list) {
-  NodeptrC p;
-  while (list.first != NULL) {
-    p = list.first;
-    list.first = list.first->link;
-    delete p;
+void TaoCayTuDaySo(NODE*& Root, int a[], int n) {
+  INit(Root);
+  for (int i = 0; i < n; ++i) {
+    ThemNodeVaoCay_KhuDeQuy(Root, a[i]);
   }
 }
