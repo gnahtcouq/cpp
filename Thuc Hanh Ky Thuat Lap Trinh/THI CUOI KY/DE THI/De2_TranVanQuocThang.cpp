@@ -36,8 +36,6 @@ int main() {
 }
 
 void nhap_MotBangDia(BangDia& bd) {
-  fflush(stdin);
-  // cin.ignore();
   cout << "\nNhap ma dia: ";
   cin.getline(bd.maDia, 5);
   cout << "Nhap nhan dia: ";
@@ -63,6 +61,7 @@ void nhap_DanhSachBangDia(DanhSach& ds) {
   cout << "\t\tNHAP THONG TIN TUNG BANG DIA";
   for (int i = 0; i < ds.soLuong; i++) {
     cout << "\n\tBang Dia " << i + 1;
+    cin.ignore();
     nhap_MotBangDia(ds.data[i]);
   }
 }
@@ -79,6 +78,7 @@ void xuat_DanhSachBangDia(DanhSach ds) {
 
 void themBangDiaVaoDauDanhSach(DanhSach& ds) {
   BangDia bd;
+  cin.ignore();
   nhap_MotBangDia(bd);
   for (int i = ds.soLuong - 1; i >= 0; i--)
     ds.data[i + 1] = ds.data[i];
