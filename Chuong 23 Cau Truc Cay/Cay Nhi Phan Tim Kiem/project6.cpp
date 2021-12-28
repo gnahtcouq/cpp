@@ -29,13 +29,14 @@ NODE* getNode(int x) { // x la du lieu ma se dua no vao trong node
 
 void themNodeVaoCay_DeQuy(NODE*& root, int x) { // them gia tri x vao cay
   if (root != NULL) {
+    // Dieu kien de quy
     if (x > root->data)
       themNodeVaoCay_DeQuy(root->right, x);
     else if (x < root->data)
       themNodeVaoCay_DeQuy(root->left, x);
   }
   else // root == NULL
-    root = getNode(x);
+    root = getNode(x); // Dung de quy -> Tao Node chua gia tri can them vao
 }
 
 void taoCayTuDaySo(NODE *&root, int a[], int n) { // Day so chua trong mang a va co n la so luong phan tu cua day
@@ -77,7 +78,7 @@ void LRN(NODE *root) {
 }
 
 int main() {
-  int a[] = {40, 5, 35, 45, 15, 56, 48, 13, 16, 49, 47};
+  int a[] = {40, 5, 35, 45, 15, 56, 35, 35, 35, 48, 13, 16, 49, 47};
   int n = sizeof(a) / sizeof(a[0]);
   NODE *root;
   taoCayTuDaySo(root, a, n);
