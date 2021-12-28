@@ -39,10 +39,44 @@ void themNodeVaoCay_DeQuy(NODE*& root, int x) { // them gia tri x vao cay
     root = getNode(x); // Dung de quy -> Tao Node chua gia tri can them vao
 }
 
+void themNodeVaoCay_KhuDeQuy(NODE*& root, int x, NODE *goc) {
+  // Tu ban dau cay chua co gi -> tao node goc cho cay
+  if (root == NULL)
+    root = getNode(x);
+  else { // Cay da co Node goc roi thi tien hanh them lan luot cac Node tiep theo vao va so sanh de tim vi tri thich hop de them
+    NODE *p; // La node truoc khi root = NULL
+    while (root != NULL) {
+      p = root;
+      if (x > root->data)
+        root = root->right;
+      else if (x < root->data)
+        root = root->left;
+      else if (x == root->data) {
+        root = goc;
+        return; // Ket thuc ham do cay nhi phan tim kiem khong co node trung nhau
+      }
+    }
+    // Them Node moi vao
+    if (x > p->data)
+      p->right = getNode(x);
+    else if (x < p->data)
+      p->left = getNode(x);
+    root = goc;
+  }
+}
+
 void taoCayTuDaySo(NODE *&root, int a[], int n) { // Day so chua trong mang a va co n la so luong phan tu cua day
   init(root); // khoi tao ra cay roi tu do moi co the them cac node vao trong cay
   for (int i = 0; i < n; ++i) // vong lap duyet qua danh sach day so chua trong mang a de tu do them vao cay
     themNodeVaoCay_DeQuy(root, a[i]);
+}
+
+void taoCayTuDaySo_KhuDeQuy(NODE *&root, int a[], int n) { // Day so chua trong mang a va co n la so luong phan tu cua day
+  init(root); // khoi tao ra cay roi tu do moi co the them cac node vao trong cay
+  root = getNode(a[0]);
+  NODE *goc = root;
+  for (int i = 1; i < n; ++i) // vong lap duyet qua danh sach day so chua trong mang a de tu do them vao cay
+    themNodeVaoCay_KhuDeQuy(root, a[i], goc);
 }
 
 void NLR(NODE *root) {
@@ -80,8 +114,24 @@ void LRN(NODE *root) {
 int main() {
   int a[] = {40, 5, 35, 45, 15, 56, 35, 35, 35, 48, 13, 16, 49, 47};
   int n = sizeof(a) / sizeof(a[0]);
+
   NODE *root;
   taoCayTuDaySo(root, a, n);
+
+  cout << "\nNLR: ";
+  NLR(root);
+
+  cout << "\nLNR: ";
+  LNR(root);
+  cout << "\nRNL: ";
+  RNL(root);
+
+  cout << "\nLRN: ";
+  LRN(root);
+
+
+
+  taoCayTuDaySo_KhuDeQuy(root, a, n);
 
   cout << "\nNLR: ";
   NLR(root);
@@ -97,3 +147,5 @@ int main() {
   system("pause");
   return 0;
 }
+
+// phut 38
