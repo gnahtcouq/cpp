@@ -30,7 +30,6 @@ void hienThiMenu();
 
 int main() {
   hienThiMenu();
-
   system("pause");
   return 0;
 }
@@ -52,8 +51,7 @@ void xuat_MotTrangPhuc(TrangPhuc tp) {
   cout << setw(5) << left << tp.maSP << "\t";
   cout << setw(30) << left << tp.tenSP << "\t";
   cout << setw(15) << left << tp.boSuuTap << "\t";
-  cout << setw(15) << left << tp.donGia << "\t";
-  cout << endl;
+  cout << setw(15) << left << tp.donGia << "\t" << endl;
 }
 
 void nhap_DSTP(DanhSach &ds) {
@@ -71,7 +69,7 @@ void xuat_DSTP(DanhSach ds) {
   cout << setw(5) << left << "Ma TP" << "\t";
   cout << setw(30) << left << "Ten TP" << "\t";
   cout << setw(15) << left << "Bo Suu Tap" << "\t";
-  cout << setw(15) << left << "Don Gia" << endl;
+  cout << setw(15) << left << "Don Gia" << "\t" << endl;
   for (int i = 0; i < ds.soLuong; i++)
     xuat_MotTrangPhuc(ds.data[i]);
 }
@@ -93,7 +91,7 @@ bool timKiemThongTinTrangPhuc(DanhSach ds, char *str) {
   cout << setw(5) << left << "Ma TP" << "\t";
   cout << setw(30) << left << "Ten TP" << "\t";
   cout << setw(15) << left << "Bo Suu Tap" << "\t";
-  cout << setw(15) << left << "Don Gia" << endl;
+  cout << setw(15) << left << "Don Gia" << "\t" << endl;
   for (int i = 0; i < ds.soLuong; i++)
     if (strcmp(ds.data[i].maSP, str) == 0) {
       xuat_MotTrangPhuc(ds.data[i]);
@@ -209,6 +207,7 @@ void hienThiMenu() {
       break;
     case 7:
       cout << "\n7. Sap xep trang phuc tang dan theo don gia";
+      cout << "\nDanh sach sau khi sap xep";
       sapXepTrangPhucTheoDonGia(ds);
       break;
     default:

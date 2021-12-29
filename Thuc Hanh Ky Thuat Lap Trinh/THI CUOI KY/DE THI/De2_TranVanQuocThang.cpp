@@ -51,8 +51,7 @@ void xuat_MotBangDia(BangDia bd) {
   cout << setw(7) << left << bd.maDia << "\t";
   cout << setw(30) << left << bd.nhanDia << "\t";
   cout << setw(15) << left << bd.theLoai << "\t";
-  cout << setw(15) << left << bd.giaTien << "\t";
-  cout << endl;
+  cout << setw(15) << left << bd.giaTien << "\t" << endl;
 }
 
 void nhap_DanhSachBangDia(DanhSach& ds) {
@@ -71,7 +70,7 @@ void xuat_DanhSachBangDia(DanhSach ds) {
   cout << setw(7) << left << "Ma Dia" << "\t";
   cout << setw(30) << left << "Nhan Dia" << "\t";
   cout << setw(15) << left << "The Loai" << "\t";
-  cout << setw(15) << left << "Gia Tien" << endl;
+  cout << setw(15) << left << "Gia Tien" << "\t" << endl;
   for (int i = 0; i < ds.soLuong; i++)
     xuat_MotBangDia(ds.data[i]);
 }
@@ -148,8 +147,10 @@ void demSoLuongDiaTheoTheLoai(DanhSach ds) {
 void hienThiMenu() {
   BangDia bd;
   DanhSach ds;
+  ds.soLuong = 0;
   int chon = 0;
   do {
+    cout << "\n--------------- MENU ---------------";
     cout << "\n\n0 - Thoat chuong trinh";
     cout << "\n1 - Nhap danh sach bang dia";
     cout << "\n2 - Xuat danh sach bang dia";
@@ -168,8 +169,12 @@ void hienThiMenu() {
       nhap_DanhSachBangDia(ds);
       break;
     case 2:
-      cout << "\n2. Danh sach cac bang dia da nhap la: ";
-      xuat_DanhSachBangDia(ds);
+      if (ds.soLuong == 0)
+        cout << "\n2. Danh sach rong" << endl;
+      else {
+        cout << "\n2. Danh sach cac bang dia da nhap la: ";
+        xuat_DanhSachBangDia(ds);
+      }
       break;
     case 3:
       cout << "\n3. Nhap thong tin bang dia can them vao dau danh sach";
@@ -184,7 +189,7 @@ void hienThiMenu() {
         cout << "Sua thong tin nhan dia cua ma dia " << str << " thanh cong";
       else
         cout << "Sua khong thanh cong";
-      cout << "\nDanh sach bang dia sau khi sua thong tin";
+      cout << "\nDanh sach bang dia sau khi sua thong tin la: ";
       xuat_DanhSachBangDia(ds);
       break;
     case 5:
