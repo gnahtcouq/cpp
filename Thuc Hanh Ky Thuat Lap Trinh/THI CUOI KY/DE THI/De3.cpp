@@ -36,16 +36,14 @@ int main() {
 }
 
 void nhap_MotMonHoc(MonHoc &mh) {
-  fflush(stdin);
   cout << "\nNhap ma MH: ";
   cin.getline(mh.maMH, 5);
   cout << "Nhap ten MH: ";
   cin.getline(mh.tenMH, 15);
-  cout << "Nhap so TC: ";
-  cin >> mh.soTC;
-  cin.ignore();
   cout << "Nhap ten giao vien: ";
   cin.getline(mh.giaoVien, 30);
+  cout << "Nhap so TC: ";
+  cin >> mh.soTC;
   cout << endl;
 }
 
@@ -62,6 +60,7 @@ void nhap_DanhSachMonHoc(DanhSach &ds) {
   cout << "\t\tNHAP THONG TIN TUNG MON HOC";
   for (int i = 0; i < ds.soLuong; i++) {
     cout << "\n\tMon Hoc " << i + 1;
+    cin.ignore();
     nhap_MotMonHoc(ds.data[i]);
   }
 }
@@ -78,6 +77,7 @@ void xuat_DanhSachMonHoc(DanhSach ds) {
 
 void themMonHocVaoDauDanhSach(DanhSach& ds) {
   MonHoc mh;
+  cin.ignore();
   nhap_MotMonHoc(mh);
   for (int i = ds.soLuong - 1; i >= 0; i--)
     ds.data[i + 1] = ds.data[i];
