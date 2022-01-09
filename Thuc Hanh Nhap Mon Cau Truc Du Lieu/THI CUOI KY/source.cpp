@@ -205,16 +205,8 @@ void xuatDanhSachCayBut(Nodeptr list) {
 }
 
 // Cau 2
-void sapXepDanhSachCayButTheoHangSX(Nodeptr &list) {
-  for (Nodeptr pTmp = list; pTmp != NULL; pTmp = pTmp->link) {
-    for (Nodeptr pTmp2 = pTmp->link; pTmp2 != NULL; pTmp2 = pTmp2->link) {
-      if (strcmp(pTmp->data.hangSX, pTmp2->data.hangSX) > 0) {
-        CAYBUT tmp = pTmp->data;
-        pTmp->data = pTmp2->data;
-        pTmp2->data = tmp;
-      }
-    }
-  }
+void xuatRaTatCaTenHangSanXuatVaSoLuongCayButTonKhoCuaNo(Nodeptr list) {
+
 }
 
 // Cau 3
