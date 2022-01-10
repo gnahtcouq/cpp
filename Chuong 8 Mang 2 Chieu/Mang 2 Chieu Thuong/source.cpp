@@ -7,7 +7,7 @@ using namespace std;
 void nhapMang(int a[][MAX], int dong, int cot) {
   for (int i = 0; i < dong; i++) {
     for (int j = 0; j < cot; j++) {
-      cout << "\nNhap vao a[" << i << "][" << j << "] = "; 
+      cout << "\nNhap vao a[" << i << "][" << j << "] = ";
       cin >> a[i][j];
     }
   }
