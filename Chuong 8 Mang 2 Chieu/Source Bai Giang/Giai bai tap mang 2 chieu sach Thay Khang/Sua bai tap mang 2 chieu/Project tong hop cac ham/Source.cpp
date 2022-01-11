@@ -6,10 +6,13 @@ using namespace std;
 
 // CHƯƠNG 6: Ma Trận
 
-// * KỸ THUẬT TÍNH TOÁN *
+void nhapMang(float a[][MAX], int dong, int cot);
+void xuatMang(float a[][MAX], int dong, int cot);
 
+
+// * KỸ THUẬT TÍNH TOÁN *
 float TinhTongCacSoDuong(float a[][MAX], int dong, int cot);
-int TinhTichCacSoLe(int a[][MAX], int dong, int cot);
+float TinhTichCacSoLe(float a[][MAX], int dong, int cot);
 float TinhTongDongK(float a[][MAX], int k, int cot);
 float TinhTichCacSoDuongTrenCotK(float a[][MAX], int dong, int k);
 float TinhTrungBinhCongCacSoDuong(float a[][MAX], int dong, int cot);
@@ -37,50 +40,94 @@ float TimMax_Cach1(float a[][MAX], int dong, int cot);
 float TimMax_Cach2(float a[][MAX], int dong, int cot);
 
 int main() {
+  float a[MAX][MAX];
+  int dong, cot;
+
+  do {
+    cout << "\nNhap vao so dong = ";
+    cin >> dong;
+    if (dong < 1 || dong > MAX)
+      cout << "\nSo dong khong hop le. Xin kiem tra lai";
+  } while (dong < 1 || dong > MAX);
+
+  do {
+    cout << "\nNhap vao so cot = ";
+    cin >> cot;
+    if (cot < 1 || cot > MAX)
+      cout << "\nSo cot khong hop le. Xin kiem tra lai";
+  } while (cot < 1 || cot > MAX);
+
+  nhapMang(a, dong, cot);
+  xuatMang(a, dong, cot);
+
+  float tongDuong = TinhTongCacSoDuong(a, dong, cot);
+  cout << "\nTong cac so duong = " << tongDuong;
+  
+  float tichLe = TinhTichCacSoLe(a, dong, cot);
+  cout << "\nTich cac so le = " << tichLe;
+
+  int k;
+  cout << "\nNhap dong k can tinh tong: ";
+  cin >> k;
+  float tongDong = TinhTongDongK(a, k, cot);
+  cout << "Tong dong " << k << " = " << tongDong;
+
+  cout << "\nNhap cot k can tinh tich duong: ";
+  cin >> k;
+  float tichDuong = TinhTichCacSoDuongTrenCotK(a, dong, k);
+  cout << "Tich duong cot " << k << " = " << tichDuong;
+
+  float tbcDuong = TinhTrungBinhCongCacSoDuong(a, dong, cot);
+  cout << "\nTrung binh cong cac so duong = " << tbcDuong;
 
   system("pause");
   return 0;
 }
 
-// Bài 320:
-
-float TinhTongCacSoDuong(float a[][MAX], int dong, int cot) {
-  float Tong = 0;
-
+void nhapMang(float a[][MAX], int dong, int cot) {
   for (int i = 0; i < dong; i++) {
     for (int j = 0; j < cot; j++) {
-      if (a[i][j] >= 0) {
-        Tong += a[i][j];
-      }
+      cout << "\nNhap vao a[" << i << "][" << j << "] = ";
+      cin >> a[i][j];
     }
   }
+}
+
+void xuatMang(float a[][MAX], int dong, int cot) {
+  for (int i = 0; i < dong; i++) {
+    for (int j = 0; j < cot; j++)
+      cout << a[i][j] << " ";
+    cout << endl;
+  }
+}
+
+
+
+// Bài 320:
+float TinhTongCacSoDuong(float a[][MAX], int dong, int cot) {
+  float Tong = 0;
+  for (int i = 0; i < dong; i++)
+    for (int j = 0; j < cot; j++)
+      if (a[i][j] >= 0)
+        Tong += a[i][j];
   return Tong;
 }
 
 // Bài 321:
-
-int TinhTichCacSoLe(int a[][MAX], int dong, int cot) {
+float TinhTichCacSoLe(float a[][MAX], int dong, int cot) {
   int Tich = 1;
-
-  for (int i = 0; i < dong; i++) {
-    for (int j = 0; j < cot; j++) {
-      if (a[i][j] % 2 != 0) {
+  for (int i = 0; i < dong; i++)
+    for (int j = 0; j < cot; j++)
+      if ((int)a[i][j] % 2 != 0)
         Tich *= a[i][j];
-      }
-    }
-  }
   return Tich;
 }
 
 // Bài 322:
-
 float TinhTongDongK(float a[][MAX], int k, int cot) {
   float Tong = 0;
-
-  for (int j = 0; j < cot; j++) {
+  for (int j = 0; j < cot; j++)
     Tong += a[k][j];
-  }
-
   return Tong;
 }
 
@@ -88,23 +135,18 @@ float TinhTongDongK(float a[][MAX], int k, int cot) {
 
 float TinhTichCacSoDuongTrenCotK(float a[][MAX], int dong, int k) {
   float Tich = 1;
-
-  for (int i = 0; i < dong; i++) {
-    if (a[i][k] >= 0) {
+  for (int i = 0; i < dong; i++)
+    if (a[i][k] >= 0)
       Tich *= a[i][k];
-    }
-  }
   return Tich;
 }
 
 // Bài 324, 325 tương tự => tự làm
 
 // Bài 326:
-
 float TinhTrungBinhCongCacSoDuong(float a[][MAX], int dong, int cot) {
   int dem = 0; // Đếm số lượng các số dương.
   float Tong = 0;
-
   for (int i = 0; i < dong; i++) {
     for (int j = 0; j < cot; j++) {
       if (a[i][j] >= 0) {
@@ -117,7 +159,6 @@ float TinhTrungBinhCongCacSoDuong(float a[][MAX], int dong, int cot) {
 }
 
 // Bài 327 
-
 float TinhTongBien(float a[][MAX], int dong, int cot) {
   float Tong = 0;
 
@@ -401,7 +442,7 @@ int DemSoLuongCucTri(float a[][MAX], int dong, int cot) {
 // = > hình thành 2 đường đi lên và i xuống. Đi lên thì dòng giảm 1, cột tăng 1. Đi xuống thì dòng
 // tăng 1, cột giảm 1.
 
-// Bài 347 (* ): Đếm số lượng giá trị yên ngự trên ma trận. Một phần tử được gọi là yên ngựa khi nó
+// Bài 347 (* ): Đếm số lượng giá trị yên ngựa trên ma trận. Một phần tử được gọi là yên ngựa khi nó
 // lớn nhất trên dòng và nhỏ nhất trên cột.
 
 // = > GỢI  Ý:
