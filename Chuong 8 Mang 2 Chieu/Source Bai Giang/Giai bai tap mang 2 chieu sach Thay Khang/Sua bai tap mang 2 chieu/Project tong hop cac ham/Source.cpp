@@ -446,7 +446,7 @@ bool KiemTraToanDuong(float a[][MAX], int dong, int cot) {
 
 // Bài 352: Kiểm tra 1 hàng có tăng dần hay không ?
 
-// Kiểm tra hàng k tăng ần. Nếu đúng trả về true, nếu sai trả về false.
+// Kiểm tra hàng k tăng dần. Nếu đúng trả về true, nếu sai trả về false.
 bool KiemTraHangTangDan(float a[][MAX], int k, int cot) {
   for (int j = 0; j < cot - 1; j++) {
     if (a[k][j] > a[k][j + 1]) {

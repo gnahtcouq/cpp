@@ -13,7 +13,6 @@ void LietKeTimMinMaxCheoPhu(int a[][MAX], int n);
 void LietKeDemSoChanTamGiacTrenCheoChinh(int a[][MAX], int n);
 void LietKeVaTimXTrongTamGiacDuoiCheoChinh(int a[][MAX], int n, int x);
 
-
 int main() {
   int a[MAX][MAX], n;
 
