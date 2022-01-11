@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string.h>
+#include <string>
 using namespace std;
 
 #define KTM 100
@@ -23,7 +24,42 @@ struct MangSo {
 bool kiemTraMangTang(MangSo a);
 void tachMangNguyenDuongChiaHetCho3(MangSo x, MangSo &y);
 
+
+// substr(s, x, y); Cat chuoi con trong doan x, y cua chuoi s
+string trichChuoiConTuChuoiMe(string s, int start, int end) {
+  char ketqua[100];
+	int idx = 0;
+	for(int i = start; i <= end; i++)
+		ketqua[idx++] = s[i];
+	ketqua[idx] = '\0';
+	return ketqua;
+}
+
+string trichChuoiConTuChuoiMe_2(string s, int pos, int num) {
+  char ketqua[100];
+	int idx = 0;
+	for(int i = pos; i < pos + num; i++)
+		ketqua[idx++] = s[i];
+	ketqua[idx] = '\0';
+	return ketqua;
+}
+
 int main() {
+
+  string s = "CongNgheThongTin";
+  int start = 8, end = 12;
+
+  string s2 = trichChuoiConTuChuoiMe(s, start, end);
+  cout << "\n\n\n\ns = " << s;
+  cout << "\ns2 = " << s2;
+
+  int pos = 8, num = 5;
+  string s3 = trichChuoiConTuChuoiMe_2(s, pos, num);
+  cout << "\n\n\n\ns = " << s;
+  cout << "\ns3 = " << s3;
+
+
+
   // Matrix a;
   // docMaTran(a);
   // xuatMaTran(a);
@@ -65,6 +101,7 @@ int main() {
   // MangSo y;
   // tachMangNguyenDuongChiaHetCho3(a, y);
 
+  cout << endl;
   system("pause");
   return 0;
 }
@@ -146,3 +183,4 @@ void tachMangNguyenDuongChiaHetCho3(MangSo x, MangSo &y) {
   for (int i = 0; i < ny; i++)
     cout << y.data[i] << " ";
 }
+
