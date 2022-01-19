@@ -1,24 +1,44 @@
 #include <iostream>
 using namespace std;
 
-int timMin(int a[], int n, int& posMin) {
+int timMin(int a[], int n) {
   int min = a[0];
   for (int i = 1; i < n; i++)
-    if (a[i] < min) {
+    if (a[i] < min)
       min = a[i];
-      posMin = i + 1;
-    }
+  // posMin = i + 1;
   return min;
 }
 
-int timMax(int a[], int n, int& posMax) {
+int timMax(int a[], int n) {
   int max = a[0];
   for (int i = 1; i < n; i++)
-    if (a[i] > max) {
+    if (a[i] > max)
       max = a[i];
-      posMax = i + 1;
-    }
+  // posMax = i + 1;
   return max;
+}
+
+int timViTriMin(int a[], int n) {
+  int min = timMin(a, n);
+  int posMin;
+  for (int i = 0; i < n; i++)
+    if (a[i] == min) {
+      posMin = i + 1;
+      break;
+    }
+  return posMin;
+}
+
+int timViTriMax(int a[], int n) {
+  int max = timMax(a, n);
+  int posMax;
+  for (int i = 0; i < n; i++)
+    if (a[i] == max) {
+      posMax = i + 1;
+      break;
+    }
+  return posMax;
 }
 
 int main() {
@@ -27,10 +47,14 @@ int main() {
   for (int i = 0; i < n; i++)
     cin >> a[i];
 
-  int posMin = 0, posMax = 1;
-  b[m++] = timMin(a, n, posMin);
+  int min = timMin(a, n);
+  int max = timMax(a, n);
+  int posMin = timViTriMin(a, n);
+  int posMax = timViTriMax(a, n);
+
+  b[m++] = min;
   b[m++] = posMin;
-  b[m++] = timMax(a, n, posMax);
+  b[m++] = max;
   b[m++] = posMax;
 
   for (int i = 0; i < m; i++)
