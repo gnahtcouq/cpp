@@ -4,8 +4,6 @@ using namespace std;
 int main() {
   int a[100000], n;
   cin >> n;
-  if (n < 3)
-    return 0;
   for (int i = 0; i < n; i++)
     cin >> a[i];
   for (int i = 0; i < n; i++)
@@ -13,9 +11,13 @@ int main() {
       if (a[i] > a[j])
         swap(a[i], a[j]);
 
-  if (a[0] < 0 && a[1] < 0)
-    cout << a[0] * a[1] * a[2];
+  int x = a[0] * a[1] * a[n - 1];
+  int y = a[n - 1] * a[n - 2] * a[n - 3];
+
+  if (x < y)
+    cout << y;
   else
-    cout << a[n - 1] * a[n - 2] * a[n - 3];
+    cout << x;
+
   return 0;
 }
