@@ -14,6 +14,9 @@ int main() {
   int count = 1;
   int giucovodich;
 
+  // i    = 0 1 2 3 4 5
+  // a[i] = 2 1 3 2 4 1
+
   for (int i = 0; i < n * 2; i++) {
     if (a[i] % 2 == 0) {
       if (a[i + 1] == C1) {
