@@ -7,6 +7,19 @@ int main() {
   for (int i = 0; i < n * 2; i++)
     cin >> a[i];
 
+  cout << "\n";
+  int dukien[100000], d = 0;
+  for (int i = 0; i < n; i++) {
+    if (i % 2 != 0) {
+      dukien[d++] = a[i] - a[i - 1];
+    }
+  }
+
+  for (int i = 0; i < d; i++)
+    cout << dukien[i] << " ";
+
+  cout << "\n";
+
   for (int i = 0; i < L; i++)
     b[i] = 0;
 
