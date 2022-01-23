@@ -64,6 +64,7 @@
     "queue": "cpp",
     "xhash": "cpp",
     "set": "cpp",
-    "xtree": "cpp"
+    "xtree": "cpp",
+    "numeric": "cpp"
   },
 }
