@@ -52,3 +52,38 @@ int main() {
 
   return 0;
 }
+
+/*
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool cmp(pair<int, int> a, pair<int, int> b) {
+    return (a.first > b.first);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    int n, t;
+    cin >> n;
+    vector<int> a;
+    unordered_map<int, int>m;
+    for (int i = 0; i < n; ++i) {
+        cin >> t;
+        if (!m[t])
+            a.push_back(t);
+        m[t]++;
+    }
+    vector<pair<int, int>> f;
+    for(int x : a) {
+        f.push_back({m[x], x});
+    }
+    sort(f.begin(), f.end(), cmp);
+    cout << f[0].second<<" " << f[0].first;
+    return 0;
+}
+
+
+*/
