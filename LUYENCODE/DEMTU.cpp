@@ -18,10 +18,7 @@ int demSoTu(string s) {
 int main() {
   string str;
   getline(cin, str);
-
   cout << demSoTu(str);
-
-
 
   return 0;
 }
