@@ -1,9 +1,9 @@
 /*
-B1: Những số mà độ dài không bằng nhau 
+B1: Những số mà độ dài khôngbằng nhau 
 => Thêm số 0 vào đầu cho cân bằng
 
 B2: Duyệt từ cuối về đầu của 2 chuỗi số tương ứng
-, lấy từng ký tự ở từng vị trí tương ứng 
+, lấy từng ký tự ở từng vị rí tương ứng 
 chuyển nó sang số tương ứng rồi cộng lại với nhau
 , nếu kết quả > 10 => lấy phần dư và nhớ 1 để c
 ộng thêm vào cho lần sau
@@ -17,7 +17,7 @@ using namespace std;
 //    123456 & 89
 // -> 123456 & 000089
 
-int STRLEN(char *s) {
+int STRLEN(char* s) {
   int dem = 0;
   // while (s[dem++] != '\0') {
 
@@ -31,20 +31,20 @@ int STRLEN(char *s) {
   }
 }
 
-void hoanVi(char &x, char &y) {
+void hoanVi(char& x, char& y) {
   char temp = x;
   x = y;
   y = temp;
 }
 
-void STRREV(char *s) {
+void STRREV(char* s) {
   int length = STRLEN(s);
   for (int i = 0; i < length / 2; i++) {
     swap(s[i], s[length - 1 - i]);
   }
 }
 
-void themKyTuVaoChuoi(char *s, char kytuthem, int vitrithem) {
+void themKyTuVaoChuoi(char* s, char kytuthem, int vitrithem) {
   int length = STRLEN(s);
   for (int i = length - 1; i >= vitrithem; i--) {
     s[i + 1] = s[i];
@@ -53,10 +53,10 @@ void themKyTuVaoChuoi(char *s, char kytuthem, int vitrithem) {
   s[length + 1] = '\0';
 }
 
-void chuanHoaCungDoDai(char *s1, char *s2) {
+void chuanHoaCungDoDai(char* s1, char* s2) {
   int length_s1 = STRLEN(s1);
   int length_s2 = STRLEN(s2);
-  
+
   int min, max;
   if (length_s1 < length_s2)
     min = length_s1;
@@ -107,13 +107,13 @@ int main() {
   // themKyTuVaoChuoi(s, '0', 0);
   // cout << "\ns = " << s;
 
-  char s1[100] = "13";
-  char s2[100] = "45";
+  char s1[100] = "1234567890";
+  char s2[100] = "9879879876543219876";
 
   /* ------------------ BUOC 1 ------------------ */
   int length_s1 = STRLEN(s1);
   int length_s2 = STRLEN(s2);
-  
+
   int min, max;
   if (length_s1 < length_s2)
     min = length_s1;
@@ -157,7 +157,7 @@ int main() {
     ketqua[idx++] = so + 48;
   }
   if (nho != 0) {
-    ketqua[idx++] = nho + 48; 
+    ketqua[idx++] = nho + 48;
   }
   ketqua[idx] = '\0'; // phai co ket thuc chuoi
 
@@ -167,10 +167,10 @@ int main() {
 
   // cout << "\ns1 = " << s1;
   // cout << "\ns2 = " << s2;
-  cout << "\nketqua = " << ketqua; 
+  cout << "\nketqua = " << ketqua;
 
 
-  
+
 
   // system("pause");
   return 0;
