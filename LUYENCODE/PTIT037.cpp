@@ -117,7 +117,7 @@ int main(){
     return 0;
 }
 
-Đánh giá độ phức tạp củach làm này: 
+Đánh giá độ phức tạp củch làm này: 
 + Độ phức tạp không gian (Space Complexity): O(1) vì mảng chuỗi 10 phần tử thì cũng chỉ là số nhỏ cố định không đáng kể.
 + Độ phức tạp thời gian (Time Complexity): Trong trường hợp xấu nhất là khi không tìm thấy bất kỳ chuỗi con nào, độ phức tạp lúc này là O(10 * N) với N là độ dài chuỗi đầu vào.
 Thì ta thấy độ dài chuỗi tối đa 10^3 nên với trường hợp xấu nhất như mình đã nói ở trên thì số lần lặp cũng chỉ là 10 * 10^3 = 10^4 thì nó thoả nhỏ hơn ngưỡng giới hạn 1 giây mà khúc đầu mình có nói là (3 đến 5)*10^7 hay cao lắm là 10^8 nên yên tâm sẽ không sợ bị TLE nhé.

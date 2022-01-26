@@ -1,0 +1,21 @@
+10
+7 9.8 Quach Quang Minh
+10 7.9 Phan Minh Tri
+8 9.9 Nguyen Cong Dat
+9 7.3 Nguyen Minh Nhat
+6 7.4 Nguyen Vuong Phi Hoang
+5 6.9 Vo Le Nhut Khang
+4 5.9 Nguyen Minh Hao
+2 4.9 Nguyen Van Quang
+3 3.9 Tran Dan Truong
+1 2.9 Nguyen Quang Huy
+
+
+
+
+
+
+
+
+
+
