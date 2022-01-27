@@ -2,50 +2,29 @@
 #include <string>
 using namespace std;
 int main() {
-  string a[] = { "ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE" };
+  string a[] = { "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEEN" };
   string s;
   getline(cin, s);
-  int cntS[26];
-  int temp_cntS[26] = { 0 };
-  int index;
-  for (int i = 0; i < (int)s.length(); ++i) {
-    index = s[i] - 'A';
-    temp_cntS[index]++;
-  }
+
+  int res = -1;
   for (int i = 0; i < 10; ++i) {
-    for (int k = 0; k < 26; ++k) {
-      cntS[k] = temp_cntS[k];
-    }
-    int cntA[26] = { 0 };
-    bool check = true;
-    for (int k = 0; k < (int)a[i].length(); ++k) {
-      index = a[i][k] - 'A';
-      cntA[index]++;
-      if (cntS[index] < cntA[index]) {
-        check = false;
-        break;
-      }
-    }
-    if (check == true) {
-      int idx = 0;
-      for (int j = 0; j < (int)s.length(); ++j) {
-        index = s[j] - 'A';
-        if (s[j] == a[i][idx]) {
-          idx++;
-          if (idx == (int)a[i].length()) {
-            cout << a[i];
-            return 0;
-          }
-          cntA[index]--;
-        }
-        cntS[index]--;
-        if (cntS[index] < cntA[index]) {
+    int idx = 0;
+    for (int j = 0; j < (int)s.length(); ++j) {
+      if (s[j] == a[i][idx]) {
+        idx++;
+        if (idx == (int)a[i].length()) {
+          res = i;
+          i = 10;
           break;
         }
       }
     }
   }
-  cout << "CHIA BUON, PHAI VE ROI, HEN NAM SAU NHE!!";
+  if (res == -1)
+    cout << "CHIA BUON, PHAI VE ROI, HEN NAM SAU NHE!!";
+  else
+    cout << a[res];
+
   return 0;
 }
 
