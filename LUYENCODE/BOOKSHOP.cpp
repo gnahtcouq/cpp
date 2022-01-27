@@ -10,7 +10,7 @@ int main() {
 
   sort(a, a + n, greater<int>());
 
-  int sum = 0;
+  long long sum = 0;
   for (int i = 0; i < n; ++i)
     if ((i + 1) % 3 != 0)
       sum += a[i];
