@@ -27,7 +27,6 @@ bool kiemtraSNT(long long n) {
   return true; // Thoa
 }
 
-
 int main() {
   long long n;
   cin >> n;
