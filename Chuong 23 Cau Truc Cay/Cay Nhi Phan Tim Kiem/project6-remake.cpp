@@ -93,5 +93,8 @@ int main() {
   cout << "\nLRN: ";
   LRN(root);
 
+
+
+  system("pause");
   return 0;
 }
