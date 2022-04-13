@@ -22,9 +22,9 @@ int right(int idx) {
 int timCha(int idx) {
   int ketqua;
   if (idx % 2 == 0)
-    ketqua = idx/2 -1;
+    ketqua = idx / 2 - 1;
   else
-    ketqua = idx/2;
+    ketqua = idx / 2;
   if (ketqua < 0 || ketqua > 14)
     return -1; // Khong hop le
   return ketqua;

@@ -25,15 +25,15 @@ int right(int idx) {
 int timCha(int idx) {
   int ketqua;
   if (idx % 2 == 0)
-    ketqua = idx/2 -1;
+    ketqua = idx / 2 - 1;
   else
-    ketqua = idx/2;
+    ketqua = idx / 2;
   if (ketqua < 0 || ketqua > 14)
     return -1; // Khong hop le
   return ketqua;
 }
 
-void taoCay(char *&a) {
+void taoCay(char*& a) {
   int k;
   cout << "\nNhap vao do cao cua cay k = ";
   cin >> k;
@@ -108,8 +108,8 @@ void taoCay(char *&a) {
   }
 }
 
- // 1: left->right, Khac 1: right->left
-void duyetTheoChieuRong(char *a, int thutu = 1) {
+// 1: left->right, Khac 1: right->left
+void duyetTheoChieuRong(char* a, int thutu = 1) {
   queue<int> q; // chua index cua cac Node theo thu tu duyet
   // Phai co ton tai Node goc thi moi dua Node goc do vao hang doi
   if (strlen(a) >= 1)
@@ -138,7 +138,7 @@ void duyetTheoChieuRong(char *a, int thutu = 1) {
 
 // NODE - LEFT - RIGHT
  // 1: left->right, Khac 1: right->left
-void phepDuyetTruoc(char *a, int idx, int thutu = 1) {
+void phepDuyetTruoc(char* a, int idx, int thutu = 1) {
   if (idx >= 0 && idx < strlen(a)) { // Dieu kien de duoc de quy -> Neu root == NULL thi khong de quy nua
     if (a[idx] != '?')
       cout << a[idx] << " "; // Duyet in ra N
@@ -155,7 +155,7 @@ void phepDuyetTruoc(char *a, int idx, int thutu = 1) {
 
 // LEFT - NODE - RIGHT
  // 1: left->right, Khac 1: right->left
-void phepDuyetGiua(char *a, int idx, int thutu = 1) {
+void phepDuyetGiua(char* a, int idx, int thutu = 1) {
   if (idx >= 0 && idx < strlen(a)) { // Dieu kien de duoc de quy -> Neu root == NULL thi khong de quy nua
     if (thutu == 1) {
       phepDuyetGiua(a, 2 * idx + 1, thutu); // LEFT
@@ -174,7 +174,7 @@ void phepDuyetGiua(char *a, int idx, int thutu = 1) {
 
 // // LEFT - RIGHT - NODE
 //  // 1: left->right, Khac 1: right->left
-void phepDuyetSau(char *a, int idx, int thutu = 1) {
+void phepDuyetSau(char* a, int idx, int thutu = 1) {
   if (idx >= 0 && idx < strlen(a)) { // Dieu kien de duoc de quy -> Neu root == NULL thi khong de quy nua
     if (thutu == 1) {
       phepDuyetSau(a, 2 * idx + 1, thutu); // LEFT
@@ -191,7 +191,7 @@ void phepDuyetSau(char *a, int idx, int thutu = 1) {
   }
 }
 
-void demTongCacNodeTrenCay(char *a, int idx, int &dem) {
+void demTongCacNodeTrenCay(char* a, int idx, int& dem) {
   if (idx >= 0 && idx < strlen(a)) {
     if (a[idx] != '?')
       dem++; // Cu den 1 Node la tang bien dem len 1
@@ -206,10 +206,10 @@ int main() {
 
   cout << a; */
 
-  char *a = new char[16];
+  char* a = new char[16];
   strcpy(a, "ABCDEFGHI?JK??L");
 
-  cout << "\nDuyet theo chieu rong: "; 
+  cout << "\nDuyet theo chieu rong: ";
   duyetTheoChieuRong(a);
 
   cout << "\nPhep duyet truoc (NLR) left->right: ";

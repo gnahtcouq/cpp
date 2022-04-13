@@ -77,6 +77,22 @@ void LRN(NODE* root) {
   }
 }
 
+// Tìm giá trị x xem có tồn tại ở node nào đó trong cây không? Nếu có thì trả về node đó, nếu không có thì trả về NULL
+NODE* timKiemNode_DeQuy(NODE* root, int x) {
+  // Điều kiện dừng khi không tìm thấy
+  if (root == NULL)
+    return NULL;
+  // Điều kiện đệ quy
+  // if (root != NULL) { // Cũng không cần viết điều kiện này bởi vì chúng ta đã xét nếu Root == NULL ở đầu tiên của hàm nên nếu nó còn chạy được xuống dưới này tức là root != NULL
+  if (x > root->data)
+    return timKiemNode_DeQuy(root->right, x);
+  else if (x < root->data)
+    return timKiemNode_DeQuy(root->left, x);
+  else // x == root->data
+    return root; // Điều kiện dừng khi đã tìm thấy
+  // }
+}
+
 int main() {
   int a[] = { 40,5,35,45,15,56,48,13,16,49,47 };
   int n = sizeof(a) / sizeof(a[0]);
@@ -93,6 +109,13 @@ int main() {
   RNL(root);
   cout << "\nLRN: ";
   LRN(root);
+
+  int x = 17;
+  NODE* p = timKiemNode_DeQuy(root, x);
+  if (p == NULL)
+    cout << "\nKhong tim thay Node trong cay co gia tri la " << x;
+  else
+    cout << "\nDa tim thay Node trong cay co gia tri la " << x;
 
   return 0;
 }
