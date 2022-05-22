@@ -31,7 +31,7 @@ typedef struct Avl AVL;
 
 void init_AVL(AVL*& root);
 AVL* getNode_AVL(int x);
-void quayTrai_AVL_AVL(AVL*& root);
+void quayTrai_AVL(AVL*& root);
 void quayPhai_AVL(AVL*& root);
 int themNodeVaoCay_AVL(AVL*& root, int x);
 int tinhChieuCaoCay_AVL(AVL* root);
