@@ -3,12 +3,25 @@
 #include <math.h>
 using namespace std;
 
-struct Node {
+struct Bst {
   int data;
-  Node* left, * right;
+  Bst* left, * right;
 };
-typedef struct Node NODE;
+typedef struct Bst BST;
 
+void init_BST(BST*& root);
+BST* getNode_BST(int x);
+void themNodeVaoCay_BST(BST*& root, int x);
+void LNR_BST(BST* root);
+void timPhanTuTheMang_BST(BST*& root, BST*& p);
+void xoaNodeTrongCay_BST(BST*& root, int x);
+BST* timKiemNode_BST(BST* root, int x);
+void xoayTrai_BST(BST*& root);
+void xoayPhai_BST(BST*& root);
+int tinhChieuCaoCuaCay_BST(BST* root);
+int tinhTongCacNutChan_BST(BST* root);
+int kiemtraSNT_BST(int n);
+int demSoLuongSoNguyenTo_BST(BST* root);
 struct Avl {
   int data, thuTuDuyet;
   struct Avl* left, * right;
@@ -16,75 +29,69 @@ struct Avl {
 };
 typedef struct Avl AVL;
 
-void init(NODE*& root);
-NODE* getNode(int x);
-void themNodeVaoCay(NODE*& root, int x);
-void NLR(NODE* root);
-// void LNR(NODE* root);
-// void LRN(NODE* root);
-void timPhanTuTheMang(NODE*& root, NODE*& p);
-void xoaNodeTrongCay(NODE*& root, int x);
-NODE* timKiemNode(NODE* root, int x);
-int tinhChieuCaoCuaCay(NODE* root);
-int tinhTongCacNutChan(NODE* root);
-int kiemtraSNT(int n);
-int demSoLuongSoNguyenTo(NODE* root);
-
-
 void init_AVL(AVL*& root);
 AVL* getNode_AVL(int x);
 void quayTrai_AVL_AVL(AVL*& root);
 void quayPhai_AVL(AVL*& root);
 int themNodeVaoCay_AVL(AVL*& root, int x);
 int tinhChieuCaoCay_AVL(AVL* root);
-int xetTinhCanBangVaCanBangLaiTai1Node_AVL(AVL*& root);
+int canBangNode_AVL(AVL*& root);
 void NLR_AVL(AVL* root);
 
 int main() {
-  // Cau 1
-  NODE* root;
-  init(root);
-  cout << "Cau 1.";
-  int a[] = { 30,20,35,10,25,32,40,38,34,28,22,15,5,18 };
+  BST* root;
+  init_BST(root);
+  int a[] = { 20,30,25,10,35,32,38,40,34,28,18,15,5,22 };
   int n = sizeof(a) / sizeof(a[0]);
-  cout << "\na.";
+  cout << "\nCau 1. BST";
   for (int i = 0; i < n; ++i)
-    themNodeVaoCay(root, a[i]);
-  cout << "\nb. NLR: ";
-  NLR(root);
-  xoaNodeTrongCay(root, 40);
-  cout << "\nc. NLR: ";
-  NLR(root);
+    themNodeVaoCay_BST(root, a[i]);
+  cout << "\nNLR: ";
+  LNR_BST(root);
 
-  int chieuCaoCay = tinhChieuCaoCuaCay(root);
-  cout << "\nf. Cay co chieu cao = " << chieuCaoCay;
-  int tongNutChan = tinhTongCacNutChan(root);
-  cout << "\ng. Tong cac nut chan = " << tongNutChan;
-  int demNguyenTo = demSoLuongSoNguyenTo(root);
-  cout << "\nh. So luong so nguyen to = " << demNguyenTo;
+  xoaNodeTrongCay_BST(root, 15);
+  cout << "\nNLR sau khi xoa Node 15: ";
+  LNR_BST(root);
+
+  cout << "\nNLR sau khi xoay trai Node 20: ";
+  BST* xt = timKiemNode_BST(root, 20);
+  xoayTrai_BST(xt);
+  LNR_BST(root);
+
+  cout << "\nNLR sau khi xoay phai Node 10: ";
+  BST* xp = timKiemNode_BST(root, 10);
+  xoayPhai_BST(xp);
+  LNR_BST(root);
 
 
-  // Cau 2
-  AVL* rot;
-  init_AVL(rot);
-  cout << "\n\nCau 2.";
+
+  int chieuCaoCay = tinhChieuCaoCuaCay_BST(root);
+  cout << "\nCay co chieu cao = " << chieuCaoCay;
+  int tongNutChan = tinhTongCacNutChan_BST(root);
+  cout << "\nTong cac nut chan = " << tongNutChan;
+  int demNguyenTo = demSoLuongSoNguyenTo_BST(root);
+  cout << "\nSo luong so nguyen to = " << demNguyenTo;
+
+  AVL* nut;
+  init_AVL(nut);
+  cout << "\n\n\nCau 2. AVL";
   int b[] = { 1,2,3,4,5,6,7,8,9 };
   int m = sizeof(b) / sizeof(b[0]);
   for (int i = 0; i < m; ++i)
-    themNodeVaoCay_AVL(rot, b[i]);
+    themNodeVaoCay_AVL(nut, b[i]);
   cout << "\nNLR: ";
-  NLR_AVL(rot);
+  NLR_AVL(nut);
 
-
+  system("pause");
   return 0;
 }
 
-void init(NODE*& root) {
+void init_BST(BST*& root) {
   root = NULL;
 }
 
-NODE* getNode(int x) {
-  NODE* p = new NODE;
+BST* getNode_BST(int x) {
+  BST* p = new BST;
   if (p == NULL)
     return NULL;
   p->data = x;
@@ -92,44 +99,28 @@ NODE* getNode(int x) {
   return p;
 }
 
-void themNodeVaoCay(NODE*& root, int x) {
+void themNodeVaoCay_BST(BST*& root, int x) {
   if (root != NULL) {
     if (x > root->data)
-      themNodeVaoCay(root->right, x);
+      themNodeVaoCay_BST(root->right, x);
     else if (x < root->data)
-      themNodeVaoCay(root->left, x);
+      themNodeVaoCay_BST(root->left, x);
   }
   else
-    root = getNode(x);
+    root = getNode_BST(x);
 }
 
-void NLR(NODE* root) {
+void LNR_BST(BST* root) {
   if (root != NULL) {
+    LNR_BST(root->left);
     cout << " " << root->data;
-    NLR(root->left);
-    NLR(root->right);
+    LNR_BST(root->right);
   }
 }
 
-// void LNR(NODE* root) {
-//   if (root != NULL) {
-//     LNR(root->left);
-//     cout << " " << root->data;
-//     LNR(root->right);
-//   }
-// }
-
-// void LRN(NODE* root) {
-//   if (root != NULL) {
-//     LRN(root->left);
-//     LRN(root->right);
-//     cout << " " << root->data;
-//   }
-// }
-
-void timPhanTuTheMang(NODE*& root, NODE*& p) {
+void timPhanTuTheMang_BST(BST*& root, BST*& p) {
   if (root->right != NULL)
-    timPhanTuTheMang(root->right, p);
+    timPhanTuTheMang_BST(root->right, p);
   else {
     p->data = root->data;
     p = root;
@@ -137,52 +128,72 @@ void timPhanTuTheMang(NODE*& root, NODE*& p) {
   }
 }
 
-void xoaNodeTrongCay(NODE*& root, int x) {
+void xoaNodeTrongCay_BST(BST*& root, int x) {
   if (root == NULL)
     return;
   if (x > root->data)
-    xoaNodeTrongCay(root->right, x);
+    xoaNodeTrongCay_BST(root->right, x);
   else if (x < root->data)
-    xoaNodeTrongCay(root->left, x);
+    xoaNodeTrongCay_BST(root->left, x);
   else {
-    NODE* p = root;
+    BST* p = root;
     if (p->left == NULL)
       root = p->right;
     else if (p->right == NULL)
       root = p->left;
     else
-      timPhanTuTheMang(root->left, p);
+      timPhanTuTheMang_BST(root->left, p);
     delete p;
   }
 }
 
-NODE* timKiemNode(NODE* root, int x) {
+BST* timKiemNode_BST(BST* root, int x) {
   if (root == NULL)
     return NULL;
   if (x > root->data)
-    return timKiemNode(root->right, x);
+    return timKiemNode_BST(root->right, x);
   else if (x < root->data)
-    return timKiemNode(root->left, x);
+    return timKiemNode_BST(root->left, x);
   else
     return root;
 }
 
-int tinhChieuCaoCuaCay(NODE* root) {
+void xoayTrai_BST(BST*& root) {
+  if (root == NULL || root->right == NULL)
+    return;
+  BST* p = root->right;
+  root->right = p->left;
+  p->left = root;
+  root = p;
+}
+
+void xoayPhai_BST(BST*& root) {
+  if (root == NULL || root->left == NULL)
+    return;
+  BST* p = root->left;
+  root->left = p->right;
+  p->right = root;
+  root = p;
+}
+
+
+
+int tinhChieuCaoCuaCay_BST(BST* root) {
   if (root == NULL)
     return 0;
-  int left = tinhChieuCaoCuaCay(root->left);
-  int right = tinhChieuCaoCuaCay(root->right);
+  int left = tinhChieuCaoCuaCay_BST(root->left);
+  int right = tinhChieuCaoCuaCay_BST(root->right);
 
   return left > right ? left + 1 : right + 1;
 }
 
-int tinhTongCacNutChan(NODE* root) {
-  queue<NODE*> q;
+int tinhTongCacNutChan_BST(BST* root) {
+  queue<BST*> q;
   if (root != NULL)
     q.push(root);
   int sum = 0;
   while (!q.empty()) {
-    NODE* p = q.front();
+    BST* p = q.front();
     if (p->data % 2 == 0)
       sum += p->data;
     q.pop();
@@ -194,7 +205,7 @@ int tinhTongCacNutChan(NODE* root) {
   return sum;
 }
 
-int kiemtraSNT(int n) {
+int kiemtraSNT_BST(int n) {
   if (n < 2)
     return 0;
   else if (n > 2) {
@@ -202,21 +213,21 @@ int kiemtraSNT(int n) {
       return 0;
     for (int i = 3; i <= (int)sqrt((double)n); i += 2) {
       if (n % i == 0)
-        return 0; // Khong thoa
+        return 0;
     }
   }
-  return 1; // Thoa
+  return 1;
 }
 
-int demSoLuongSoNguyenTo(NODE* root) {
-  queue<NODE*> q;
+int demSoLuongSoNguyenTo_BST(BST* root) {
+  queue<BST*> q;
   if (root != NULL)
     q.push(root);
 
   int dem = 0;
   while (!q.empty()) {
-    NODE* p = q.front();
-    if (kiemtraSNT(p->data) == 1)
+    BST* p = q.front();
+    if (kiemtraSNT_BST(p->data) == 1)
       dem++;
     q.pop();
     if (p->left != NULL)
@@ -285,7 +296,7 @@ int themNodeVaoCay_AVL(AVL*& root, int x) {
   }
 
   if (ketqua == 1) {
-    int kq = xetTinhCanBangVaCanBangLaiTai1Node_AVL(root);
+    int kq = canBangNode_AVL(root);
     if (kq == 1)
       return 2;
     else if (kq == 0)
@@ -301,7 +312,7 @@ int tinhChieuCaoCay_AVL(AVL* root) {
   return left > right ? left + 1 : right + 1;
 }
 
-int xetTinhCanBangVaCanBangLaiTai1Node_AVL(AVL*& root) {
+int canBangNode_AVL(AVL*& root) {
   int chieucaocontrai = 0;
   int chieucaoconphai = 0;
   if (root->left != NULL)
